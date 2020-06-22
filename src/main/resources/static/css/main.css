@@ -1,0 +1,21 @@
+.logo-padding {
+    padding-right: 5px;
+}
+
+.container-padding {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#action-port {
+    background-color: #888aa2;
+    padding-right: 0;
+    font-size: 20px;
+}
+
+#game-port {
+    background-color: #5a6271;
+    color: #ffffff;
+    font-size: 28px;
+}
+
