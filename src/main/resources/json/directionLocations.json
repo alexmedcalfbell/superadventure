@@ -52,5 +52,11 @@
     "currentLocationId": 4,
     "destinationLocationId": 2,
     "directionId": 2
+  },
+  {
+    "description": "Location [Start area] linked to location [Large mountains] via direction [7]",
+    "currentLocationId": 0,
+    "destinationLocationId": 1,
+    "directionId": 7
   }
 ]
