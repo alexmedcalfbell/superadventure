@@ -47,10 +47,10 @@ public class SuperAdventureApplication {
             final ObjectMapper objectMapper = new ObjectMapper();
 
             //Locations
-                        List<LocationActionTarget> t = objectMapper.readValue(
-                                new File(getClass().getResource("/json/locationActionTargets.json").getPath()),
-                                new TypeReference<>() {});
-                        locationActionTargetRepository.saveAll(t);
+            List<Action> action = objectMapper.readValue(
+                    new File(getClass().getResource("/json/actions.json").getPath()),
+                    new TypeReference<>() {});
+            actionRepository.saveAll(action);
 
             Files.walk(Path.of(getClass().getResource("/json/locations").toURI()))
                     .filter(Files::isRegularFile)
