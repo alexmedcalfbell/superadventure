@@ -22,10 +22,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.Resource;
 
 @SpringBootApplication
 public class SuperAdventureApplication {
@@ -33,6 +35,9 @@ public class SuperAdventureApplication {
     public static void main(String[] args) {
         SpringApplication.run(SuperAdventureApplication.class, args);
     }
+
+    @Value("classpath:test.json")
+    private Resource actions;
 
     @Bean
     CommandLineRunner runner(LocationRepository locationRepository,
@@ -48,7 +53,7 @@ public class SuperAdventureApplication {
 
             //Locations
             List<Action> action = objectMapper.readValue(
-                    new File(getClass().getResource("/json/actions.json").getPath()),
+                    new File(actions.getFile().getPath()),
                     new TypeReference<>() {});
             actionRepository.saveAll(action);
 
