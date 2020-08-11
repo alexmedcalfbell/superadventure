@@ -19,9 +19,10 @@ body {
 }
 
 #splash-screen{
+    background-color: #ffffff;
     position: absolute;
     z-index: 999;
-    opacity: 0.98;
+    opacity: 0.92;
     margin: 20px;
 }
 
@@ -40,9 +41,10 @@ body {
 
 @media (min-width: 768px) {
     #splash-screen{
+        background-color: #ffffff;
         position: absolute;
         z-index: 999;
-        opacity: 0.98;
+        opacity: 0.92;
         margin-top: 100px;
         margin-left: 220px;
     }
