@@ -49,27 +49,35 @@ public class SuperAdventureApplication {
             final ObjectMapper objectMapper = new ObjectMapper();
 
             //Locations
-
-            List<Action> action = objectMapper.readValue(
-                    getClass().getResourceAsStream("/json/actions.json"),
+//This works, so consolidate them again into single files
+            List<Location> locations = objectMapper.readValue(
+                    getClass().getResourceAsStream("/json/locations.json"),
                     new TypeReference<>() {});
-            actionRepository.saveAll(action);
+            locationRepository.saveAll(locations);
 
-            System.out.println("EMPTY: "+actionRepository.findAll().isEmpty());
-            actionRepository.findAll().forEach(action1 -> System.out.println("action: "+action));
+            List<LocationActionTarget> locationActionTargets = objectMapper.readValue(
+                    getClass().getResourceAsStream("/json/locationActionTargets.json"),
+                    new TypeReference<>() {});
+            locationActionTargetRepository.saveAll(locationActionTargets);
 
-            Files.walk(Path.of(getClass().getResource("/json/locations").toURI()))
-                    .filter(Files::isRegularFile)
-                    .forEach(file -> {
-                        try {
-                            final List<Location> locations = objectMapper.readValue(
-                                    file.toFile(),
-                                    new TypeReference<>() {});
-                            locationRepository.saveAll(locations);
-                        } catch (IOException e) {
-                            System.out.println("Failed to read location" + e.getMessage());
-                        }
-                    });
+            List<DirectionLocation> directionLocations = objectMapper.readValue(
+                    getClass().getResourceAsStream("/json/directionLocations.json"),
+                    new TypeReference<>() {});
+            directionLocationRepository.saveAll(directionLocations);
+
+//
+//            Files.walk(Path.of(getClass().getResource("/json/locations").toURI()))
+//                    .filter(Files::isRegularFile)
+//                    .forEach(file -> {
+//                        try {
+//                            final List<Location> locations = objectMapper.readValue(
+//                                    file.toFile(),
+//                                    new TypeReference<>() {});
+//                            locationRepository.saveAll(locations);
+//                        } catch (IOException e) {
+//                            System.out.println("Failed to read location" + e.getMessage());
+//                        }
+//                    });
 
             //Directions
             List<Direction> directions = objectMapper.readValue(
@@ -77,19 +85,19 @@ public class SuperAdventureApplication {
                     new TypeReference<>() {});
             directionRepository.saveAll(directions);
 
-            // Direction Locations (links locations to directions)
-            Files.walk(Path.of(getClass().getResource("/json/direction_locations").toURI()))
-                    .filter(Files::isRegularFile)
-                    .forEach(file -> {
-                        try {
-                            final List<DirectionLocation> directionLocations = objectMapper.readValue(
-                                    file.toFile(),
-                                    new TypeReference<>() {});
-                            directionLocationRepository.saveAll(directionLocations);
-                        } catch (IOException e) {
-                            System.out.println("Failed to read direction location" + e.getMessage());
-                        }
-                    });
+//            // Direction Locations (links locations to directions)
+//            Files.walk(Path.of(getClass().getResource("/json/direction_locations").toURI()))
+//                    .filter(Files::isRegularFile)
+//                    .forEach(file -> {
+//                        try {
+//                            final List<DirectionLocation> directionLocations = objectMapper.readValue(
+//                                    file.toFile(),
+//                                    new TypeReference<>() {});
+//                            directionLocationRepository.saveAll(directionLocations);
+//                        } catch (IOException e) {
+//                            System.out.println("Failed to read direction location" + e.getMessage());
+//                        }
+//                    });
 
             //Actions (e.g. talk)
             List<Action> actions = objectMapper.readValue(
@@ -105,19 +113,18 @@ public class SuperAdventureApplication {
 
             //TODO: Make function for these
             //Location action targets (links actions and targets to a location)
-            //Locations
-            Files.walk(Path.of(getClass().getResource("/json/location_action_targets").toURI()))
-                    .filter(Files::isRegularFile)
-                    .forEach(file -> {
-                        try {
-                            final List<LocationActionTarget> locationActionTargets = objectMapper.readValue(
-                                    file.toFile(),
-                                    new TypeReference<>() {});
-                            locationActionTargetRepository.saveAll(locationActionTargets);
-                        } catch (IOException e) {
-                            System.out.println("Failed to read location action targets" + e.getMessage());
-                        }
-                    });
+//            Files.walk(Path.of(getClass().getResource("/json/location_action_targets").toURI()))
+//                    .filter(Files::isRegularFile)
+//                    .forEach(file -> {
+//                        try {
+//                            final List<LocationActionTarget> locationActionTargets = objectMapper.readValue(
+//                                    file.toFile(),
+//                                    new TypeReference<>() {});
+//                            locationActionTargetRepository.saveAll(locationActionTargets);
+//                        } catch (IOException e) {
+//                            System.out.println("Failed to read location action targets" + e.getMessage());
+//                        }
+//                    });
         };
     }
 
