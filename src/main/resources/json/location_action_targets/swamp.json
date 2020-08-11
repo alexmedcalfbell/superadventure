@@ -1,0 +1,10 @@
+[
+  {
+    "description": "Location [Malodorous swamp] linked to action [drink] and target [swamp]",
+    "locationId": 2,
+    "actionId": 4,
+    "targetId": 4,
+    "response": "You drink the swamp water, causing your guts to explode.",
+    "imagePath": "/images/locations/2/explode"
+  }
+]

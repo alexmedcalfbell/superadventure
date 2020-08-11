@@ -1,0 +1,26 @@
+[
+  {
+    "description": "Talk to Jester",
+    "locationId": 0,
+    "actionId": 0,
+    "targetId": 0,
+    "response": "You talk to the jester",
+    "imagePath": "/images/locations/2/swamp.jpg"
+  },
+  {
+    "description": "Stab Jester",
+    "locationId": 0,
+    "actionId": 1,
+    "targetId": 0,
+    "response": "You stab fuck oota jester",
+    "imagePath": "/images/locations/2/swamp.jpg"
+  },
+  {
+    "description": "Piss yourself",
+    "locationId": 0,
+    "actionId": 3,
+    "targetId": 1,
+    "response": "You feel a warm sensation followed by intense shame.",
+    "imagePath": "/images/locations/0/start_piss.jpg"
+  }
+]

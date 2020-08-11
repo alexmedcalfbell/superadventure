@@ -1,0 +1,26 @@
+[
+  {
+    "directionId": 1,
+    "description": "north"
+  },
+  {
+    "directionId": 2,
+    "description": "south"
+  },
+  {
+    "directionId": 3,
+    "description": "east"
+  },
+  {
+    "directionId": 4,
+    "description": "west"
+  },
+  {
+    "directionId": 5,
+    "description": "cave"
+  },
+  {
+    "directionId": 6,
+    "description": "back"
+  }
+]

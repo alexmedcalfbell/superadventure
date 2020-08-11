@@ -1,0 +1,27 @@
+[
+
+  {
+    "actionId": 0,
+    "description": "talk"
+  },
+  {
+    "actionId": 1,
+    "description": "stab"
+  },
+  {
+    "actionId": 2,
+    "description": "pick"
+  },
+  {
+    "actionId": 3,
+    "description": "piss"
+  },
+  {
+    "actionId": 4,
+    "description": "drink"
+  },
+  {
+    "actionId": 5,
+    "description": "kick"
+  }
+]

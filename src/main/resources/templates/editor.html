@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments/header :: includes"/>
+    <script src="/js/editor.js"></script>
+    <link rel="stylesheet" href="/css/editor.css"/>
+</head>
+<body>
+
+<!--Container-->
+<div class="container-fluid d-flex container-custom">
+    <div id="action-port" class="col-sm-3 h-100">
+
+        <!--Navbar-->
+        <div th:replace="fragments/navigation :: navbar"/>
+
+        <!--Dashed divider-->
+        <div class="row h-50">
+            <div class="col">
+                <ul class="list-group">
+                </ul>
+            </div>
+        </div>
+
+        <div class="row h-50">
+            <div class="col-sm-12">
+                <div class="jumbotron">
+
+                    <h1 class="display-4">Level Editor</h1>
+
+                    <!--Locations-->
+                    <label for="current-location">Location</label>
+                    <select class="form-control custom-select custom-select-md mb-3" name="current-location"
+                            id="current-location">
+                        <option th:each="location : ${locations}"
+                                th:value="${location.getLocationId()}"
+                                th:text="${location.getDescription() + ' (' + location.getLocationId() +')'}">
+                        </option>
+                    </select>
+
+                    <!--Tabs-->
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a id="location-direction-tab" class="nav-link active" href="#">
+                                <i class="fas fa-route section-tab-location-movement"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="action-target-tab" class="nav-link" href="#">
+                                <i class="fas fa-sitemap section-tab-action-target"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="location-tab" class="nav-link" href="#">
+                                <i class="fas fa-map-marker-alt section-tab-location"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="target-tab" class="nav-link" href="#">
+                                <i class="fas fa-crosshairs section-tab-target"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="action-tab" class="nav-link" href="#">
+                                <i class="fas fa-magic section-tab-action"></i>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!--Location / Direction-->
+                    <div id="location-direction-section" class="editor-section">
+                        <h1 class="editor-section-title">Location / Direction</h1>
+                        <form method="POST" id="location-direction-form">
+                            <div class="form-group">
+
+                                <label for="destination-location">Destination location</label>
+                                <select class="form-control custom-select custom-select-md mb-3"
+                                        name="destination-location" id="destination-location">
+                                    <option th:each="location : ${locations}"
+                                            th:value="${location.getLocationId()}"
+                                            th:text="${location.getDescription() + ' (' + location.getLocationId() +')'}">
+                                    </option>
+                                </select>
+
+                                <!--Directions-->
+                                <label for="direction">Direction</label>
+                                <select class="form-control custom-select custom-select-md mb-3" name="direction"
+                                        id="direction">
+                                    <option th:each="direction : ${directions}"
+                                            th:value="${direction.getDirectionId()}"
+                                            th:text="${direction.getDescription()+ ' (' + direction.getDirectionId() +')'}">
+                                    </option>
+                                </select>
+
+                                <button id="add-direction" type="submit" class="btn btn-primary">Generate</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!--Action/Target-->
+                    <div id="action-target-section" class="editor-section">
+                        <h1 class="editor-section-title">Action / Target</h1>
+                        <form method="POST" id="action-target-form">
+                            <div class="form-group">
+                                <!--Actions-->
+                                <label for="action">Action</label>
+                                <select class="form-control custom-select custom-select-md mb-3" name="action"
+                                        id="action">
+                                    <option th:each="action : ${actions}"
+                                            th:value="${action.getActionId()}"
+                                            th:text="${action.getDescription() + ' (' + action.getActionId() +')'}">
+                                    </option>
+                                </select>
+
+                                <label for="target">Target</label>
+                                <select class="form-control custom-select custom-select-md mb-3" name="target"
+                                        id="target">
+                                    <option th:each="target : ${targets}"
+                                            th:value="${target.getTargetId()}"
+                                            th:text="${target.getDescription() + ' (' + target.getTargetId() +')'}">
+                                    </option>
+                                </select>
+
+                                <label for="location-action-target-response">Response</label>
+                                <input id="location-action-target-response" type="text" class="form-control">
+
+                                <label for="location-action-target-image">Image name</label>
+                                <input id="location-action-target-image" type="text" class="form-control">
+
+                                <button id="add-action-target" type="submit" class="btn btn-primary">Generate</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!--Location-->
+                    <div id="location-section" class="editor-section">
+                        <h1 class="editor-section-title">Location</h1>
+                        <form method="POST" id="location-form">
+                            <div class="form-group">
+                                <!--Location-->
+                                <label for="location-description">Description</label>
+                                <input id="location-description" type="text" class="form-control">
+
+                                <!--Response-->
+                                <label for="location-response">Response</label>
+                                <input id="location-response" type="text" class="form-control">
+
+                                <!--image name-->
+                                <label for="location-image">Image name</label>
+                                <input id="location-image" type="text" class="form-control">
+
+                                <button id="add-location" type="submit" class="btn btn-primary">Generate</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!--Target-->
+                    <div id="target-section" class="editor-section">
+                        <h1 class="editor-section-title">Target</h1>
+                        <form method="POST" id="target-form">
+                            <div class="form-group">
+                                <label for="target-description">Description</label>
+                                <input id="target-description" type="text" class="form-control">
+
+                                <button id="add-target" type="submit" class="btn btn-primary">Generate</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!--Action-->
+                    <div id="action-section" class="editor-section">
+                        <h1 class="editor-section-title">Action</h1>
+                        <form method="POST" id="action-form">
+                            <div class="form-group">
+
+                                <label for="action-description">Description</label>
+                                <input id="action-description" type="text" class="form-control">
+
+                                <button id="add-action" type="submit" class="btn btn-primary">Generate</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Response port-->
+    <div id="response-port" class="col flex-fill">
+        <pre id="json"></pre>
+        <div id="scene-images" class="col">
+            TODO: List associated actions / targets for each location
+            <div class="d-flex flex-row centre-scene">
+                <div class="d-flex flex-column">
+                    <div class="pad-image"></div>
+                </div>
+                <div class="d-flex flex-column">
+                    <figure id="north-image">
+
+
+                        <div id="scene-images2" class="col">
+                            TODO: List associated actions / targets for each location
+                            <div class="d-flex flex-row centre-scene">
+                                <div class="d-flex flex-column">
+                                    <div class="pad-image"></div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <figure id="north-image2"></figure>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <div class="pad-image"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    </figure>
+                </div>
+                <div class="d-flex flex-column">
+                    <div class="pad-image"></div>
+                </div>
+            </div>
+            <div class="d-flex flex-row">
+                <div class="d-flex flex-column">
+                    <figure id="west-image"></figure>
+                </div>
+                <div class="d-flex flex-column">
+                    <figure id="current-image"></figure>
+                </div>
+                <div class="d-flex flex-column">
+                    <figure id="east-image"></figure>
+                </div>
+            </div>
+            <div class="d-flex flex-row centre-scene">
+                <div class="d-flex flex-column">
+                    <div class="pad-image"></div>
+                </div>
+                <div class="d-flex flex-column">
+                    <figure id="south-image"></figure>
+                </div>
+                <div class="d-flex flex-column">
+                    <div class="pad-image"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>

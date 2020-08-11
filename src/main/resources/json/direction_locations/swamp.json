@@ -1,0 +1,14 @@
+[
+  {
+    "description": "Go to mountains (location 1) from location 2 (swamp) with direction 2 (south)",
+    "currentLocationId": 2,
+    "destinationLocationId": 1,
+    "directionId": 2
+  },
+  {
+    "description": "Location [Malodorous swamp] linked to location [Swamp hut] via direction [1]",
+    "currentLocationId": 2,
+    "destinationLocationId": 4,
+    "directionId": 1
+  }
+]
