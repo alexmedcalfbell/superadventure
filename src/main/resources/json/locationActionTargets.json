@@ -1,0 +1,10 @@
+[
+  {
+    "description": "Talk to Jester",
+    "locationId": 0,
+    "actionId": 0,
+    "targetId": 0,
+    "response": "You talk to the jester",
+    "imagePath": "/images/locations/2/swamp.jpg"
+  }
+]

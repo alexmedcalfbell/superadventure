@@ -16,8 +16,11 @@ import com.medcalfbell.superadventure.persistence.Target;
 import com.medcalfbell.superadventure.persistence.repositories.TargetRepository;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -44,6 +47,11 @@ public class SuperAdventureApplication {
             final ObjectMapper objectMapper = new ObjectMapper();
 
             //Locations
+                        List<LocationActionTarget> t = objectMapper.readValue(
+                                new File(getClass().getResource("/json/locationActionTargets.json").getPath()),
+                                new TypeReference<>() {});
+                        locationActionTargetRepository.saveAll(t);
+
             Files.walk(Path.of(getClass().getResource("/json/locations").toURI()))
                     .filter(Files::isRegularFile)
                     .forEach(file -> {
