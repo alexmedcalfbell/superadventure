@@ -81,7 +81,7 @@ public class SuperAdventureApplication {
 
             //Directions
             List<Direction> directions = objectMapper.readValue(
-                    new File(getClass().getResource("/json/directions.json").getPath()),
+                    getClass().getResourceAsStream("/json/directions.json"),
                     new TypeReference<>() {});
             directionRepository.saveAll(directions);
 
@@ -101,13 +101,13 @@ public class SuperAdventureApplication {
 
             //Actions (e.g. talk)
             List<Action> actions = objectMapper.readValue(
-                    new File(getClass().getResource("/json/actions.json").getPath()),
+                    getClass().getResourceAsStream("/json/actions.json"),
                     new TypeReference<>() {});
             actionRepository.saveAll(actions);
 
             //Targets (e.g. jester)
             List<Target> targets = objectMapper.readValue(
-                    new File(getClass().getResource("/json/targets.json").getPath()),
+                    getClass().getResourceAsStream("/json/targets.json"),
                     new TypeReference<>() {});
             targetRepository.saveAll(targets);
 
