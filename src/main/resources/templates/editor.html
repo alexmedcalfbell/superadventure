@@ -66,6 +66,11 @@
                                 <i class="fas fa-magic section-tab-action"></i>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a id="direction-tab" class="nav-link" href="#">
+                                <i class="fas fa-map-signs section-tab-direction"></i>
+                            </a>
+                        </li>
                     </ul>
 
                     <!--Location / Direction-->
@@ -93,7 +98,7 @@
                                     </option>
                                 </select>
 
-                                <button id="add-direction" type="submit" class="btn btn-primary">Generate</button>
+                                <button id="add-location-direction" type="submit" class="btn btn-primary">Generate</button>
                             </div>
                         </form>
                     </div>
@@ -178,6 +183,20 @@
                                 <input id="action-description" type="text" class="form-control">
 
                                 <button id="add-action" type="submit" class="btn btn-primary">Generate</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!--Direction-->
+                    <div id="direction-section" class="editor-section">
+                        <h1 class="editor-section-title">Direction</h1>
+                        <form method="POST" id="direction-form">
+                            <div class="form-group">
+
+                                <label for="direction-description">Direction</label>
+                                <input id="direction-description" type="text" class="form-control">
+
+                                <button id="add-direction" type="submit" class="btn btn-primary">Generate</button>
                             </div>
                         </form>
                     </div>

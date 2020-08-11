@@ -36,6 +36,12 @@ $(document).ready(function () {
         clearInputs();
     });
 
+    $("#direction-form").submit(function (event) {
+        event.preventDefault();
+        addDirection();
+        clearInputs();
+    });
+
     $("#response-port").on("click", '#json', function () {
         copyJson();
     });
@@ -59,6 +65,11 @@ $(document).ready(function () {
     $("#action-tab").on("click", function () {
         $('label[for=current-location], #current-location').attr('disabled', true);
         changeTab($(this).attr('id'), 'action-section');
+    });
+
+    $("#direction-tab").on("click", function () {
+        $('label[for=current-location], #current-location').attr('disabled', true);
+        changeTab($(this).attr('id'), 'direction-section');
     });
 
 
@@ -287,6 +298,44 @@ function addAction() {
 
             let action = {
                 "actionId": data.actionId,
+                "description": data.description
+            }
+            formatJson(action);
+
+            //Set scene images
+            $('#scene-images').hide();
+        },
+        error: function (error) {
+            $('#response-port').append(
+                '<div class="alert" role="alert">' +
+                '<i class="fas fa-bomb error-alert-icon"></i>' + error.responseText + '</div>'
+            ).fadeIn();
+        }
+    });
+}
+
+function addDirection() {
+
+    let description = $('#direction-description').val();
+
+    $('.alert').remove();
+    $('#json').html('').hide();
+    $('#scene-images').hide();
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/editor/direction",
+        data: JSON.stringify({
+            "description": description
+        }),
+        dataType: 'json',
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+
+            let action = {
+                "directionId": data.directionId,
                 "description": data.description
             }
             formatJson(action);

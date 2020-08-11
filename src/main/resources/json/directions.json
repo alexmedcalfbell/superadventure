@@ -22,5 +22,9 @@
   {
     "directionId": 6,
     "description": "back"
+  },
+  {
+    "directionId": 7,
+    "description": "mountains"
   }
 ]

@@ -4,6 +4,7 @@ import com.medcalfbell.superadventure.enums.MovementAction;
 import com.medcalfbell.superadventure.models.ActionResponse;
 import com.medcalfbell.superadventure.models.ActionTargetResponse;
 import com.medcalfbell.superadventure.models.DirectionLocationResponse;
+import com.medcalfbell.superadventure.models.DirectionResponse;
 import com.medcalfbell.superadventure.models.LevelEditorRequest;
 import com.medcalfbell.superadventure.models.LocationResponse;
 import com.medcalfbell.superadventure.models.TargetResponse;
@@ -85,6 +86,17 @@ public class LevelEditorController {
                 .setDescription(description)
                 .setResponse(request.getResponse())
                 .setImagePath(imagePath);
+    }
+
+    @PostMapping(value = "/direction", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public DirectionResponse addDirection(@RequestBody LevelEditorRequest request) {
+
+        final int directionId = levelEditorService.getNextDirectionId();
+
+        return new DirectionResponse()
+                .setDirectionId(directionId)
+                .setDescription(request.getDescription());
     }
 
     @PostMapping(value = "/target", produces = MediaType.APPLICATION_JSON_VALUE)

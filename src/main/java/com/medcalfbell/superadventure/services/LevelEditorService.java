@@ -114,6 +114,10 @@ public class LevelEditorService {
         return locationRepository.findTopByOrderByLocationIdDesc().getLocationId() + 1;
     }
 
+    public int getNextDirectionId() {
+        return directionRepository.findTopByOrderByDirectionIdDesc().getDirectionId() + 1;
+    }
+
     public int getNextTargetId() {
         return targetRepository.findTopByOrderByTargetIdDesc().getTargetId() + 1;
     }
