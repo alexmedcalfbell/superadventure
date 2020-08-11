@@ -51,11 +51,12 @@ public class SuperAdventureApplication {
             //Locations
 
             List<Action> action = objectMapper.readValue(
-                    actions.getInputStream(),
+                    getClass().getResourceAsStream("/json/actions.json"),
                     new TypeReference<>() {});
             actionRepository.saveAll(action);
 
             System.out.println("EMPTY: "+actionRepository.findAll().isEmpty());
+            actionRepository.findAll().forEach(action1 -> System.out.println("action: "+action));
 
             Files.walk(Path.of(getClass().getResource("/json/locations").toURI()))
                     .filter(Files::isRegularFile)
