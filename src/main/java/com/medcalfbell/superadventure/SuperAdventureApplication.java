@@ -3,24 +3,21 @@ package com.medcalfbell.superadventure;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.medcalfbell.superadventure.persistence.Action;
-import com.medcalfbell.superadventure.persistence.repositories.ActionRepository;
 import com.medcalfbell.superadventure.persistence.Direction;
 import com.medcalfbell.superadventure.persistence.DirectionLocation;
-import com.medcalfbell.superadventure.persistence.repositories.DirectionLocationRepository;
-import com.medcalfbell.superadventure.persistence.repositories.DirectionRepository;
 import com.medcalfbell.superadventure.persistence.Location;
 import com.medcalfbell.superadventure.persistence.LocationActionTarget;
+import com.medcalfbell.superadventure.persistence.Target;
+import com.medcalfbell.superadventure.persistence.repositories.ActionRepository;
+import com.medcalfbell.superadventure.persistence.repositories.DirectionLocationRepository;
+import com.medcalfbell.superadventure.persistence.repositories.DirectionRepository;
 import com.medcalfbell.superadventure.persistence.repositories.LocationActionTargetRepository;
 import com.medcalfbell.superadventure.persistence.repositories.LocationRepository;
-import com.medcalfbell.superadventure.persistence.Target;
 import com.medcalfbell.superadventure.persistence.repositories.TargetRepository;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -52,10 +49,13 @@ public class SuperAdventureApplication {
             final ObjectMapper objectMapper = new ObjectMapper();
 
             //Locations
+
             List<Action> action = objectMapper.readValue(
-                    new File(actions.getFile().getPath()),
+                    actions.getInputStream(),
                     new TypeReference<>() {});
             actionRepository.saveAll(action);
+
+            System.out.println("EMPTY: "+actionRepository.findAll().isEmpty());
 
             Files.walk(Path.of(getClass().getResource("/json/locations").toURI()))
                     .filter(Files::isRegularFile)
