@@ -1,62 +1,81 @@
 [
   {
-    "description": "Go to mountains(location 1) from Location 0 with direction 1 (north)",
+    "description": "Location [Start area] linked to location [Large Mountains] with directions [1,7]",
     "currentLocationId": 0,
     "destinationLocationId": 1,
-    "directionId": 1
+    "directionId": 1,
+    "directionIds": [
+      "1",
+      "7"
+    ]
   },
   {
-    "description": "Start area. Location 1, linked to location 0 with direction 2 (south)",
+    "description": "Location [Large Mountains] linked to location [Start area] with directions [2,8]",
     "currentLocationId": 1,
     "destinationLocationId": 0,
-    "directionId": 2
+    "directionId": 2,
+    "directionIds": [
+      "2",
+      "8"
+    ]
   },
   {
-    "description": "Swamp. Location 1, linked to location 2 with direction 1 (north)",
+    "description": "Location [Large Mountains] linked to location [Malodorous swamp] with directions [1,9]",
     "currentLocationId": 1,
     "destinationLocationId": 2,
-    "directionId": 1
+    "directionId": 1,
+    "directionIds": [
+      "1",
+      "9"
+    ]
   },
   {
-    "description": "Cave with large shit. Location 1, linked to location 3 with direction 3 (east)",
+    "description": "Location [Large Mountains] linked to location [Cave with large shit] with directions [3,5]",
     "currentLocationId": 1,
     "destinationLocationId": 3,
-    "directionId": 3
+    "directionId": 3,
+    "directionIds": [
+      "3",
+      "5"
+    ]
   },
   {
-    "description": "Cave with large shit. Location 1, linked to location 3 with direction 5 (cave)",
-    "currentLocationId": 1,
-    "destinationLocationId": 3,
-    "directionId": 5
-  },
-  {
-    "description": "Go to mountains (location 1) from cave with large shit (location 3) with direction 4 (west)",
+    "description": "Location [Cave with large shit] linked to location [Large Mountains] with directions [4,7]",
     "currentLocationId": 3,
     "destinationLocationId": 1,
-    "directionId": 4
+    "directionId": 4,
+    "directionIds": [
+      "4",
+      "7"
+    ]
   },
   {
-    "description": "Go to mountains (location 1) from location 2 (swamp) with direction 2 (south)",
+    "description": "Location [Malodorous swamp] linked to location [Large Mountains] with directions [2,7]",
     "currentLocationId": 2,
     "destinationLocationId": 1,
-    "directionId": 2
+    "directionId": 2,
+    "directionIds": [
+      "2",
+      "7"
+    ]
   },
   {
-    "description": "Location [Malodorous swamp] linked to location [Swamp hut] via direction [1]",
+    "description": "Location [Malodorous swamp] linked to location [Swamp hut] via directions [1]",
     "currentLocationId": 2,
     "destinationLocationId": 4,
-    "directionId": 1
+    "directionId": 1,
+    "directionIds": [
+      "1"
+    ]
   },
   {
-    "description": "Location [Swamp hut] linked to location [Malodorous swamp] via direction [2]",
+    "description": "Location [Swamp hut] linked to location [Malodorous swamp] via directions [2,9]",
     "currentLocationId": 4,
     "destinationLocationId": 2,
-    "directionId": 2
-  },
-  {
-    "description": "Location [Start area] linked to location [Large mountains] via direction [7]",
-    "currentLocationId": 0,
-    "destinationLocationId": 1,
-    "directionId": 7
+    "directionId": 2,
+    "directionIds": [
+      "2",
+      "9"
+    ]
   }
 ]

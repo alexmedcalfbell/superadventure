@@ -3,30 +3,49 @@
     "locationId": 0,
     "description": "Start area",
     "response": "You step out of your house after many long months of lockdown. You have it in mind to go on a Super Adventure! To the North you see some craggy mountains.",
-    "imagePath": "/images/locations/0/start.jpg"
+    "imagePath": "/images/locations/start.jpg",
+    "assets": [
+      "/images/assets/player_start.png",
+      "/images/assets/house.png"
+    ]
   },
   {
     "locationId": 1,
     "description": "Large mountains",
     "response": "You find yourself surrounded by mountains. To the North lies a vast malodorous swamp. To the east, a foreboding cave.",
-    "imagePath": "/images/locations/1/mountains.jpg"
+    "imagePath": "/images/locations/mountains.jpg",
+    "assets": [
+      "/images/assets/mountains_player.png"
+    ]
   },
   {
     "locationId": 2,
     "description": "Malodorous swamp",
     "response": "A foetid, stinking swamp stretches out before you. To the East and West you see only impassable water. To the North is a thin, rickety bridge.",
-    "imagePath": "/images/locations/2/swamp.jpg"
+    "imagePath": "/images/locations/swamp.jpg",
+    "assets": [
+      "/images/assets/swamp_player.png"
+    ]
   },
   {
     "locationId": 3,
     "description": "Cave with large shit",
     "response": "You enter the cave and suffer instant regret; from floor to ceiling the cave is festooned with faeces. You look longingly to the west.",
-    "imagePath": "/images/locations/3/cave.jpg"
+    "imagePath": "/images/locations/cave.jpg",
+    "assets": [
+      "/images/assets/cave_player.png"
+    ]
   },
   {
     "locationId": 4,
     "description": "Swamp hut",
     "response": "You cross the rickety bridge and come upon a ramshackle hut. An aged witch in rags is standing near the hut, stirring a large cauldron. Behind you to the south, the swamp bubbles away.",
-    "imagePath": "/images/locations/4/swamp_hut.jpg"
+    "imagePath": "/images/locations/swamp_hut.jpg",
+    "assets": [
+      "/images/assets/swamp_witch_hut.png",
+      "/images/assets/swamp_hut_player.png",
+      "/images/assets/swamp_witch.png"
+      ,"/images/assets/swamp_hut_cauldron.png"
+    ]
   }
 ]

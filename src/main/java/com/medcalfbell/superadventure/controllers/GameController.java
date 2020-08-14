@@ -38,16 +38,17 @@ public class GameController {
 
     @ResponseBody
     @GetMapping(value = "/start", produces = MediaType.APPLICATION_JSON_VALUE)
-    public CommandResponse getStartScreen() {
+    public CommandResponse startGame() {
 
-        gameService.resetLocation();
+        gameService.reset();
 
-        Location location = locationRepository.findByLocationId(GameService.DEFAULT_LOCATION)
+        final Location location = locationRepository.findByLocationId(GameService.DEFAULT_LOCATION)
                 .orElseThrow(() -> new LocationNotFoundException(
                         "Location [" + GameService.DEFAULT_LOCATION + "] not found"));
 
         return new CommandResponse()
                 .setImagePath(location.getImagePath())
+                .setAssets(location.getAssets())
                 .setResponse(location.getResponse());
     }
 

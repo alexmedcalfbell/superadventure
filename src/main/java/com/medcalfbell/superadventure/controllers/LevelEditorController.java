@@ -78,7 +78,7 @@ public class LevelEditorController {
 
         final String description = String.format("Location [%s] added", request.getDescription());
 
-        final String imagePath = String.format("/images/locations/%s/%s", locationId, request.getImageName());
+        final String imagePath = String.format("/images/locations/%s", request.getImageName());
         //TODO: set /images/no-image.jpg if nothing set
 
         return new LocationResponse()
@@ -143,7 +143,7 @@ public class LevelEditorController {
         final String description = String.format("Location [%s] linked to action [%s] and target [%s]",
                 location.getDescription(), action.getDescription(), target.getDescription());
 
-        final String imagePath = String.format("/images/locations/%s/%s", locationId, request.getImageName());
+        final String imagePath = String.format("/images/locations/%s", request.getImageName());
 
         return new ActionTargetResponse()
                 .setDescription(description)

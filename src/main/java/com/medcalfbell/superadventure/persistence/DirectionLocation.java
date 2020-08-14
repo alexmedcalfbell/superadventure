@@ -4,7 +4,9 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -33,6 +35,11 @@ public class DirectionLocation {
 
     @Column
     private int directionId;
+
+    //TODO: Maybe just use the description rather than the id
+    @Column
+    @ElementCollection
+    private List<Integer> directionIds;
 
 
     public int getId() {
@@ -77,6 +84,15 @@ public class DirectionLocation {
 
     public DirectionLocation setDescription(String description) {
         this.description = description;
+        return this;
+    }
+
+    public List<Integer> getDirectionIds() {
+        return directionIds;
+    }
+
+    public DirectionLocation setDirectionIds(List<Integer> directionIds) {
+        this.directionIds = directionIds;
         return this;
     }
 }

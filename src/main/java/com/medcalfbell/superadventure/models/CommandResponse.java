@@ -1,6 +1,6 @@
 package com.medcalfbell.superadventure.models;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import java.util.List;
 
 public class CommandResponse {
 
@@ -8,6 +8,8 @@ public class CommandResponse {
     private String command;
     private String imagePath;
     private int location;
+    private List<String> assets;
+    private boolean isFatal;
 
     public String getResponse() {
         return response;
@@ -45,13 +47,21 @@ public class CommandResponse {
         return this;
     }
 
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .append("response", response)
-                .append("command", command)
-                .append("image", imagePath)
-                .append("location", location)
-                .toString();
+    public List<String> getAssets() {
+        return assets;
+    }
+
+    public CommandResponse setAssets(List<String> assets) {
+        this.assets = assets;
+        return this;
+    }
+
+    public boolean isFatal() {
+        return isFatal;
+    }
+
+    public CommandResponse setFatal(boolean fatal) {
+        isFatal = fatal;
+        return this;
     }
 }

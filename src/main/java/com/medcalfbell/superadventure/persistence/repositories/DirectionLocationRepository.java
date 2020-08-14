@@ -12,6 +12,7 @@ public interface DirectionLocationRepository extends JpaRepository<DirectionLoca
 
     Optional<DirectionLocation> findByDirectionId(int directionId);
     Optional<DirectionLocation> findByCurrentLocationIdAndDirectionId(int currentLocationId, int directionId);
+    Optional<DirectionLocation> findByCurrentLocationIdAndDirectionIdsIn(int currentLocationId, int... directionIds);
     Optional<DirectionLocation> findByCurrentLocationIdAndDestinationLocationIdAndDirectionId(int currentLocationId,
             int destinationLocationId, int directionId);
 

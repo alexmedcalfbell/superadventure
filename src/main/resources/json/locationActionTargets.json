@@ -1,35 +1,28 @@
 [
   {
-    "description": "Talk to Jester",
-    "locationId": 0,
-    "actionId": 0,
-    "targetId": 0,
-    "response": "You talk to the jester",
-    "imagePath": "/images/locations/2/swamp.jpg"
-  },
-  {
-    "description": "Stab Jester",
-    "locationId": 0,
-    "actionId": 1,
-    "targetId": 0,
-    "response": "You stab fuck oota jester",
-    "imagePath": "/images/locations/2/swamp.jpg"
-  },
-  {
     "description": "Piss yourself",
     "locationId": 0,
     "actionId": 3,
     "targetId": 1,
     "response": "You feel a warm sensation followed by intense shame.",
-    "imagePath": "/images/locations/0/start_piss.jpg"
+    "imagePath": "/images/locations/start.jpg",
+    "assets": [
+      "/images/assets/player_pissed_self.png",
+      "/images/assets/house.png"
+    ],
+    "fatal": false
   },
   {
     "description": "Location [Malodorous swamp] linked to action [drink] and target [swamp]",
     "locationId": 2,
     "actionId": 4,
     "targetId": 4,
-    "response": "You drink the swamp water, causing your guts to explode.",
-    "imagePath": "/images/locations/2/explode"
+    "response": "You drink the swamp water, causing your guts to explode. You chose poorly..",
+    "imagePath": "/images/locations/swamp.jpg",
+    "assets": [
+      "/images/assets/swamp_player_explode.png"
+    ],
+    "fatal": true
   },
   {
     "description": "Location [Swamp hut] linked to action [stab] and target [witch]",
@@ -37,7 +30,13 @@
     "actionId": 1,
     "targetId": 3,
     "response": "In a fit of unprovoked temper you set upon the aged witch with your trusty belt knife, spilling much raspberry jam and leaving her in fairly not alive state. The thought occurs that you were somewhat rash in your action. Surveying the scene you notice the witch's hut and the bubbling cauldron. To the south lies the swamp.",
-    "imagePath": "/images/locations/4/stab_witch.jpg"
+    "imagePath": "/images/locations/swamp_hut.jpg",
+    "assets": [
+      "/images/assets/swamp_witch_hut.png",
+      "/images/assets/swamp_hut_cauldron.png",
+      "/images/assets/swamp_hut_stab_witch.png"
+    ],
+    "fatal": false
   },
   {
     "description": "Location [Swamp hut] linked to action [drink] and target [cauldron]",
@@ -45,7 +44,13 @@
     "actionId": 4,
     "targetId": 5,
     "response": "Despite your better judgement, you tip the contents of the cauldron into your mouth. Regret is instant. Whatever the witch was brewing, it makes a good job of melting away much of your lower jaw and chest cavity. ",
-    "imagePath": "/images/locations/4/drink_cauldron.jpg"
+    "imagePath": "/images/locations/swamp_hut.jpg",
+    "assets": [
+      "/images/assets/swamp_witch_hut.png",
+      "/images/assets/swamp_witch.png",
+      "/images/assets/swamp_hut_drink_cauldron.png"
+    ],
+    "fatal": true
   },
   {
     "description": "Location [Swamp hut] linked to action [stab] and target [cauldron]",
@@ -53,7 +58,14 @@
     "actionId": 1,
     "targetId": 5,
     "response": "Although fairly effective against the flesh of the unfortunate witch, your belt knife does little more than score a line in the cauldron.",
-    "imagePath": "/images/locations/4/stab_cauldron.jpg"
+    "imagePath": "/images/locations/swamp_hut.jpg",
+    "assets": [
+      "/images/assets/swamp_witch_hut.png",
+      "/images/assets/swamp_hut_cauldron.png",
+      "/images/assets/swamp_hut_stab_cauldron.png",
+      "/images/assets/swamp_witch.png"
+    ],
+    "fatal": false
   },
   {
     "description": "Location [Swamp hut] linked to action [talk] and target [witch]",
@@ -61,7 +73,13 @@
     "actionId": 0,
     "targetId": 3,
     "response": "The witch cackles at you, raising the wand in her hand. You feel a sensation of tightness and a sudden urge to eat flies. Welcome to your new life as a frog.",
-    "imagePath": "/images/locations/4/witch_frog.jpg"
+    "imagePath": "/images/locations/swamp_hut.jpg",
+    "assets": [
+      "/images/assets/swamp_witch_hut.png",
+      "/images/assets/swamp_hut_cauldron.png",
+      "/images/assets/swamp_hut_talk_witch.png"
+    ],
+    "fatal": true
   },
   {
     "description": "Location [Swamp hut] linked to action [kick] and target [heed]",
@@ -69,6 +87,12 @@
     "actionId": 5,
     "targetId": 6,
     "response": "Fearing for you life, you run at the witch and with a flying jump, kick her heed right off.",
-    "imagePath": "/images/locations/4/kick_witch_heed.jpg"
+    "imagePath": "/images/locations/swamp_hut.jpg",
+    "assets": [
+      "/images/assets/swamp_witch_hut.png",
+      "/images/assets/swamp_hut_cauldron.png",
+      "/images/assets/swamp_hut_kick_heed.png"
+    ],
+    "fatal": false
   }
 ]

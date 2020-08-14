@@ -3,7 +3,10 @@ package com.medcalfbell.superadventure.persistence;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -29,6 +32,10 @@ public class Location {
 
     @Column
     private String imagePath;
+
+    @Column
+    @ElementCollection
+    private List<String> assets;
 
     public int getId() {
         return id;
@@ -72,6 +79,15 @@ public class Location {
 
     public Location setImagePath(String imagePath) {
         this.imagePath = imagePath;
+        return this;
+    }
+
+    public List<String> getAssets() {
+        return assets;
+    }
+
+    public Location setAssets(List<String> assets) {
+        this.assets = assets;
         return this;
     }
 }

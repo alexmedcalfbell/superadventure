@@ -24,6 +24,7 @@ import com.medcalfbell.superadventure.persistence.repositories.TargetRepository;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -67,10 +68,11 @@ public class GameService {
     }
 
     /**
-     * Reset the current location in case of a page refresh.
+     * Reset the current location / state in case of a page refresh.
      */
-    public void resetLocation() {
+    public void reset() {
         currentLocation = DEFAULT_LOCATION;
+        locationStateRepository.deleteAll();
     }
 
     public CommandResponse processCommand(String command) {
@@ -108,6 +110,7 @@ public class GameService {
                     return new CommandResponse()
                             .setCommand(command)
                             .setResponse(location.getResponse())
+                            .setAssets(location.getAssets())
                             .setImagePath(location.getImagePath());
                 })
                 .orElseThrow(() -> new DirectionNotFoundException("You can't go that way."));
@@ -118,25 +121,25 @@ public class GameService {
         logger.info("Processing direction [{}] for location [{}] and direction id [{}]", direction.getDescription(),
                 currentLocation, direction.getDirectionId());
 
-        final String error = "You can't go that way.";
-
         if (isGoBack(direction) && !locationHistory.isEmpty()) {
-            final int previousLocation = locationHistory.get(locationHistory.size() - 1);
-            locationHistory.remove(locationHistory.size() - 1);
-            currentLocation = previousLocation;
-
-            return locationRepository.findByLocationId(previousLocation)
-                    .orElseThrow(() -> new LocationNotFoundException(error));
+            return goBack();
         }
 
-
-        directionLocationRepository.findByCurrentLocationIdAndDirectionId(currentLocation, direction.getDirectionId())
+        return directionLocationRepository.findByCurrentLocationIdAndDirectionIdsIn(currentLocation,
+                direction.getDirectionId())
                 .map(directionLocation -> setLocationHistory(directionLocation))
-                .orElseThrow(() -> new DirectionNotFoundException(error));
+                .map(c -> locationRepository.findByLocationId(currentLocation))
+                .map(Optional::get)
+                .orElseThrow(() -> new DirectionNotFoundException());
+    }
 
+    private Location goBack() {
+        final int previousLocation = locationHistory.get(locationHistory.size() - 1);
+        locationHistory.remove(locationHistory.size() - 1);
+        currentLocation = previousLocation;
 
-        return locationRepository.findByLocationId(currentLocation)
-                .orElseThrow(() -> new LocationNotFoundException(error));
+        return locationRepository.findByLocationId(previousLocation)
+                .orElseThrow(() -> new LocationNotFoundException("You can't go that way."));
     }
 
     private DirectionLocation setLocationHistory(DirectionLocation directionLocation) {
@@ -163,7 +166,6 @@ public class GameService {
                 .findFirst()
                 .orElseThrow(() -> new TargetNotFoundException("I don't understand [" + command + "]."));
 
-
         final int stateHash = currentLocation + action.getActionId() + target.getTargetId();
         locationStateRepository.findByStateHash(stateHash).ifPresent(state -> {
             throw new StateHashExistsException(
@@ -183,6 +185,8 @@ public class GameService {
         return new CommandResponse()
                 .setCommand(command)
                 .setImagePath(locationActionTarget.getImagePath())
+                .setAssets(locationActionTarget.getAssets())
+                .setFatal(locationActionTarget.isFatal())
                 .setResponse(locationActionTarget.getResponse())
                 .setLocation(currentLocation);
     }

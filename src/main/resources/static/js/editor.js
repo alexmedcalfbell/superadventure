@@ -433,7 +433,7 @@ function setSceneImageDescription(location, direction, actionTargets) {
     //Initialise popovers
     $(function () {
         $('[data-toggle="popover"]').popover({
-            trigger: 'hover',
+            trigger: 'hover click focus',
             placement: 'top',
             html: true
         });

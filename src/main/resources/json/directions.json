@@ -26,5 +26,13 @@
   {
     "directionId": 7,
     "description": "mountains"
+  },
+  {
+    "directionId": 8,
+    "description": "home"
+  },
+  {
+    "directionId": 9,
+    "description": "swamp"
   }
 ]

@@ -1,8 +1,0 @@
-[
-  {
-    "description": "Go to mountains(location 1) from Location 0 with direction 1 (north)",
-    "currentLocationId": 0,
-    "destinationLocationId": 1,
-    "directionId": 1
-  }
-]

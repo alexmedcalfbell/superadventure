@@ -21,11 +21,18 @@ $(document).ready(function () {
     });
 
     $('#action').keydown(function (e) {
-        if((e.which || e.keyCode) == 38){ //38 = arrow key up
+        if ((e.which || e.keyCode) == 38) { //38 = arrow key up
             $('#action').val($('#history li').first().text());
         }
     });
 
+    // Reset the game
+    $("#start-again").on("click", function () {
+        $('#death-modal').modal('hide');
+        $('#history').html('');
+        $('#action').attr('disabled', false);
+        startGame();
+    });
 
 
 });
@@ -51,6 +58,9 @@ function startGame() {
             $('#scene-image').html(
                 '<img src="' + data.imagePath + '" alt="Location image" class="img-fluid"/>'
             );
+
+            //Set the scene assets, with the position absolute style not being set on the last item.
+            setSceneAssets(data);
         },
         error: function (error) {
             $('#feedback').html(error.responseText);
@@ -80,10 +90,18 @@ function postAction() {
             $('#feedback').html(data.response);
 
             //Set scene image
-
             $('#scene-image').html(
                 '<img src="' + data.imagePath + '" alt="Location image" class="img-fluid"/>'
             );
+
+
+            //Set the scene assets, with the position absolute style not being set on the last item.
+            setSceneAssets(data);
+
+            if(data.fatal === true){
+                $('#action').attr('disabled', true);
+                $('#death-modal').modal('show');
+            }
 
             //Update command history
             $('#history').prepend('<li class="list-group-item">' + data.command + '</li>');
@@ -94,6 +112,18 @@ function postAction() {
             $('#feedback').html(error.responseText);
         }
     });
+}
+
+function setSceneAssets(data){
+    let assets = '';
+    data.assets.forEach((asset, key, arr) => {
+        if (Object.is(arr.length - 1, key)) {
+            assets += '<img src="' + asset + '" class="img-fluid"/>'
+        } else {
+            assets += '<img src="' + asset + '" class="img-fluid scene-asset"/>';
+        }
+    });
+    $('#assets').html(assets);
 }
 
 function clearAction() {
