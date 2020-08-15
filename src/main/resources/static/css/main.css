@@ -255,7 +255,7 @@ pre {
     overflow: hidden;
     outline: 0;
     color: #333333;
-    margin: 20px;
+    /*margin: 20px;*/
     min-height: 255px;
 }
 
