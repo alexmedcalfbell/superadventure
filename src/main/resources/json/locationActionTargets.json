@@ -36,7 +36,11 @@
       "/images/assets/swamp_hut_cauldron.png",
       "/images/assets/swamp_hut_stab_witch.png"
     ],
-    "fatal": false
+    "fatal": false,
+    "stateFlag": "WITCH_DEAD",
+    "stateBlockers":  [
+      "WITCH_DEAD"
+    ]
   },
   {
     "description": "Location [Swamp hut] linked to action [drink] and target [cauldron]",
@@ -79,7 +83,10 @@
       "/images/assets/swamp_hut_cauldron.png",
       "/images/assets/swamp_hut_talk_witch.png"
     ],
-    "fatal": true
+    "fatal": true,
+    "stateBlockers":  [
+      "WITCH_DEAD"
+    ]
   },
   {
     "description": "Location [Swamp hut] linked to action [kick] and target [heed]",
@@ -93,6 +100,10 @@
       "/images/assets/swamp_hut_cauldron.png",
       "/images/assets/swamp_hut_kick_heed.png"
     ],
-    "fatal": false
+    "fatal": false,
+    "stateFlag": "WITCH_DEAD",
+    "stateBlockers":  [
+      "WITCH_DEAD"
+    ]
   }
 ]

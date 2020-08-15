@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.slf4j.Logger;
@@ -67,6 +68,12 @@ public class GameService {
         this.locationStateRepository = locationStateRepository;
     }
 
+    //TODO: Should do foreign key setup in the tables.
+    //TODO: Map. Do we want them to be able to see the map? If so re-use level editor ui.
+    public CommandResponse getMap() {
+        return null;
+    }
+
     /**
      * Reset the current location / state in case of a page refresh.
      */
@@ -76,10 +83,6 @@ public class GameService {
     }
 
     public CommandResponse processCommand(String command) {
-
-        logger.info("current location [{}]", currentLocation);
-        System.out.println("history empty? " + locationHistory.isEmpty());
-        locationHistory.forEach(h -> System.out.println(h));
 
         if (isMovementAction(command)) {
             return processMovementAction(command);
@@ -107,6 +110,9 @@ public class GameService {
                 .map(direction -> {
                     final Location location = processDirection(direction);
 
+                    //Restore assets associated with this location/state (if any).
+                    setStateAssets(location);
+
                     return new CommandResponse()
                             .setCommand(command)
                             .setResponse(location.getResponse())
@@ -114,6 +120,30 @@ public class GameService {
                             .setImagePath(location.getImagePath());
                 })
                 .orElseThrow(() -> new DirectionNotFoundException("You can't go that way."));
+    }
+
+    /**
+     * Reads any state entries for the supplied location and consolidates any assets related to those states. For
+     * example: you stab the witch, leave the location and then come back. This will load the assets associated with the
+     * witch being stabbed rather than the default assets for that location.
+     *
+     * @param location The supplied {@link Location}.
+     */
+    private void setStateAssets(Location location) {
+        List<String> assets = locationStateRepository.findByLocationId(location.getLocationId())
+                .stream()
+                .map(l -> locationActionTargetRepository.findByLocationIdAndActionIdAndTargetId(
+                        l.getLocationId(), l.getActionId(), l.getTargetId()))
+                .map(Optional::get)
+                .map(l -> l.getAssets())
+                .collect(Collectors.toList())
+                .stream()
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
+        assets.forEach(a -> logger.info("asset [{}]", a));
+        if (!assets.isEmpty()) {
+            location.setAssets(assets);
+        }
     }
 
     private Location processDirection(Direction direction) {
@@ -150,7 +180,9 @@ public class GameService {
     }
 
     /**
-     * Takes the command submitted by the player and attempts to find an {@link Action} / {@link Target}
+     * Takes the command submitted by the player and attempts to find an {@link Action} / {@link Target}. If the
+     * combination is found, then we also check for any associated state flags, that will either stop the player from
+     * repeating an action or stop them performing a conflicting action.
      */
     public CommandResponse processAction(String command) {
 
@@ -166,18 +198,30 @@ public class GameService {
                 .findFirst()
                 .orElseThrow(() -> new TargetNotFoundException("I don't understand [" + command + "]."));
 
-        final int stateHash = currentLocation + action.getActionId() + target.getTargetId();
-        locationStateRepository.findByStateHash(stateHash).ifPresent(state -> {
-            throw new StateHashExistsException(
-                    "You already did that!");
+
+        //Check if the player already did an action and prevent it from being repeated.
+        locationStateRepository.findByLocationIdAndTargetIdAndActionId(currentLocation, target.getTargetId(),
+                action.getActionId()).ifPresent(state -> {
+            throw new StateHashExistsException("You already did that!");
         });
-        //TODO: need to read state when moving between locations to re-apply any given states..
+
+        final List<String> stateFlags = locationStateRepository.findByLocationId(currentLocation)
+                .stream()
+                .map(l -> l.getStateFlag())
+                .collect(Collectors.toList());
 
         final LocationActionTarget locationActionTarget = locationActionTargetRepository.findByLocationIdAndActionIdAndTargetId(
                 currentLocation, action.getActionId(), target.getTargetId())
-                .orElseThrow(() -> new TargetNotFoundException("You can't do that here."));
+                .filter(l -> !l.getStateBlockers().stream().anyMatch(stateBlocker -> stateFlags.contains(stateBlocker)))
+                .orElseThrow(() -> new TargetNotFoundException("You can't do that."));
 
-        locationStateRepository.save(new LocationState().setStateHash(stateHash));
+
+        //Persist the resulting state
+        locationStateRepository.save(new LocationState()
+                .setLocationId(currentLocation)
+                .setActionId(action.getActionId())
+                .setTargetId(target.getTargetId())
+                .setStateFlag(locationActionTarget.getStateFlag()));
 
         logger.info("locationActionTarget [{}]",
                 ToStringBuilder.reflectionToString(locationActionTarget, ToStringStyle.MULTI_LINE_STYLE));

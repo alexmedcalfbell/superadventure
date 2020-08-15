@@ -22,7 +22,16 @@ public class LocationState {
     private int id;
 
     @Column
-    private int stateHash;
+    private int locationId;
+
+    @Column
+    private int actionId;
+
+    @Column
+    private int targetId;
+
+    @Column
+    private String stateFlag;
 
     public int getId() {
         return id;
@@ -33,12 +42,39 @@ public class LocationState {
         return this;
     }
 
-    public int getStateHash() {
-        return stateHash;
+    public int getLocationId() {
+        return locationId;
     }
 
-    public LocationState setStateHash(int stateHash) {
-        this.stateHash = stateHash;
+    public LocationState setLocationId(int locationId) {
+        this.locationId = locationId;
+        return this;
+    }
+
+    public int getActionId() {
+        return actionId;
+    }
+
+    public LocationState setActionId(int actionId) {
+        this.actionId = actionId;
+        return this;
+    }
+
+    public int getTargetId() {
+        return targetId;
+    }
+
+    public LocationState setTargetId(int targetId) {
+        this.targetId = targetId;
+        return this;
+    }
+
+    public String getStateFlag() {
+        return stateFlag;
+    }
+
+    public LocationState setStateFlag(String stateFlag) {
+        this.stateFlag = stateFlag;
         return this;
     }
 }

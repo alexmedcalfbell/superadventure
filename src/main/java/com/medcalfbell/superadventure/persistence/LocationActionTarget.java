@@ -11,6 +11,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Stores the mapping between {@link Location}, {@link Action} and {@link Target}. This is used to determine the result
+ * of a player being in x location and perform x action on x target. For example in location (swamp), (talk), (witch).
+ * <p>
+ * Stores paths to the assets (images) related to that combination of location, action and target.
+ * <p>
+ * Stores information relating to the state of an action (cause and effect). This includes: fatal: if the action the
+ * player takes is fatal, then the game is over.
+ * <p>
+ * Stores the state flag associated with this combination, e.g. if the witch is killed, then the flag `WITCH_DEAD` is
+ * stored.
+ * <p>
+ * Stores states that block the supplied action from taking place. For example, stabbing the witch results in the state
+ * `WITCH_DEAD`, therefore any further action toward the witch is blocked as she is in a final state.
+ */
 @Entity
 @Table(name = "location_action_target")
 public class LocationActionTarget {
@@ -44,6 +59,14 @@ public class LocationActionTarget {
     @Column
     @ElementCollection
     private List<String> assets;
+
+    @Column(columnDefinition = "text")
+    private String stateFlag;
+
+    @Column
+    @ElementCollection
+    private List<String> stateBlockers;
+
 
     public int getId() {
         return id;
@@ -123,6 +146,24 @@ public class LocationActionTarget {
 
     public LocationActionTarget setFatal(boolean fatal) {
         this.fatal = fatal;
+        return this;
+    }
+
+    public String getStateFlag() {
+        return stateFlag;
+    }
+
+    public LocationActionTarget setStateFlag(String stateFlag) {
+        this.stateFlag = stateFlag;
+        return this;
+    }
+
+    public List<String> getStateBlockers() {
+        return stateBlockers;
+    }
+
+    public LocationActionTarget setStateBlockers(List<String> stateBlockers) {
+        this.stateBlockers = stateBlockers;
         return this;
     }
 }
