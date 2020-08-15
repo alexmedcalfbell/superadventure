@@ -4,34 +4,22 @@
 <head>
     <div th:replace="fragments/header :: includes"/>
     <script src="/js/main.js"></script>
-    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="stylesheet" href="/css/help.css"/>
 </head>
 <body>
 
 <!--Container-->
 <div class="container-fluid d-flex container-custom">
 
-    <div id="action-port" class="col-sm-3 h-100">
+    <div id="help-port" class="col h-100">
 
         <!--Navbar-->
         <div th:replace="fragments/navigation :: navbar"/>
 
-        <!--Command input / command history-->
+        <!--Dashed divider-->
         <div class="row h-50">
-            <div class="col-sm-12">
-
-                <form method="POST" id="game">
-                    <div class="input-group mb-3">
-                        <input id="action" type="text" class="form-control" autofocus="autofocus">
-                        <div class="input-group-append">
-                            <button type="submit" id="go" class="btn btn-warning">
-                                <i class="fas fa-angle-right"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-
-                <ul id="history" class="list-group">
+            <div class="col">
+                <ul class="list-group">
                 </ul>
             </div>
         </div>
@@ -41,8 +29,6 @@
             <div class="col-sm-12">
                 <div class="jumbotron">
                     <h1 class="display-4">HELP</h1>
-                    <h3 class="display-5">The world's lamest adventure game.</h3>
-                    <p class="lead">Super Adventure is a simple example text adventure game.</p>
                     Instructions:
                     <hr class="my-4">
 
@@ -50,19 +36,9 @@
                     <ol class="list-unstyled">
                         <li th:each="item : ${movementActions}"><kbd th:text="${item}"></kbd></li>
                     </ol>
-
-
-                    <kbd><kbd>ctrl</kbd> + <kbd>,</kbd></kbd>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!--Game port-->
-    <div id="game-port" class="col-sm-6 flex-fill">
-        <div id="scene-image"></div>
-        <hr class="my-4">
-        <div id="feedback" class="css-typing"></div>
     </div>
 
 </div>

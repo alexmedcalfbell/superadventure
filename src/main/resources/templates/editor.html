@@ -42,38 +42,44 @@
                     <!--Tabs-->
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a id="location-direction-tab" class="nav-link active" href="#">
+                            <a id="location-direction-tab" class="nav-link active" href="#" data-toggle="tooltip"
+                               data-placement="top" title="Location / Direction">
                                 <i class="fas fa-route section-tab-location-movement"></i>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a id="action-target-tab" class="nav-link" href="#">
+                            <a id="action-target-tab" class="nav-link" href="#" data-toggle="tooltip"
+                               data-placement="top" title="Action / target">
                                 <i class="fas fa-sitemap section-tab-action-target"></i>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a id="location-tab" class="nav-link" href="#">
+                            <a id="location-tab" class="nav-link" href="#" data-toggle="tooltip" data-placement="top"
+                               title="Location">
                                 <i class="fas fa-map-marker-alt section-tab-location"></i>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a id="target-tab" class="nav-link" href="#">
-                                <i class="fas fa-crosshairs section-tab-target"></i>
+                            <a id="direction-tab" class="nav-link" href="#" data-toggle="tooltip" data-placement="top"
+                               title="Direction">
+                                <i class="fas fa-map-signs section-tab-direction"></i>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a id="action-tab" class="nav-link" href="#">
+                            <a id="action-tab" class="nav-link" href="#" data-toggle="tooltip" data-placement="top"
+                               title="Action">
                                 <i class="fas fa-magic section-tab-action"></i>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a id="direction-tab" class="nav-link" href="#">
-                                <i class="fas fa-map-signs section-tab-direction"></i>
+                            <a id="target-tab" class="nav-link" href="#" data-toggle="tooltip" data-placement="top"
+                               title="Target">
+                                <i class="fas fa-crosshairs section-tab-target"></i>
                             </a>
                         </li>
                     </ul>
 
-                    TODO: Change this so they can choose multiple directions
+                    <!--TODO: Change this so they can choose multiple directions-->
                     <!--Location / Direction-->
                     <div id="location-direction-section" class="editor-section">
                         <h1 class="editor-section-title">Location / Direction</h1>
@@ -98,9 +104,9 @@
                                             th:text="${direction.getDescription()+ ' (' + direction.getDirectionId() +')'}">
                                     </option>
                                 </select>
-
-                                <button id="add-location-direction" type="submit" class="btn btn-primary">Generate</button>
                             </div>
+                            <button id="add-location-direction" type="submit" class="btn btn-primary">Generate
+                            </button>
                         </form>
                     </div>
 
@@ -133,9 +139,8 @@
 
                                 <label for="location-action-target-image">Image name</label>
                                 <input id="location-action-target-image" type="text" class="form-control">
-
-                                <button id="add-action-target" type="submit" class="btn btn-primary">Generate</button>
                             </div>
+                            <button id="add-action-target" type="submit" class="btn btn-primary">Generate</button>
                         </form>
                     </div>
 
@@ -155,9 +160,8 @@
                                 <!--image name-->
                                 <label for="location-image">Image name</label>
                                 <input id="location-image" type="text" class="form-control">
-
-                                <button id="add-location" type="submit" class="btn btn-primary">Generate</button>
                             </div>
+                            <button id="add-location" type="submit" class="btn btn-primary">Generate</button>
                         </form>
                     </div>
 
@@ -168,9 +172,8 @@
                             <div class="form-group">
                                 <label for="target-description">Description</label>
                                 <input id="target-description" type="text" class="form-control">
-
-                                <button id="add-target" type="submit" class="btn btn-primary">Generate</button>
                             </div>
+                            <button id="add-target" type="submit" class="btn btn-primary">Generate</button>
                         </form>
                     </div>
 
@@ -182,9 +185,8 @@
 
                                 <label for="action-description">Description</label>
                                 <input id="action-description" type="text" class="form-control">
-
-                                <button id="add-action" type="submit" class="btn btn-primary">Generate</button>
                             </div>
+                            <button id="add-action" type="submit" class="btn btn-primary">Generate</button>
                         </form>
                     </div>
 
@@ -196,9 +198,8 @@
 
                                 <label for="direction-description">Direction</label>
                                 <input id="direction-description" type="text" class="form-control">
-
-                                <button id="add-direction" type="submit" class="btn btn-primary">Generate</button>
                             </div>
+                            <button id="add-direction" type="submit" class="btn btn-primary">Generate</button>
                         </form>
                     </div>
 
@@ -234,8 +235,6 @@
                                 </div>
                             </div>
                         </div>
-
-
 
 
                     </figure>

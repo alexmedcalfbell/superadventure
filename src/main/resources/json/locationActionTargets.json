@@ -1,6 +1,6 @@
 [
   {
-    "description": "Piss yourself",
+    "description": "Location [Start] linked to action [piss] and target [yourself]",
     "locationId": 0,
     "actionId": 3,
     "targetId": 1,
@@ -29,7 +29,7 @@
     "locationId": 4,
     "actionId": 1,
     "targetId": 3,
-    "response": "In a fit of unprovoked temper you set upon the aged witch with your trusty belt knife, spilling much raspberry jam and leaving her in fairly not alive state. The thought occurs that you were somewhat rash in your action. Surveying the scene you notice the witch's hut and the bubbling cauldron. To the south lies the swamp.",
+    "response": "In a fit of unprovoked temper you set upon the aged witch with your trusty belt knife. The thought occurs that you were somewhat rash in your action, though what if she had turned you into a frog? Surveying the scene you notice the witch's hut and the bubbling cauldron. To the south lies the swamp.",
     "imagePath": "/images/locations/swamp_hut.jpg",
     "assets": [
       "/images/assets/swamp_witch_hut.png",
@@ -38,7 +38,7 @@
     ],
     "fatal": false,
     "stateFlag": "WITCH_DEAD",
-    "stateBlockers":  [
+    "stateBlockers": [
       "WITCH_DEAD"
     ]
   },
@@ -47,7 +47,7 @@
     "locationId": 4,
     "actionId": 4,
     "targetId": 5,
-    "response": "Despite your better judgement, you tip the contents of the cauldron into your mouth. Regret is instant. Whatever the witch was brewing, it makes a good job of melting away much of your lower jaw and chest cavity. ",
+    "response": "Despite your better judgement, you tip the contents of the cauldron into your mouth. Regret is instant. Whatever the witch was brewing, it makes a good job of melting away your frail human form.",
     "imagePath": "/images/locations/swamp_hut.jpg",
     "assets": [
       "/images/assets/swamp_witch_hut.png",
@@ -61,7 +61,7 @@
     "locationId": 4,
     "actionId": 1,
     "targetId": 5,
-    "response": "Although fairly effective against the flesh of the unfortunate witch, your belt knife does little more than score a line in the cauldron.",
+    "response": "Although fairly effective against flesh, your belt knife does little more than score a line in the cauldron.",
     "imagePath": "/images/locations/swamp_hut.jpg",
     "assets": [
       "/images/assets/swamp_witch_hut.png",
@@ -84,7 +84,7 @@
       "/images/assets/swamp_hut_talk_witch.png"
     ],
     "fatal": true,
-    "stateBlockers":  [
+    "stateBlockers": [
       "WITCH_DEAD"
     ]
   },
@@ -93,7 +93,7 @@
     "locationId": 4,
     "actionId": 5,
     "targetId": 6,
-    "response": "Fearing for you life, you run at the witch and with a flying jump, kick her heed right off.",
+    "response": "Fearing for your life, you run at the witch and with a flying jump, kick her heed right off.",
     "imagePath": "/images/locations/swamp_hut.jpg",
     "assets": [
       "/images/assets/swamp_witch_hut.png",
@@ -102,7 +102,7 @@
     ],
     "fatal": false,
     "stateFlag": "WITCH_DEAD",
-    "stateBlockers":  [
+    "stateBlockers": [
       "WITCH_DEAD"
     ]
   }

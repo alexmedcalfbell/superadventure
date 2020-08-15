@@ -34,5 +34,9 @@
   {
     "directionId": 9,
     "description": "swamp"
+  },
+  {
+    "directionId": 10,
+    "description": "bridge"
   }
 ]

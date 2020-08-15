@@ -76,6 +76,10 @@ $(document).ready(function () {
     $("#current-location").change(function () {
         getLinkedLocations();
     });
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 });
 
 

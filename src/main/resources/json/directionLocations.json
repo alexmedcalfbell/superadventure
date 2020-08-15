@@ -60,13 +60,14 @@
     ]
   },
   {
-    "description": "Location [Malodorous swamp] linked to location [Swamp hut] via directions [1]",
+    "description": "Location [Malodorous swamp] linked to location [Swamp hut] via directions [1,9,10]",
     "currentLocationId": 2,
     "destinationLocationId": 4,
     "directionId": 1,
     "directionIds": [
       "1",
-      "9"
+      "9",
+      "10"
     ]
   },
   {

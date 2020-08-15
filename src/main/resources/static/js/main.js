@@ -3,11 +3,13 @@ $(document).ready(function () {
     //TODO: You could achieve the same by returning the data in the model.
     startGame();
 
+    //Player command
     $("#game").submit(function (event) {
         event.preventDefault();
         postAction();
     });
 
+    //Splash screen
     $("body").on("click", function () {
         closeSplashScreen();
     });
@@ -15,11 +17,13 @@ $(document).ready(function () {
         closeSplashScreen();
     });
 
+    //Command history
     $("#history").on("click", 'li', function () {
         $('#action').val($(this).text());
         postAction();
     });
 
+    //Set the last known command in the input on arrow key up.
     $('#action').keydown(function (e) {
         if ((e.which || e.keyCode) == 38) { //38 = arrow key up
             $('#action').val($('#history li').first().text());
@@ -33,7 +37,6 @@ $(document).ready(function () {
         $('#action').attr('disabled', false);
         startGame();
     });
-
 
 });
 
@@ -72,49 +75,52 @@ function postAction() {
 
     let command = $("#action").val();
 
-    $.ajax({
-        type: "POST",
-        contentType: "application/json",
-        url: "/command",
-        data: JSON.stringify({
-            "command": command
-        }),
-        dataType: 'json',
-        cache: false,
-        timeout: 600000,
-        success: function (data) {
+    if (command) {
 
-            clearAction();
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "/command",
+            data: JSON.stringify({
+                "command": command
+            }),
+            dataType: 'json',
+            cache: false,
+            timeout: 600000,
+            success: function (data) {
 
-            //Set response
-            $('#feedback').html(data.response);
+                clearAction();
 
-            //Set scene image
-            $('#scene-image').html(
-                '<img src="' + data.imagePath + '" alt="Location image" class="img-fluid"/>'
-            );
+                //Set response
+                $('#feedback').html(data.response);
+
+                //Set scene image
+                $('#scene-image').html(
+                    '<img src="' + data.imagePath + '" alt="Location image" class="img-fluid"/>'
+                );
 
 
-            //Set the scene assets, with the position absolute style not being set on the last item.
-            setSceneAssets(data);
+                //Set the scene assets, with the position absolute style not being set on the last item.
+                setSceneAssets(data);
 
-            if(data.fatal === true){
-                $('#action').attr('disabled', true);
-                $('#death-modal').modal('show');
+                if (data.fatal === true) {
+                    $('#action').attr('disabled', true);
+                    $('#death-modal').modal('show');
+                }
+
+                //Update command history
+                $('#history').prepend('<li class="list-group-item">' + data.command + '</li>');
+                $('#command').hide().fadeIn();
+            },
+            error: function (error) {
+                clearAction();
+                $('#feedback').html(error.responseText);
             }
-
-            //Update command history
-            $('#history').prepend('<li class="list-group-item">' + data.command + '</li>');
-            $('#command').hide().fadeIn();
-        },
-        error: function (error) {
-            clearAction();
-            $('#feedback').html(error.responseText);
-        }
-    });
+        });
+    }
 }
 
-function setSceneAssets(data){
+function setSceneAssets(data) {
     let assets = '';
     data.assets.forEach((asset, key, arr) => {
         if (Object.is(arr.length - 1, key)) {

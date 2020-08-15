@@ -130,7 +130,8 @@ public class GameService {
      * @param location The supplied {@link Location}.
      */
     private void setStateAssets(Location location) {
-        List<String> assets = locationStateRepository.findByLocationId(location.getLocationId())
+
+        final List<String> assets = locationStateRepository.findByLocationId(location.getLocationId())
                 .stream()
                 .map(l -> locationActionTargetRepository.findByLocationIdAndActionIdAndTargetId(
                         l.getLocationId(), l.getActionId(), l.getTargetId()))
@@ -140,7 +141,7 @@ public class GameService {
                 .stream()
                 .flatMap(List::stream)
                 .collect(Collectors.toList());
-        assets.forEach(a -> logger.info("asset [{}]", a));
+
         if (!assets.isEmpty()) {
             location.setAssets(assets);
         }
@@ -163,6 +164,10 @@ public class GameService {
                 .orElseThrow(() -> new DirectionNotFoundException());
     }
 
+    /**
+     * Returns the player to the previously recorded location, for as many locations that have been stored.
+     * @return
+     */
     private Location goBack() {
         final int previousLocation = locationHistory.get(locationHistory.size() - 1);
         locationHistory.remove(locationHistory.size() - 1);
