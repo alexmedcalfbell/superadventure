@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.slf4j.Logger;
@@ -84,12 +85,78 @@ public class GameService {
 
     public CommandResponse processCommand(String command) {
 
+        //TODO: 'Help' is different from 'where am I'. help is more of a 'cheat', whereas where am I just describes the scene.
+        if (command.contains("help")) {
+            return getHelp(command);
+        }
+
+        if (command.contains("where")) {
+            return getWhere(command);
+        }
+
         if (isMovementAction(command)) {
             return processMovementAction(command);
         }
 
         //Process action / target
         return processAction(command);
+    }
+
+    /**
+     * Returns the actions / targets associated with the current location and wraps them in <help></help> tags for
+     * formatting.
+     *
+     * @param command The supplied command text.
+     * @return {@link CommandResponse}
+     */
+    private CommandResponse getHelp(String command) {
+        final List<LocationActionTarget> targetActions = locationActionTargetRepository.findAllByLocationId(
+                currentLocation);
+
+        String descriptions = targetActions.stream()
+                .map(targetAction -> "<help>" + targetAction.getDescription() + "</help><br>")
+                .collect(Collectors.joining());
+
+        if (StringUtils.isEmpty(descriptions)) {
+            descriptions = "<help>There's nothing to interact with here.</help>";
+        }
+        return new CommandResponse()
+                .setCommand(command)
+                .setResponse(descriptions);
+    }
+
+    /**
+     * Returns information about the current location and its associated targets / directions. Does not include
+     * actions.
+     *
+     * @param command The supplied command text.
+     * @return {@link CommandResponse}
+     */
+    private CommandResponse getWhere(String command) {
+        Optional<Location> location = locationRepository.findByLocationId(currentLocation);
+
+        final String targets = targetRepository.findByTargetIdIn(
+                locationActionTargetRepository.findAllByLocationId(currentLocation).stream()
+                        .map(actionTarget -> actionTarget.getTargetId()).collect(Collectors.toList())
+        ).stream().map(target -> "<li><help>" + target.getDescription() + "</help></li>")
+                .collect(Collectors.joining());
+
+        final String locations = directionRepository.findByDirectionIdIn(
+                directionLocationRepository.findByCurrentLocationId(
+                        currentLocation).stream()
+                        .map(d -> d.getDirectionId()).collect(Collectors.toList())).stream()
+                .map(d -> "<li><help>" + d.getDescription() + "</help></li>")
+                .collect(Collectors.joining());
+
+        String response = String.format(
+                "You're at the <help>%s</help>. You can see: <ul>%s</ul> You can go: <ul>%s</ul>",
+                location.get().getDescription(),
+                targets,
+                locations);
+
+        return new CommandResponse()
+                .setCommand(command)
+                .setResponse(response);
     }
 
     /**
@@ -166,7 +233,6 @@ public class GameService {
 
     /**
      * Returns the player to the previously recorded location, for as many locations that have been stored.
-     * @return
      */
     private Location goBack() {
         final int previousLocation = locationHistory.get(locationHistory.size() - 1);

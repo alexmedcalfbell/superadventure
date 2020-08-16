@@ -24,7 +24,7 @@ public class DirectionLocation {
     @JsonIgnore
     private int id;
 
-    @Transient
+    @Column
     private String description;
 
     @Column

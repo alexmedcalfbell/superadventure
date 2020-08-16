@@ -95,9 +95,11 @@ function postAction() {
                 $('#feedback').html(data.response);
 
                 //Set scene image
-                $('#scene-image').html(
-                    '<img src="' + data.imagePath + '" alt="Location image" class="img-fluid"/>'
-                );
+                if(data.imagePath) {
+                    $('#scene-image').html(
+                        '<img src="' + data.imagePath + '" alt="Location image" class="img-fluid"/>'
+                    );
+                }
 
 
                 //Set the scene assets, with the position absolute style not being set on the last item.

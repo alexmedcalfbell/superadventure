@@ -301,6 +301,7 @@ keyword {
     /*src: url('/fonts/Reactor.ttf');*/
     src: url('/fonts/ZXOCR-B.ttf');
 }
+
 #feedback {
     font-family: adventure;
 }
@@ -311,4 +312,9 @@ keyword {
     padding: 10px;
     color: #2fb0bd;
     border-radius: .25rem;
+}
+
+help {
+    color: #e83e8c;
+    font-size: 0.9rem;
 }
