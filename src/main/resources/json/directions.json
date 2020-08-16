@@ -38,5 +38,9 @@
   {
     "directionId": 10,
     "description": "bridge"
+  },
+  {
+    "directionId": 11,
+    "description": "hut"
   }
 ]

@@ -2,7 +2,7 @@
   {
     "locationId": 0,
     "description": "Start area",
-    "response": "You step out of your house after many long months of lockdown. You have it in mind to go on a Super Adventure! To the North you see some craggy mountains.",
+    "response": "You step out of your house after many long months of lockdown. You have it in mind to go on a Super Adventure! To the <keyword>North</keyword> you see some craggy <keyword>mountains</keyword>.",
     "imagePath": "/images/locations/start.jpg",
     "assets": [
       "/images/assets/player_start.png",
@@ -12,7 +12,7 @@
   {
     "locationId": 1,
     "description": "Large mountains",
-    "response": "You find yourself surrounded by mountains. To the North lies a vast malodorous swamp. To the east, a foreboding cave.",
+    "response": "You find yourself surrounded by mountains. To the <keyword>North</keyword> lies a vast malodorous <keyword>swamp</keyword>. To the east, a foreboding <keyword>cave</keyword>.",
     "imagePath": "/images/locations/mountains.jpg",
     "assets": [
       "/images/assets/mountains_player.png"
@@ -21,7 +21,7 @@
   {
     "locationId": 2,
     "description": "Malodorous swamp",
-    "response": "A foetid, stinking swamp stretches out before you. To the East and West you see only impassable water. To the North is a thin, rickety bridge.",
+    "response": "A foetid, stinking swamp stretches out before you. To the East and West you see only impassable water. To the <keyword>North</keyword> is a thin, rickety <keyword>bridge</keyword>.",
     "imagePath": "/images/locations/swamp.jpg",
     "assets": [
       "/images/assets/swamp_player.png"
@@ -30,7 +30,7 @@
   {
     "locationId": 3,
     "description": "Cave with large shit",
-    "response": "You enter the cave and suffer instant regret; from floor to ceiling the cave is festooned with faeces. You look longingly to the west.",
+    "response": "You enter the cave and suffer instant regret; from floor to ceiling the <keyword>cave</keyword> is festooned with faeces. You look longingly to the <keyword>West</keyword>.",
     "imagePath": "/images/locations/cave.jpg",
     "assets": [
       "/images/assets/cave_player.png"
@@ -39,7 +39,7 @@
   {
     "locationId": 4,
     "description": "Swamp hut",
-    "response": "You cross the rickety bridge and come upon a ramshackle hut. An aged witch in rags is standing near the hut, stirring a large cauldron. Behind you to the south, the swamp bubbles away.",
+    "response": "You cross the rickety bridge and come upon a ramshackle <keyword>hut</keyword>. An aged <keyword>witch</keyword> in rags is standing near the <keyword>hut</keyword>, stirring a large <keyword>cauldron</keyword>. Behind you to the <keyword>South</keyword>, the <keyword>swamp</keyword> bubbles away.",
     "imagePath": "/images/locations/swamp_hut.jpg",
     "assets": [
       "/images/assets/swamp_witch_hut.png",
@@ -47,5 +47,11 @@
       "/images/assets/swamp_witch.png"
       ,"/images/assets/swamp_hut_cauldron.png"
     ]
+  },
+  {
+    "locationId": 5,
+    "description": "Swamp Hut Interior",
+    "response": "You enter the witch's hut and look about you. You see...",
+    "imagePath": "/images/locations/swamp_hut_interior.jpg"
   }
 ]

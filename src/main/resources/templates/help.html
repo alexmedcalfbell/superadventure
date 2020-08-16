@@ -3,15 +3,14 @@
 <!--<div th:replace="fragments/general.html :: footer"></div>-->
 <head>
     <div th:replace="fragments/header :: includes"/>
-    <script src="/js/main.js"></script>
+    <!--    <script src="/js/help.js"></script>-->
     <link rel="stylesheet" href="/css/help.css"/>
 </head>
 <body>
 
 <!--Container-->
-<div class="container-fluid d-flex container-custom">
-
-    <div id="help-port" class="col h-100">
+<div class="container-fluid d-flex container-custom col-xl-12">
+    <div id="help-port" class="col-xl-5 h-100">
 
         <!--Navbar-->
         <div th:replace="fragments/navigation :: navbar"/>
@@ -28,14 +27,55 @@
         <div class="row h-50">
             <div class="col-sm-12">
                 <div class="jumbotron">
-                    <h1 class="display-4">HELP</h1>
-                    Instructions:
+                    <h1 class="display-5 help-title">Super Adventure > Help</h1>
+                    <p>
+                        Super Adventure is a natural language (illustrated) text adventure. That means you can move
+                        around and interact with a scene in a fairly 'natural' way.
+                        Commands are interpreted based on various predefined keywords, some of which are related to
+                        movement and others that link actions to targets.
+                    </p>
+                    <ul>
+                        <li> To move between locations, you might say:
+                            <kbd>Go to the north</kbd>
+                        </li>
+                        <li>
+                            To interact with something in a location you could say:
+                            <kbd>Talk to the witch</kbd>
+                        </li>
+                        <li>
+                            Though you could equally have said:
+                            <kbd>Talk witch</kbd> or <kbd>Talk to the evil looking witch over there</kbd>
+                        </li>
+                    </ul>
+
+                    <div>
+                        In the response window you will see certain words highlighted. These are keywords that you can
+                        use as hints on how to interact with the scene. For example:
+                        <div id="feedback">
+                            You stand before a vast lake. An ugly old
+                            <keyword>man</keyword>
+                            stands near the edge of the
+                            <keyword>water</keyword>
+                            . To the
+                            <keyword>South</keyword>
+                            lies the overgrown
+                            <keyworkd>path</keyworkd>
+                            .
+                        </div>
+                    </div>
                     <hr class="my-4">
 
-                    <p class="h6">Movement commands:</p>
+                    <p class="h6 help-title">Movement commands:</p>
+                    You can use these commands to move about between locations.
                     <ol class="list-unstyled">
                         <li th:each="item : ${movementActions}"><kbd th:text="${item}"></kbd></li>
                     </ol>
+
+                    <hr class="my-4">
+                    <p class="h6 help-title">Actions / Targets</p>
+                    Play around with commands as much as you can; you never know what you might be able to do!
+                    If you're really stuck type <kbd>help</kbd>
+
                 </div>
             </div>
         </div>

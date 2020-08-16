@@ -79,5 +79,14 @@
       "2",
       "9"
     ]
+  },
+  {
+    "description": "Location [Swamp hut] linked to location [Swamp Hut Interior] via direction [11]",
+    "currentLocationId": 4,
+    "destinationLocationId": 5,
+    "directionId": 11,
+    "directionIds": [
+      "11"
+    ]
   }
 ]

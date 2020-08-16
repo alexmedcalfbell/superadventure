@@ -4,7 +4,7 @@
     "locationId": 0,
     "actionId": 3,
     "targetId": 1,
-    "response": "You feel a warm sensation followed by intense shame.",
+    "response": "You feel a warm sensation followed by intense shame. The mountains look cold to the <keyword>North</keyword>",
     "imagePath": "/images/locations/start.jpg",
     "assets": [
       "/images/assets/player_pissed_self.png",
@@ -29,7 +29,7 @@
     "locationId": 4,
     "actionId": 1,
     "targetId": 3,
-    "response": "In a fit of unprovoked temper you set upon the aged witch with your trusty belt knife. The thought occurs that you were somewhat rash in your action, though what if she had turned you into a frog? Surveying the scene you notice the witch's hut and the bubbling cauldron. To the south lies the swamp.",
+    "response": "In a fit of unprovoked temper you set upon the aged <keyword>witch</keyword> with your trusty belt knife. The thought occurs that you were somewhat rash in your action, though what if she had turned you into a frog? Surveying the scene you notice the witch's <keyword>hut</keyword> and the bubbling <keyword>cauldron</keyword>. To the <keyword>South</keyword> lies the <keyword>swamp</keyword>.",
     "imagePath": "/images/locations/swamp_hut.jpg",
     "assets": [
       "/images/assets/swamp_witch_hut.png",
@@ -93,7 +93,7 @@
     "locationId": 4,
     "actionId": 5,
     "targetId": 6,
-    "response": "Fearing for your life, you run at the witch and with a flying jump, kick her heed right off.",
+    "response": "Fearing for your life, you run at the <keyword>witch</keyword> and with a flying jump, kick her heed right off.",
     "imagePath": "/images/locations/swamp_hut.jpg",
     "assets": [
       "/images/assets/swamp_witch_hut.png",

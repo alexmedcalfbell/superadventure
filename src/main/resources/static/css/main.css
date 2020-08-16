@@ -288,3 +288,27 @@ pre {
     max-width: 350px;
     margin: 1.75rem auto;
 }
+
+keyword {
+    /*color: #e83e8c;*/
+    color: #e8bb3c;
+    font-size: 1.3rem;
+}
+
+@font-face {
+    font-family: adventure;
+    /*src: url('/fonts/everest.ttf');*/
+    /*src: url('/fonts/Reactor.ttf');*/
+    src: url('/fonts/ZXOCR-B.ttf');
+}
+#feedback {
+    font-family: adventure;
+}
+
+/*'classic adventure style'*/
+#feedback {
+    background-color: #000000;
+    padding: 10px;
+    color: #2fb0bd;
+    border-radius: .25rem;
+}

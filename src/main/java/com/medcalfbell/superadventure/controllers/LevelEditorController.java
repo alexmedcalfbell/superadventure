@@ -76,14 +76,12 @@ public class LevelEditorController {
 
         final int locationId = levelEditorService.getNextLocationId();
 
-        final String description = String.format("Location [%s] added", request.getDescription());
-
         final String imagePath = String.format("/images/locations/%s", request.getImageName());
         //TODO: set /images/no-image.jpg if nothing set
 
         return new LocationResponse()
                 .setLocation(new Location().setLocationId(locationId))
-                .setDescription(description)
+                .setDescription(request.getDescription())
                 .setResponse(request.getResponse())
                 .setImagePath(imagePath);
     }
