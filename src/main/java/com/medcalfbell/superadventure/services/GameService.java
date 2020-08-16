@@ -135,11 +135,16 @@ public class GameService {
     private CommandResponse getWhere(String command) {
         Optional<Location> location = locationRepository.findByLocationId(currentLocation);
 
-        final String targets = targetRepository.findByTargetIdIn(
+        String targets = targetRepository.findByTargetIdIn(
                 locationActionTargetRepository.findAllByLocationId(currentLocation).stream()
                         .map(actionTarget -> actionTarget.getTargetId()).collect(Collectors.toList())
-        ).stream().map(target -> "<li><help>" + target.getDescription() + "</help></li>")
+        ).stream()
+                .map(target -> "<li><help>" + target.getDescription() + "</help></li>")
                 .collect(Collectors.joining());
+
+        if (StringUtils.isEmpty(targets)) {
+            targets = "<help>There's nothing to interact with here.</help>";
+        }
 
         final String locations = directionRepository.findByDirectionIdIn(
                 directionLocationRepository.findByCurrentLocationId(
