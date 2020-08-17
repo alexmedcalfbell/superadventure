@@ -3,6 +3,7 @@ package com.medcalfbell.superadventure.persistence.repositories;
 import com.medcalfbell.superadventure.persistence.DirectionLocation;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +17,7 @@ public interface DirectionLocationRepository extends JpaRepository<DirectionLoca
     Optional<DirectionLocation> findByCurrentLocationIdAndDestinationLocationIdAndDirectionId(int currentLocationId,
             int destinationLocationId, int directionId);
 
-    List<DirectionLocation> findByCurrentLocationId(int currentLocationId);
+    Set<DirectionLocation> findByCurrentLocationId(int currentLocationId);
 
     List<DirectionLocation> findByCurrentLocationIdAndDirectionIdIn(int currentLocationId, int... directionIds);
 

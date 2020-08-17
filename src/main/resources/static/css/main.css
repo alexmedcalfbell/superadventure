@@ -65,7 +65,8 @@ body {
 #game-port, #response-port {
     background-color: #5a6271;
     color: #ffffff;
-    font-size: 1.25rem;
+    /*font-size: 1.25rem;*/
+    font-size: 1rem;
 }
 
 #scene-image > img {
@@ -311,7 +312,7 @@ keyword {
 }
 
 /*'classic adventure style'*/
-make styles a user option
+/*make styles a user option*/
 /*#feedback {*/
 /*    background-color: #000000;*/
 /*    padding: 10px;*/

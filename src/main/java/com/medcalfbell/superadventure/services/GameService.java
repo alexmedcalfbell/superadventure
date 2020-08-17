@@ -86,11 +86,11 @@ public class GameService {
     public CommandResponse processCommand(String command) {
 
         //TODO: 'Help' is different from 'where am I'. help is more of a 'cheat', whereas where am I just describes the scene.
-        if (command.contains("help")) {
+        if (isHelp(command)) {
             return getHelp(command);
         }
 
-        if (command.contains("where")) {
+        if (isWhere(command)) {
             return getWhere(command);
         }
 
@@ -100,6 +100,20 @@ public class GameService {
 
         //Process action / target
         return processAction(command);
+    }
+
+    /**
+     * Returns true if command contains 'help' keyword.
+     */
+    private boolean isHelp(String command) {
+        return command.toLowerCase().contains("help");
+    }
+
+    /**
+     * Returns true if command contains 'where' keyword.
+     */
+    private boolean isWhere(String command) {
+        return command.toLowerCase().contains("where");
     }
 
     /**
@@ -147,9 +161,11 @@ public class GameService {
         }
 
         final String locations = directionRepository.findByDirectionIdIn(
-                directionLocationRepository.findByCurrentLocationId(
-                        currentLocation).stream()
-                        .map(d -> d.getDirectionId()).collect(Collectors.toList())).stream()
+                directionLocationRepository.findByCurrentLocationId(currentLocation).stream()
+                        .flatMap(d -> d.getDirectionIds().stream())
+                        .collect(Collectors.toList())
+
+        ).stream()
                 .map(d -> "<li><help>" + d.getDescription() + "</help></li>")
                 .collect(Collectors.joining());
 
