@@ -143,7 +143,7 @@ public class GameService {
                 .collect(Collectors.joining());
 
         if (StringUtils.isEmpty(targets)) {
-            targets = "<help>There's nothing to interact with here.</help>";
+            targets = "<help>Nothing to interact with here.</help>";
         }
 
         final String locations = directionRepository.findByDirectionIdIn(
@@ -288,7 +288,7 @@ public class GameService {
 
         final LocationActionTarget locationActionTarget = locationActionTargetRepository.findByLocationIdAndActionIdAndTargetId(
                 currentLocation, action.getActionId(), target.getTargetId())
-                .filter(l -> !l.getStateBlockers().stream().anyMatch(stateBlocker -> stateFlags.contains(stateBlocker)))
+                .filter(l -> !l.getBlockers().stream().anyMatch(stateBlocker -> stateFlags.contains(stateBlocker)))
                 .orElseThrow(() -> new TargetNotFoundException("You can't do that."));
 
 

@@ -46,7 +46,7 @@ body {
         position: absolute;
         z-index: 999;
         opacity: 0.92;
-        margin-top: 100px;
+        /*margin-top: 100px;*/
         margin-left: 220px;
     }
 
@@ -232,6 +232,10 @@ pre {
     height: 25%;
 }
 
+#assets{
+    padding:  10px;
+}
+
 .ontop {
     height: 100px;
     position: absolute;
@@ -307,14 +311,25 @@ keyword {
 }
 
 /*'classic adventure style'*/
-#feedback {
-    background-color: #000000;
-    padding: 10px;
-    color: #2fb0bd;
-    border-radius: .25rem;
-}
+make styles a user option
+/*#feedback {*/
+/*    background-color: #000000;*/
+/*    padding: 10px;*/
+/*    color: #2fb0bd;*/
+/*    border-radius: .25rem;*/
+/*}*/
 
 help {
     color: #e83e8c;
     font-size: 0.9rem;
+}
+
+.command-line-input {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    background-color: transparent;
+    border: 0px solid;
+    outline: none;
+    text-shadow: inherit;
 }

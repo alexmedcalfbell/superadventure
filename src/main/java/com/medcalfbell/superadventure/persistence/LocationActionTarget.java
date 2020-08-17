@@ -65,7 +65,7 @@ public class LocationActionTarget {
 
     @Column
     @ElementCollection
-    private List<String> stateBlockers;
+    private List<String> blockers;
 
 
     public int getId() {
@@ -158,12 +158,12 @@ public class LocationActionTarget {
         return this;
     }
 
-    public List<String> getStateBlockers() {
-        return stateBlockers;
+    public List<String> getBlockers() {
+        return blockers;
     }
 
-    public LocationActionTarget setStateBlockers(List<String> stateBlockers) {
-        this.stateBlockers = stateBlockers;
+    public LocationActionTarget setBlockers(List<String> blockers) {
+        this.blockers = blockers;
         return this;
     }
 }

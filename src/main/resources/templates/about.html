@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<div th:replace="fragments/general.html :: footer"></div>-->
+<head>
+    <div th:replace="fragments/header :: includes"/>
+    <!--    <script src="/js/help.js"></script>-->
+    <link rel="stylesheet" href="/css/help.css"/>
+</head>
+<body>
+
+<!--Container-->
+<div class="container-fluid d-flex container-custom col-xl-12">
+    <div id="help" class="col-xl-5 h-100">
+
+        <!--Navbar-->
+        <div th:replace="fragments/navigation :: navbar"/>
+
+        <!--Dashed divider-->
+        <div class="row h-50">
+            <div class="col">
+                <ul class="list-group">
+                </ul>
+            </div>
+        </div>
+
+        <!--Game splash / info-->
+        <div class="row h-50">
+            <div class="col-sm-12">
+                <div class="jumbotron help-port">
+                    <h1 class="display-5 help-title">Super Adventure > About</h1>
+                    <br>
+                    <p class="h6 help-title">Author:</p>Alexander Medcalf-Bell
+                    <br>
+                    <br>
+                    <p class="h6 help-title">About:</p>
+                    <p>
+                        Super Adventure is a simple text adventure game that was created to serve as an example for my
+                        nephew Elliot.
+                    </p>
+                    <br>
+
+                    <p>Currently lacking in many complex features.</p>
+                    <br>
+
+                    <p class="h6 help-title">Todo list:</p>
+                    <ul>
+                        <li>Player health</li>
+                        <li>Inventory</li>
+                        <li>Refactor data structure</li>
+                        <li>Better graphics</li>
+                        <li>More content</li>
+                        <li>Code cleanup</li>
+                        <li>Animations</li>
+                        <li>Target examination</li>
+                        <li>Target/Direction barriers</li>
+                        <li>Code documentation</li>
+                        <li>Save/Load game</li>
+                    </ul>
+
+                    <p class="h6 help-title">Credits:</p>
+                    Damien Guard for the 8-bit fonts:
+                    <a href="https://damieng.com/typography/zx-origins/">zx-origins</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</div>
+</body>
+</html>

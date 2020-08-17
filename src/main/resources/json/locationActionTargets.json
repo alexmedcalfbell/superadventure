@@ -7,7 +7,7 @@
     "response": "You feel a warm sensation followed by intense shame. The mountains look cold to the <keyword>North</keyword>",
     "imagePath": "/images/locations/start.jpg",
     "assets": [
-      "/images/assets/player_pissed_self.png",
+      "/images/assets/start_pissed_self.gif",
       "/images/assets/house.png"
     ],
     "fatal": false
@@ -20,7 +20,7 @@
     "response": "You drink the swamp water, causing your guts to explode. You chose poorly..",
     "imagePath": "/images/locations/swamp.jpg",
     "assets": [
-      "/images/assets/swamp_player_explode.png"
+      "/images/assets/swamp_player_explode.gif"
     ],
     "fatal": true
   },
@@ -38,7 +38,7 @@
     ],
     "fatal": false,
     "stateFlag": "WITCH_DEAD",
-    "stateBlockers": [
+    "blockers": [
       "WITCH_DEAD"
     ]
   },
@@ -84,7 +84,7 @@
       "/images/assets/swamp_hut_talk_witch.png"
     ],
     "fatal": true,
-    "stateBlockers": [
+    "blockers": [
       "WITCH_DEAD"
     ]
   },
@@ -102,7 +102,7 @@
     ],
     "fatal": false,
     "stateFlag": "WITCH_DEAD",
-    "stateBlockers": [
+    "blockers": [
       "WITCH_DEAD"
     ]
   }
