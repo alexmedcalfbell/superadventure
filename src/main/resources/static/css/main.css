@@ -300,9 +300,10 @@ pre {
 }
 
 keyword {
-    /*color: #e83e8c;*/
-    color: #e8bb3c;
-    font-size: 1.3rem;
+    color: #e83e8c;
+    /*color: #e8bb3c;*/
+    /*font-size: 1.3rem;*/
+    /*font-size: 1.1rem;*/
 }
 
 @font-face {
@@ -318,12 +319,12 @@ keyword {
 
 /*'classic adventure style'*/
 /*make styles a user option*/
-/*#feedback {*/
-/*    background-color: #000000;*/
-/*    padding: 10px;*/
-/*    color: #2fb0bd;*/
-/*    border-radius: .25rem;*/
-/*}*/
+#feedback {
+    background-color: #000000;
+    padding: 10px;
+    color: #2fb0bd;
+    border-radius: .25rem;
+}
 
 help {
     color: #e83e8c;

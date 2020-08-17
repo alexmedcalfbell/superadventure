@@ -170,7 +170,7 @@ public class GameService {
                 .collect(Collectors.joining());
 
         String response = String.format(
-                "You're at the <help>%s</help>. You can see: <ul>%s</ul> You can go: <ul>%s</ul>",
+                "You're at the <help>%s</help>. You can see: <ul>%s</ul> You can move: <ul>%s</ul>",
                 location.get().getDescription(),
                 targets,
                 locations);
