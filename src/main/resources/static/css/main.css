@@ -233,8 +233,8 @@ pre {
     height: 25%;
 }
 
-#assets{
-    padding:  10px;
+#assets {
+    padding: 10px;
 }
 
 .ontop {
@@ -292,6 +292,11 @@ pre {
 .modal-dialog {
     max-width: 350px;
     margin: 1.75rem auto;
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.7);
+    width: 75%;
 }
 
 keyword {
