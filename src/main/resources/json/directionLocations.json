@@ -1,6 +1,6 @@
 [
   {
-    "description": "Location [Start area] linked to location [Large Mountains] with directions [1,7]",
+    "description": "Location [home] linked to location [Large Mountains] with directions [1,7]",
     "currentLocationId": 0,
     "destinationLocationId": 1,
     "directionId": 1,
@@ -10,7 +10,7 @@
     ]
   },
   {
-    "description": "Location [Large Mountains] linked to location [Start area] with directions [2,8]",
+    "description": "Location [Large Mountains] linked to location [home] with directions [2,8]",
     "currentLocationId": 1,
     "destinationLocationId": 0,
     "directionId": 2,
