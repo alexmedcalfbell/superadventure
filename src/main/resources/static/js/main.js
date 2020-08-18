@@ -32,7 +32,7 @@ $(document).ready(function () {
 
     // Reset the game
     $("#start-again").on("click", function () {
-        $('#death-modal').modal('hide');
+        $('#game-over-bar').fadeOut();
         $('#history').html('');
         $('#action').attr('disabled', false);
         startGame();
@@ -95,7 +95,7 @@ function postAction() {
                 $('#feedback').html(data.response);
 
                 //Set scene image
-                if(data.imagePath) {
+                if (data.imagePath) {
                     $('#scene-image').html(
                         '<img src="' + data.imagePath + '" alt="Location image" class="img-fluid"/>'
                     );
@@ -107,7 +107,7 @@ function postAction() {
 
                 if (data.fatal === true) {
                     $('#action').attr('disabled', true);
-                    $('#death-modal').modal('show');
+                    $('#game-over-bar').fadeIn();
                 }
 
                 //Update command history

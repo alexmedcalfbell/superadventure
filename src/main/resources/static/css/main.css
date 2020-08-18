@@ -340,3 +340,17 @@ help {
     outline: none;
     text-shadow: inherit;
 }
+
+#game-over-bar {
+    background-color: #b54646;
+    text-align: right;
+    display: none;
+    position: absolute;
+    width: 100%;
+}
+
+#game-over-bar span {
+    padding-right: 5px;
+    color: #ffffff;
+    font-weight: 500;
+}
