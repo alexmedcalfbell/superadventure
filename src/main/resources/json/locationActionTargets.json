@@ -34,7 +34,7 @@
     "assets": [
       "/images/assets/swamp_witch_hut.png",
       "/images/assets/swamp_hut_cauldron.png",
-      "/images/assets/swamp_hut_stab_witch.png"
+      "/images/assets/swamp_hut_stab_witch.gif"
     ],
     "fatal": false,
     "stateFlag": "WITCH_DEAD",
