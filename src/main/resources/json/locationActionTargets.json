@@ -51,7 +51,6 @@
     "imagePath": "/images/locations/swamp_hut.jpg",
     "assets": [
       "/images/assets/swamp_witch_hut.png",
-      "/images/assets/swamp_witch.png",
       "/images/assets/swamp_hut_drink_cauldron.png"
     ],
     "fatal": true
