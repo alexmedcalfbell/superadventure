@@ -96,7 +96,14 @@ body {
 .pad-image {
     opacity: 0;
 }
-
+.ontop {
+    height: 100px;
+    position: absolute;
+    width: auto;
+}
+.scene-asset {
+    position: absolute;
+}
 figure {
     margin: 0;
 }

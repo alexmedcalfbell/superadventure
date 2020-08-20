@@ -81,12 +81,23 @@
     ]
   },
   {
-    "description": "Location [Swamp hut] linked to location [Swamp Hut Interior] via direction [11]",
+    "description": "Location [Swamp hut] linked to location [Swamp Hut Interior] via directions [1,11]",
     "currentLocationId": 4,
     "destinationLocationId": 5,
     "directionId": 11,
     "directionIds": [
+      "1",
       "11"
+    ]
+  },
+  {
+    "description": "Location [Swamp Hut Interior] linked to location [Swamp hut] via directions [2]",
+    "currentLocationId": 5,
+    "destinationLocationId": 4,
+    "directionId": 2,
+    "directionIds": [
+      "2",
+      "9"
     ]
   }
 ]

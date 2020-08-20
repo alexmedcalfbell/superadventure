@@ -111,15 +111,37 @@ function getLinkedLocations() {
 
             setPadImages();
 
-            // $(function () {
-            //     $('[data-toggle="popover"]').popover({ trigger: "hover" });
-            // });
+            //Set the scene assets
+            setSceneAssets(data.currentLocation, 'current');
+            setSceneAssets(data.locationNorth, 'north');
+            setSceneAssets(data.locationSouth, 'south');
+            setSceneAssets(data.locationEast, 'east');
+            setSceneAssets(data.locationWest, 'west');
+
 
         },
         error: function (error) {
             $('#feedback').html(error.responseText);
         }
     });
+}
+
+function setSceneAssets(data, direction) {
+
+    //Reset assets
+    $('#assets-' + direction).html('');
+
+    if (data) {
+        let assets = '';
+        data.assets.forEach((asset, key, arr) => {
+            if (Object.is(arr.length - 1, key)) {
+                assets += '<img src="' + asset + '" class="img-fluid"/>'
+            } else {
+                assets += '<img src="' + asset + '" class="img-fluid scene-asset"/>';
+            }
+        });
+        $('#assets-' + direction).html(assets);
+    }
 }
 
 function syntaxHighlight(json) {
@@ -455,7 +477,7 @@ function setSceneImage(location, direction, actionTargets) {
     let imagePath = location !== null ? location.imagePath : '/images/no-image.jpg';
 
     $('#' + direction + '-image').html(
-        '<img src="' + imagePath + '" alt="Location image" class="img-fluid card__image"/>'
+        '<img src="' + imagePath + '" alt="Location image" class="img-fluid"/>'
     ).fadeIn();
 
     setSceneImageDescription(location, direction, actionTargets);

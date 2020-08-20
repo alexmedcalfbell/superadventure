@@ -9,16 +9,16 @@ import com.medcalfbell.superadventure.exceptions.DuplicateTargetException;
 import com.medcalfbell.superadventure.exceptions.LocationNotFoundException;
 import com.medcalfbell.superadventure.exceptions.TargetNotFoundException;
 import com.medcalfbell.superadventure.persistence.Action;
-import com.medcalfbell.superadventure.persistence.repositories.ActionRepository;
 import com.medcalfbell.superadventure.persistence.Direction;
 import com.medcalfbell.superadventure.persistence.DirectionLocation;
-import com.medcalfbell.superadventure.persistence.repositories.DirectionLocationRepository;
-import com.medcalfbell.superadventure.persistence.repositories.DirectionRepository;
 import com.medcalfbell.superadventure.persistence.Location;
 import com.medcalfbell.superadventure.persistence.LocationActionTarget;
+import com.medcalfbell.superadventure.persistence.Target;
+import com.medcalfbell.superadventure.persistence.repositories.ActionRepository;
+import com.medcalfbell.superadventure.persistence.repositories.DirectionLocationRepository;
+import com.medcalfbell.superadventure.persistence.repositories.DirectionRepository;
 import com.medcalfbell.superadventure.persistence.repositories.LocationActionTargetRepository;
 import com.medcalfbell.superadventure.persistence.repositories.LocationRepository;
-import com.medcalfbell.superadventure.persistence.Target;
 import com.medcalfbell.superadventure.persistence.repositories.TargetRepository;
 import java.util.List;
 import org.slf4j.Logger;
@@ -169,8 +169,8 @@ public class LevelEditorService {
         });
     }
 
-    public List<DirectionLocation> getPrimaryDirectionLocationsForCurrentLocation(int currentLocationId) {
-        return directionLocationRepository.findByCurrentLocationIdAndDirectionIdIn(currentLocationId, 1, 2, 3, 4);
+    public List<DirectionLocation> getDirectionLocationsForCurrentLocation(int currentLocationId) {
+        return directionLocationRepository.findByCurrentLocationId(currentLocationId);
 
     }
 }
