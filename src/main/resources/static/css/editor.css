@@ -65,6 +65,7 @@ body {
     background-color: #5a6271;
     color: #ffffff;
     font-size: 1.25rem;
+    padding-left: 10px;
 }
 
 #scene-image > img {
@@ -76,7 +77,7 @@ body {
 
 #scene-images {
     background-color: #343435;
-    overflow: auto;
+    /*overflow: auto;*/
     max-width: fit-content;
     text-align: center;
     border-left: solid 25px #4c4c4c;
@@ -96,14 +97,17 @@ body {
 .pad-image {
     opacity: 0;
 }
+
 .ontop {
     height: 100px;
     position: absolute;
     width: auto;
 }
+
 .scene-asset {
     position: absolute;
 }
+
 figure {
     margin: 0;
 }
@@ -135,9 +139,11 @@ figcaption {
 .list-group::-webkit-scrollbar {
     width: 9px;
 }
+
 .list-group::-webkit-scrollbar-track {
     background: #757272;
 }
+
 .list-group::-webkit-scrollbar-thumb {
     background-color: #d39e00;
 }
@@ -145,9 +151,11 @@ figcaption {
 pre::-webkit-scrollbar {
     height: 15px;
 }
+
 pre::-webkit-scrollbar-track {
     background: #757272;
 }
+
 pre::-webkit-scrollbar-thumb {
     background-color: #d39e00;
 }
@@ -239,10 +247,12 @@ pre::-webkit-scrollbar-thumb {
 .nav-tabs .nav-link.active {
     /*border-bottom: none;*/
 }
+
 .popover {
     max-width: 550px;
 }
-.popover-body ul{
+
+.popover-body ul {
     padding-left: 1.2rem;
 }
 
