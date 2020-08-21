@@ -78,6 +78,7 @@ public class GameService {
      */
     public void reset() {
         currentLocation = DEFAULT_LOCATION;
+        locationHistory.clear();
         locationStateRepository.deleteAll();
     }
 
