@@ -10,6 +10,10 @@ $(document).ready(function () {
     });
 
     //Splash screen
+    //Automatically hide the splash screen after 4.5 seconds.
+    setTimeout(function() {
+        closeSplashScreen();
+    }, 4500);
     $("body").on("click", function () {
         closeSplashScreen();
     });
