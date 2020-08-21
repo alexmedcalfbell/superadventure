@@ -5,7 +5,7 @@
     "actionId": 3,
     "targetId": 1,
     "response": "You feel a warm sensation followed by intense shame. The mountains look cold to the <keyword>North</keyword>",
-    "imagePath": "/images/locations/start.webp",
+    "imagePath": "/images/locations/start.jpg",
     "assets": [
       "/images/assets/start_pissed_self.gif",
       "/images/assets/house.png"
@@ -18,7 +18,7 @@
     "actionId": 4,
     "targetId": 4,
     "response": "You drink the swamp water, causing your guts to explode. You chose poorly..",
-    "imagePath": "/images/locations/swamp.webp",
+    "imagePath": "/images/locations/swamp.jpg",
     "assets": [
       "/images/assets/swamp_player_explode.gif"
     ],
@@ -30,7 +30,7 @@
     "actionId": 1,
     "targetId": 3,
     "response": "In a fit of unprovoked temper you set upon the aged <keyword>witch</keyword> with your trusty belt knife. The thought occurs that you were somewhat rash in your action, though what if she had turned you into a frog? Surveying the scene you notice the witch's <keyword>hut</keyword> and the bubbling <keyword>cauldron</keyword>. To the <keyword>South</keyword> lies the <keyword>swamp</keyword>.",
-    "imagePath": "/images/locations/swamp_hut.webp",
+    "imagePath": "/images/locations/swamp_hut.jpg",
     "assets": [
       "/images/assets/swamp_witch_hut.png",
       "/images/assets/swamp_hut_cauldron.png",
@@ -48,7 +48,7 @@
     "actionId": 4,
     "targetId": 5,
     "response": "Despite your better judgement, you tip the contents of the cauldron into your mouth. Regret is instant. Whatever the witch was brewing, it makes a good job of melting away your frail human form.",
-    "imagePath": "/images/locations/swamp_hut.webp",
+    "imagePath": "/images/locations/swamp_hut.jpg",
     "assets": [
       "/images/assets/swamp_witch_hut.png",
       "/images/assets/swamp_hut_drink_cauldron.png"
@@ -61,7 +61,7 @@
     "actionId": 1,
     "targetId": 5,
     "response": "Although fairly effective against flesh, your belt knife does little more than score a line in the cauldron.",
-    "imagePath": "/images/locations/swamp_hut.webp",
+    "imagePath": "/images/locations/swamp_hut.jpg",
     "assets": [
       "/images/assets/swamp_witch_hut.png",
       "/images/assets/swamp_hut_cauldron.png",
@@ -76,7 +76,7 @@
     "actionId": 0,
     "targetId": 3,
     "response": "The witch cackles at you, raising the wand in her hand. You feel a sensation of tightness and a sudden urge to eat flies. Welcome to your new life as a frog.",
-    "imagePath": "/images/locations/swamp_hut.webp",
+    "imagePath": "/images/locations/swamp_hut.jpg",
     "assets": [
       "/images/assets/swamp_witch_hut.png",
       "/images/assets/swamp_hut_cauldron.png",
@@ -93,7 +93,7 @@
     "actionId": 5,
     "targetId": 6,
     "response": "Fearing for your life, you run at the <keyword>witch</keyword> and with a flying jump, kick her heed right off.",
-    "imagePath": "/images/locations/swamp_hut.webp",
+    "imagePath": "/images/locations/swamp_hut.jpg",
     "assets": [
       "/images/assets/swamp_witch_hut.png",
       "/images/assets/swamp_hut_cauldron.png",
