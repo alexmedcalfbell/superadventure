@@ -22,13 +22,13 @@ public class LocationState {
     private int id;
 
     @Column
-    private int locationId;
+    private String locationId;
 
     @Column
-    private int actionId;
+    private String actionId;
 
     @Column
-    private int targetId;
+    private String targetId;
 
     @Column
     private String stateFlag;
@@ -42,29 +42,29 @@ public class LocationState {
         return this;
     }
 
-    public int getLocationId() {
+    public String getLocationId() {
         return locationId;
     }
 
-    public LocationState setLocationId(int locationId) {
+    public LocationState setLocationId(String locationId) {
         this.locationId = locationId;
         return this;
     }
 
-    public int getActionId() {
+    public String getActionId() {
         return actionId;
     }
 
-    public LocationState setActionId(int actionId) {
+    public LocationState setActionId(String actionId) {
         this.actionId = actionId;
         return this;
     }
 
-    public int getTargetId() {
+    public String getTargetId() {
         return targetId;
     }
 
-    public LocationState setTargetId(int targetId) {
+    public LocationState setTargetId(String targetId) {
         this.targetId = targetId;
         return this;
     }

@@ -1,103 +1,94 @@
 [
   {
     "description": "Location [home] linked to location [Large Mountains] with directions [1,7]",
-    "currentLocationId": 0,
-    "destinationLocationId": 1,
-    "directionId": 1,
+    "currentLocationId": "home",
+    "destinationLocationId": "mountains",
     "directionIds": [
-      "1",
-      "7"
+      "north",
+      "mountains"
     ]
   },
   {
     "description": "Location [Large Mountains] linked to location [home] with directions [2,8]",
-    "currentLocationId": 1,
-    "destinationLocationId": 0,
-    "directionId": 2,
+    "currentLocationId": "mountains",
+    "destinationLocationId": "home",
     "directionIds": [
-      "2",
-      "8"
+      "south",
+      "home"
     ]
   },
   {
     "description": "Location [Large Mountains] linked to location [Malodorous swamp] with directions [1,9]",
-    "currentLocationId": 1,
-    "destinationLocationId": 2,
-    "directionId": 1,
+    "currentLocationId": "mountains",
+    "destinationLocationId": "swamp",
     "directionIds": [
-      "1",
-      "9"
+      "north",
+      "swamp"
     ]
   },
   {
     "description": "Location [Large Mountains] linked to location [Cave with large shit] with directions [3,5]",
-    "currentLocationId": 1,
-    "destinationLocationId": 3,
-    "directionId": 3,
+    "currentLocationId": "mountains",
+    "destinationLocationId": "cave",
     "directionIds": [
-      "3",
-      "5"
+      "east",
+      "cave"
     ]
   },
   {
     "description": "Location [Cave with large shit] linked to location [Large Mountains] with directions [4,7]",
-    "currentLocationId": 3,
-    "destinationLocationId": 1,
-    "directionId": 4,
+    "currentLocationId": "cave",
+    "destinationLocationId": "home",
     "directionIds": [
-      "4",
-      "7"
+      "west",
+      "mountains"
     ]
   },
   {
     "description": "Location [Malodorous swamp] linked to location [Large Mountains] with directions [2,7]",
-    "currentLocationId": 2,
-    "destinationLocationId": 1,
+    "currentLocationId": "swamp",
+    "destinationLocationId": "home",
     "directionId": 2,
     "directionIds": [
-      "2",
-      "7"
+      "south",
+      "mountains"
     ]
   },
   {
     "description": "Location [Malodorous swamp] linked to location [Swamp hut] via directions [1,9,10]",
-    "currentLocationId": 2,
-    "destinationLocationId": 4,
-    "directionId": 1,
+    "currentLocationId": "swamp",
+    "destinationLocationId": "swamp-island",
     "directionIds": [
-      "1",
-      "9",
-      "10"
+      "north",
+      "swamp",
+      "bridge"
     ]
   },
   {
     "description": "Location [Swamp hut] linked to location [Malodorous swamp] via directions [2,9]",
-    "currentLocationId": 4,
-    "destinationLocationId": 2,
-    "directionId": 2,
+    "currentLocationId": "swamp-island",
+    "destinationLocationId": "swamp",
     "directionIds": [
-      "2",
-      "9"
+      "south",
+      "swamp"
     ]
   },
   {
     "description": "Location [Swamp hut] linked to location [Swamp Hut Interior] via directions [1,11]",
-    "currentLocationId": 4,
-    "destinationLocationId": 5,
-    "directionId": 11,
+    "currentLocationId": "swamp-island",
+    "destinationLocationId": "swamp_hut",
     "directionIds": [
-      "1",
-      "11"
+      "north",
+      "hut"
     ]
   },
   {
     "description": "Location [Swamp Hut Interior] linked to location [Swamp hut] via directions [2]",
-    "currentLocationId": 5,
-    "destinationLocationId": 4,
-    "directionId": 2,
+    "currentLocationId": "swamp_hut",
+    "destinationLocationId": "swamp-island",
     "directionIds": [
-      "2",
-      "9"
+      "south",
+      "swamp"
     ]
   }
 ]

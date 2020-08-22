@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 //TODO: Global jackson config
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -28,18 +28,14 @@ public class DirectionLocation {
     private String description;
 
     @Column
-    private int currentLocationId;
+    private String currentLocationId;
 
     @Column
-    private int destinationLocationId;
+    private String destinationLocationId;
 
-    @Column
-    private int directionId;
-
-    //TODO: Maybe just use the description rather than the id
     @Column
     @ElementCollection
-    private List<Integer> directionIds;
+    private List<String> directionIds;
 
 
     public int getId() {
@@ -51,29 +47,20 @@ public class DirectionLocation {
         return this;
     }
 
-    public int getDirectionId() {
-        return directionId;
-    }
-
-    public DirectionLocation setDirectionId(int directionId) {
-        this.directionId = directionId;
-        return this;
-    }
-
-    public int getCurrentLocationId() {
+    public String getCurrentLocationId() {
         return currentLocationId;
     }
 
-    public DirectionLocation setCurrentLocationId(int currentLocationId) {
+    public DirectionLocation setCurrentLocationId(String currentLocationId) {
         this.currentLocationId = currentLocationId;
         return this;
     }
 
-    public int getDestinationLocationId() {
+    public String getDestinationLocationId() {
         return destinationLocationId;
     }
 
-    public DirectionLocation setDestinationLocationId(int destinationLocationId) {
+    public DirectionLocation setDestinationLocationId(String destinationLocationId) {
         this.destinationLocationId = destinationLocationId;
         return this;
     }
@@ -87,12 +74,23 @@ public class DirectionLocation {
         return this;
     }
 
-    public List<Integer> getDirectionIds() {
+    public List<String> getDirectionIds() {
         return directionIds;
     }
 
-    public DirectionLocation setDirectionIds(List<Integer> directionIds) {
+    public DirectionLocation setDirectionIds(List<String> directionIds) {
         this.directionIds = directionIds;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("description", description)
+                .append("currentLocationId", currentLocationId)
+                .append("destinationLocationId", destinationLocationId)
+                .append("directionIds", directionIds)
+                .toString();
     }
 }

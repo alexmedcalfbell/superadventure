@@ -34,8 +34,8 @@
                     <select class="form-control custom-select custom-select-md mb-3" name="current-location"
                             id="current-location">
                         <option th:each="location : ${locations}"
-                                th:value="${location.getLocationId()}"
-                                th:text="${location.getDescription() + ' (' + location.getLocationId() +')'}">
+                                th:value="${location.getDescription()}"
+                                th:text="${location.getDescription()}">
                         </option>
                     </select>
 
@@ -90,8 +90,8 @@
                                 <select class="form-control custom-select custom-select-md mb-3"
                                         name="destination-location" id="destination-location">
                                     <option th:each="location : ${locations}"
-                                            th:value="${location.getLocationId()}"
-                                            th:text="${location.getDescription() + ' (' + location.getLocationId() +')'}">
+                                            th:value="${location.getDescription()}"
+                                            th:text="${location.getDescription()}">
                                     </option>
                                 </select>
 
@@ -100,8 +100,8 @@
                                 <select class="form-control custom-select custom-select-md mb-3" name="direction"
                                         id="direction">
                                     <option th:each="direction : ${directions}"
-                                            th:value="${direction.getDirectionId()}"
-                                            th:text="${direction.getDescription()+ ' (' + direction.getDirectionId() +')'}">
+                                            th:value="${direction.getDescription()}"
+                                            th:text="${direction.getDescription()}">
                                     </option>
                                 </select>
                             </div>
@@ -120,8 +120,8 @@
                                 <select class="form-control custom-select custom-select-md mb-3" name="action"
                                         id="action">
                                     <option th:each="action : ${actions}"
-                                            th:value="${action.getActionId()}"
-                                            th:text="${action.getDescription() + ' (' + action.getActionId() +')'}">
+                                            th:value="${action.getDescription()}"
+                                            th:text="${action.getDescription()}">
                                     </option>
                                 </select>
 
@@ -129,8 +129,8 @@
                                 <select class="form-control custom-select custom-select-md mb-3" name="target"
                                         id="target">
                                     <option th:each="target : ${targets}"
-                                            th:value="${target.getTargetId()}"
-                                            th:text="${target.getDescription() + ' (' + target.getTargetId() +')'}">
+                                            th:value="${target.getDescription()}"
+                                            th:text="${target.getDescription()}">
                                     </option>
                                 </select>
 

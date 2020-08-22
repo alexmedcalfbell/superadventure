@@ -4,12 +4,16 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Stores the mapping between {@link Location}, {@link Action} and {@link Target}. This is used to determine the result
@@ -39,16 +43,17 @@ public class LocationActionTarget {
     private String description;
 
     @Column
-    private String imagePath;
+    private String locationId;
 
     @Column
-    private int locationId;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "locationActionTarget")
+    private List<Action> actions;
 
     @Column
-    private int actionId;
-
-    @Column
-    private int targetId;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "locationActionTarget")
+    private List<Target> targets;
 
     @Column(columnDefinition = "text")
     private String response;
@@ -86,39 +91,30 @@ public class LocationActionTarget {
         return this;
     }
 
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public LocationActionTarget setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-        return this;
-    }
-
-    public int getLocationId() {
+    public String getLocationId() {
         return locationId;
     }
 
-    public LocationActionTarget setLocationId(int locationId) {
+    public LocationActionTarget setLocationId(String locationId) {
         this.locationId = locationId;
         return this;
     }
 
-    public int getActionId() {
-        return actionId;
+    public List<Target> getTargets() {
+        return targets;
     }
 
-    public LocationActionTarget setActionId(int actionId) {
-        this.actionId = actionId;
+    public LocationActionTarget setTargets(List<Target> targets) {
+        this.targets = targets;
         return this;
     }
 
-    public int getTargetId() {
-        return targetId;
+    public List<Action> getActions() {
+        return actions;
     }
 
-    public LocationActionTarget setTargetId(int targetId) {
-        this.targetId = targetId;
+    public LocationActionTarget setActions(List<Action> actions) {
+        this.actions = actions;
         return this;
     }
 
@@ -165,5 +161,21 @@ public class LocationActionTarget {
     public LocationActionTarget setBlockers(List<String> blockers) {
         this.blockers = blockers;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("description", description)
+                .append("locationId", locationId)
+                .append("actions", actions)
+                .append("targets", targets)
+                .append("response", response)
+                .append("fatal", fatal)
+                .append("assets", assets)
+                .append("stateFlag", stateFlag)
+                .append("blockers", blockers)
+                .toString();
     }
 }

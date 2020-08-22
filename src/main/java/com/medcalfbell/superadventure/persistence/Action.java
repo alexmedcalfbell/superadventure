@@ -7,22 +7,33 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
 @Table(name = "action")
 public class Action {
+
+    public Action() {
+    }
+
+    public Action(String description) {
+        this.description = description;
+    }
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @JsonIgnore
     private int id;
 
-    @Column
-    private int actionId;
-
     @Column(columnDefinition = "text")
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "locationActionTarget")
+    private LocationActionTarget locationActionTarget;
 
     public int getId() {
         return id;
@@ -33,12 +44,13 @@ public class Action {
         return this;
     }
 
-    public int getActionId() {
-        return actionId;
+    public LocationActionTarget getLocationActionTarget() {
+        return locationActionTarget;
     }
 
-    public Action setActionId(int actionId) {
-        this.actionId = actionId;
+    public Action setLocationActionTarget(
+            LocationActionTarget locationActionTarget) {
+        this.locationActionTarget = locationActionTarget;
         return this;
     }
 
@@ -49,5 +61,14 @@ public class Action {
     public Action setDescription(String description) {
         this.description = description;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("description", description)
+                .append("locationActionTarget", locationActionTarget)
+                .toString();
     }
 }

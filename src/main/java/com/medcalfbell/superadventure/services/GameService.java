@@ -38,9 +38,9 @@ public class GameService {
 
     private static final Logger logger = LoggerFactory.getLogger(GameService.class);
 
-    public static final int DEFAULT_LOCATION = 0;
-    private int currentLocation = DEFAULT_LOCATION;
-    private List<Integer> locationHistory = new ArrayList<>();
+    public static final String DEFAULT_LOCATION = "home";
+    private String currentLocation = DEFAULT_LOCATION;
+    private List<String> locationHistory = new ArrayList<>();
 
     private LocationRepository locationRepository;
     private TargetRepository targetRepository;
@@ -146,12 +146,13 @@ public class GameService {
      * @return {@link CommandResponse}
      */
     private CommandResponse getWhere(String command) {
-        Optional<Location> location = locationRepository.findByLocationId(currentLocation);
+        Optional<Location> location = locationRepository.findByDescription(currentLocation);
 
-        String targets = targetRepository.findByTargetIdIn(
+        String targets = targetRepository.findByDescriptionIn(
                 locationActionTargetRepository.findAllByLocationId(currentLocation).stream()
-                        .map(actionTarget -> actionTarget.getTargetId()).collect(Collectors.toList())
-        ).stream()
+                        .flatMap(actionTarget -> actionTarget.getTargets().stream())
+                        .map(target -> target.getDescription())
+                        .collect(Collectors.toList())).stream()
                 .map(target -> "<li><help>" + target.getDescription() + "</help></li>")
                 .collect(Collectors.joining());
 
@@ -159,17 +160,15 @@ public class GameService {
             targets = "<help>Nothing to interact with here.</help>";
         }
 
-        final String locations = directionRepository.findByDirectionIdIn(
+        final String locations = directionRepository.findByDescriptionIn(
                 directionLocationRepository.findByCurrentLocationId(currentLocation).stream()
                         .flatMap(d -> d.getDirectionIds().stream())
-                        .collect(Collectors.toList())
-
-        ).stream()
+                        .collect(Collectors.toList())).stream()
                 .map(d -> "<li><help>" + d.getDescription() + "</help></li>")
                 .collect(Collectors.joining());
 
-        String response = String.format(
-                "You're at the <help>%s</help>. You can see: <ul>%s</ul> You can move: <ul>%s</ul>",
+        final String response = String.format(
+                "You're at: <help>%s</help>. You can see: <ul>%s</ul> You can move: <ul>%s</ul>",
                 location.get().getDescription(),
                 targets,
                 locations);
@@ -196,7 +195,6 @@ public class GameService {
                 .findFirst()
                 .map(direction -> {
                     final Location location = processDirection(direction);
-
                     //Restore assets associated with this location/state (if any).
                     setStateAssets(location);
 
@@ -218,9 +216,9 @@ public class GameService {
      */
     private void setStateAssets(Location location) {
 
-        final List<String> assets = locationStateRepository.findByLocationId(location.getLocationId())
+        final List<String> assets = locationStateRepository.findByLocationId(location.getDescription())
                 .stream()
-                .map(l -> locationActionTargetRepository.findByLocationIdAndActionIdAndTargetId(
+                .map(l -> locationActionTargetRepository.findByLocationIdAndActionsDescriptionAndTargetsDescription(
                         l.getLocationId(), l.getActionId(), l.getTargetId()))
                 .map(Optional::get)
                 .map(l -> l.getAssets())
@@ -237,16 +235,16 @@ public class GameService {
     private Location processDirection(Direction direction) {
 
         logger.info("Processing direction [{}] for location [{}] and direction id [{}]", direction.getDescription(),
-                currentLocation, direction.getDirectionId());
+                currentLocation, direction.getDescription());
 
         if (isGoBack(direction) && !locationHistory.isEmpty()) {
             return goBack();
         }
 
         return directionLocationRepository.findByCurrentLocationIdAndDirectionIdsIn(currentLocation,
-                direction.getDirectionId())
+                direction.getDescription())
                 .map(directionLocation -> setLocationHistory(directionLocation))
-                .map(c -> locationRepository.findByLocationId(currentLocation))
+                .map(c -> locationRepository.findByDescription(currentLocation))
                 .map(Optional::get)
                 .orElseThrow(() -> new DirectionNotFoundException());
     }
@@ -255,11 +253,11 @@ public class GameService {
      * Returns the player to the previously recorded location, for as many locations that have been stored.
      */
     private Location goBack() {
-        final int previousLocation = locationHistory.get(locationHistory.size() - 1);
+        final String previousLocation = locationHistory.get(locationHistory.size() - 1);
         locationHistory.remove(locationHistory.size() - 1);
         currentLocation = previousLocation;
 
-        return locationRepository.findByLocationId(previousLocation)
+        return locationRepository.findByDescription(previousLocation)
                 .orElseThrow(() -> new LocationNotFoundException("You can't go that way."));
     }
 
@@ -289,10 +287,9 @@ public class GameService {
                 .findFirst()
                 .orElseThrow(() -> new TargetNotFoundException("I don't understand [" + command + "]."));
 
-
         //Check if the player already did an action and prevent it from being repeated.
-        locationStateRepository.findByLocationIdAndTargetIdAndActionId(currentLocation, target.getTargetId(),
-                action.getActionId()).ifPresent(state -> {
+        locationStateRepository.findByLocationIdAndTargetIdAndActionId(currentLocation, target.getDescription(),
+                action.getDescription()).ifPresent(state -> {
             throw new StateHashExistsException("You already did that!");
         });
 
@@ -301,22 +298,23 @@ public class GameService {
                 .map(l -> l.getStateFlag())
                 .collect(Collectors.toList());
 
-        final LocationActionTarget locationActionTarget = locationActionTargetRepository.findByLocationIdAndActionIdAndTargetId(
-                currentLocation, action.getActionId(), target.getTargetId())
+        logger.info("location [{}], action[{}], target [{}]", currentLocation, target.getDescription(),
+                action.getDescription());
+        final LocationActionTarget locationActionTarget = locationActionTargetRepository.findByLocationIdAndActionsDescriptionAndTargetsDescription(
+                currentLocation, action.getDescription(), target.getDescription())
                 .filter(l -> !l.getBlockers().stream().anyMatch(stateBlocker -> stateFlags.contains(stateBlocker)))
                 .orElseThrow(() -> new TargetNotFoundException("You can't do that."));
 
-
         //Persist the resulting state
+        //TODO: state should support multiple actions / targets
         locationStateRepository.save(new LocationState()
                 .setLocationId(currentLocation)
-                .setActionId(action.getActionId())
-                .setTargetId(target.getTargetId())
+                .setActionId(action.getDescription())
+                .setTargetId(target.getDescription())
                 .setStateFlag(locationActionTarget.getStateFlag()));
 
         return new CommandResponse()
                 .setCommand(command)
-                .setImagePath(locationActionTarget.getImagePath())
                 .setAssets(locationActionTarget.getAssets())
                 .setFatal(locationActionTarget.isFatal())
                 .setResponse(locationActionTarget.getResponse())

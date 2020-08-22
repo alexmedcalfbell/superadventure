@@ -6,8 +6,8 @@ public class ActionTargetResponse {
 
     private String description;
     private Location location;
-    private int actionId;
-    private int targetId;
+    private String actionId;
+    private String targetId;
     private String response;
     private String imagePath;
 
@@ -30,20 +30,20 @@ public class ActionTargetResponse {
         return this;
     }
 
-    public int getActionId() {
+    public String getActionId() {
         return actionId;
     }
 
-    public ActionTargetResponse setActionId(int actionId) {
+    public ActionTargetResponse setActionId(String actionId) {
         this.actionId = actionId;
         return this;
     }
 
-    public int getTargetId() {
+    public String getTargetId() {
         return targetId;
     }
 
-    public ActionTargetResponse setTargetId(int targetId) {
+    public ActionTargetResponse setTargetId(String targetId) {
         this.targetId = targetId;
         return this;
     }

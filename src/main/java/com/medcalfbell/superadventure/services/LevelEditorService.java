@@ -32,8 +32,6 @@ public class LevelEditorService {
 
     private static final Logger logger = LoggerFactory.getLogger(LevelEditorService.class);
 
-    private static final String IMAGES_ROOT = "images/";
-
     private LocationRepository locationRepository;
     private TargetRepository targetRepository;
     private LocationActionTargetRepository locationActionTargetRepository;
@@ -57,37 +55,37 @@ public class LevelEditorService {
     }
 
     public List<Location> getLocations() {
-        return locationRepository.findAll(Sort.by(Sort.Direction.ASC, "locationId"));
+        return locationRepository.findAll(Sort.by(Sort.Direction.ASC, "description"));
     }
 
-    public List<Location> getLocationForLocationIds(int... locations) {
-        return locationRepository.findAllByLocationIdIn(locations);
+    public List<Location> getLocationForLocationIds(String... locations) {
+        return locationRepository.findAllByDescriptionIn(locations);
     }
 
     public List<Action> getActions() {
-        return actionRepository.findAll(Sort.by(Sort.Direction.ASC, "actionId"));
+        return actionRepository.findAll(Sort.by(Sort.Direction.ASC, "description"));
     }
 
     public List<Target> getTargets() {
-        return targetRepository.findAll(Sort.by(Sort.Direction.ASC, "targetId"));
+        return targetRepository.findAll(Sort.by(Sort.Direction.ASC, "description"));
     }
 
     public List<Direction> getDirections() {
-        return directionRepository.findAll(Sort.by(Sort.Direction.ASC, "directionId"));
+        return directionRepository.findAll(Sort.by(Sort.Direction.ASC, "description"));
     }
 
-    public Location getLocation(int locationId) {
-        return locationRepository.findByLocationId(locationId)
+    public Location getLocation(String locationId) {
+        return locationRepository.findByDescription(locationId)
                 .orElseThrow(() -> new LocationNotFoundException("Location [" + locationId + "] not found."));
     }
 
-    public Action getAction(int actionId) {
-        return actionRepository.findByActionId(actionId)
+    public Action getAction(String actionId) {
+        return actionRepository.findByDescription(actionId)
                 .orElseThrow(() -> new ActionNotFoundException("Action [" + actionId + "] not found."));
     }
 
-    public Target getTarget(int targetId) {
-        return targetRepository.findByTargetId(targetId)
+    public Target getTarget(String targetId) {
+        return targetRepository.findByDescription(targetId)
                 .orElseThrow(() -> new TargetNotFoundException("Target [" + targetId + "] not found."));
     }
 
@@ -100,34 +98,18 @@ public class LevelEditorService {
         return locationActionTargetRepository.findAll();
     }
 
-    public List<LocationActionTarget> getLocationActionTargetsForLocation(int locationId) {
+    public List<LocationActionTarget> getLocationActionTargetsForLocation(String locationId) {
         return locationActionTargetRepository.findAllByLocationId(locationId);
     }
 
 
-    public LocationActionTarget getLocationActionTarget(int locationId, int actionId, int targetId) {
-        return locationActionTargetRepository.findByLocationIdAndActionIdAndTargetId(locationId, actionId, targetId)
+    public LocationActionTarget getLocationActionTarget(String locationId, String actionId, String targetId) {
+        return locationActionTargetRepository.findByLocationIdAndActionsDescriptionAndTargetsDescription(locationId, actionId, targetId)
                 .orElseThrow(() -> new ActionNotFoundException("sdfsdfsdAction [" + actionId + "] not found."));
     }
 
-    public int getNextLocationId() {
-        return locationRepository.findTopByOrderByLocationIdDesc().getLocationId() + 1;
-    }
-
-    public int getNextDirectionId() {
-        return directionRepository.findTopByOrderByDirectionIdDesc().getDirectionId() + 1;
-    }
-
-    public int getNextTargetId() {
-        return targetRepository.findTopByOrderByTargetIdDesc().getTargetId() + 1;
-    }
-
-    public int getNextActionId() {
-        return actionRepository.findTopByOrderByActionIdDesc().getActionId() + 1;
-    }
-
-    public void validateLocation(int locationId) {
-        locationRepository.findByLocationId(locationId).ifPresent(
+    public void validateLocation(String locationId) {
+        locationRepository.findByDescription(locationId).ifPresent(
                 location -> {
                     throw new DuplicateLocationException(
                             "An entry already exists for Location [" + locationId + "]");
@@ -150,8 +132,8 @@ public class LevelEditorService {
                 });
     }
 
-    public void validateLocationActionTarget(int locationId, int actionId, int targetId) {
-        locationActionTargetRepository.findByLocationIdAndActionIdAndTargetId(locationId, actionId, targetId).ifPresent(
+    public void validateLocationActionTarget(String locationId, String actionId, String targetId) {
+        locationActionTargetRepository.findByLocationIdAndActionsDescriptionAndTargetsDescription(locationId, actionId, targetId).ifPresent(
                 directionLocation -> {
                     throw new DuplicateLocationActionTargetException(
                             "An entry already exists for Location [" + locationId
@@ -159,9 +141,9 @@ public class LevelEditorService {
                 });
     }
 
-    public void validateLocationDirection(int currentLocationId, int destinationLocationId,
-            int directionId) {
-        directionLocationRepository.findByCurrentLocationIdAndDestinationLocationIdAndDirectionId(
+    public void validateLocationDirection(String currentLocationId, String destinationLocationId,
+            String directionId) {
+        directionLocationRepository.findByCurrentLocationIdAndDestinationLocationIdAndDirectionIdsIn(
                 currentLocationId, destinationLocationId, directionId).ifPresent(directionLocation -> {
             throw new DuplicateDirectionLocationException("An entry already exists for Location [" + currentLocationId
                     + "] with destination location [" + destinationLocationId + "] and direction [" + directionId
@@ -169,7 +151,7 @@ public class LevelEditorService {
         });
     }
 
-    public List<DirectionLocation> getDirectionLocationsForCurrentLocation(int currentLocationId) {
+    public List<DirectionLocation> getDirectionLocationsForCurrentLocation(String currentLocationId) {
         return directionLocationRepository.findByCurrentLocationId(currentLocationId);
 
     }

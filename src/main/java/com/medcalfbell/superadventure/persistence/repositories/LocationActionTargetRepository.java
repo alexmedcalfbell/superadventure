@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LocationActionTargetRepository extends JpaRepository<LocationActionTarget, Long> {
 
-    Optional<LocationActionTarget> findByLocationIdAndActionIdAndTargetId(int location, int action, int target);
-    List<LocationActionTarget> findAllByLocationId(int locationId);
-
+    Optional<LocationActionTarget> findByLocationIdAndActionsDescriptionAndTargetsDescription(String location,
+            String action, String target);
+    List<LocationActionTarget> findAllByLocationId(String locationId);
 }

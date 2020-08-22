@@ -11,8 +11,5 @@ public interface TargetRepository extends JpaRepository<Target, Long> {
 
     Optional<Target> findByDescription(String description);
 
-    Optional<Target> findByTargetId(int targetId);
-    List<Target> findByTargetIdIn(List<Integer> targetIds);
-
-    Target findTopByOrderByTargetIdDesc();
+    List<Target> findByDescriptionIn(List<String> targetIds);
 }

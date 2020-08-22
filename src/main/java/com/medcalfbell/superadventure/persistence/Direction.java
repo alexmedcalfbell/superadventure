@@ -18,9 +18,6 @@ public class Direction {
     @JsonIgnore
     private int id;
 
-    @Column
-    private int directionId;
-
     @Column(columnDefinition = "text")
     private String description;
 
@@ -31,15 +28,6 @@ public class Direction {
 
     public Direction setId(int id) {
         this.id = id;
-        return this;
-    }
-
-    public int getDirectionId() {
-        return directionId;
-    }
-
-    public Direction setDirectionId(int directionId) {
-        this.directionId = directionId;
         return this;
     }
 

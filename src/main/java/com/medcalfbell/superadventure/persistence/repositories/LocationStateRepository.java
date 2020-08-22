@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LocationStateRepository extends JpaRepository<LocationState, Long> {
 
-    Optional<LocationState> findByLocationIdAndTargetIdAndActionId(int locationId, int targetId, int actionId);
-    List<LocationState> findByLocationId(int locationId);
+    Optional<LocationState> findByLocationIdAndTargetIdAndActionId(String locationId, String targetId, String actionId);
+    List<LocationState> findByLocationId(String locationId);
 }

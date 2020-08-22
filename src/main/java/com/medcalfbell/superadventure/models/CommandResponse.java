@@ -7,7 +7,7 @@ public class CommandResponse {
     private String response;
     private String command;
     private String imagePath;
-    private int location;
+    private String location;
     private List<String> assets;
     private boolean isFatal;
 
@@ -38,11 +38,11 @@ public class CommandResponse {
         return this;
     }
 
-    public int getLocation() {
+    public String getLocation() {
         return location;
     }
 
-    public CommandResponse setLocation(int location) {
+    public CommandResponse setLocation(String location) {
         this.location = location;
         return this;
     }

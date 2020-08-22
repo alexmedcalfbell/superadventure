@@ -12,7 +12,7 @@ public class DirectionLocationResponse {
 
     private Location destinationLocation;
 
-    private int directionId;
+    private String directionId;
 
     private Location locationNorth;
     private Location locationSouth;
@@ -54,11 +54,11 @@ public class DirectionLocationResponse {
         return this;
     }
 
-    public int getDirectionId() {
+    public String getDirectionId() {
         return directionId;
     }
 
-    public DirectionLocationResponse setDirectionId(int directionId) {
+    public DirectionLocationResponse setDirectionId(String directionId) {
         this.directionId = directionId;
         return this;
     }

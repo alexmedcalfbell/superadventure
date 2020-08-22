@@ -9,15 +9,12 @@ import com.medcalfbell.superadventure.models.LevelEditorRequest;
 import com.medcalfbell.superadventure.models.LocationResponse;
 import com.medcalfbell.superadventure.models.TargetResponse;
 import com.medcalfbell.superadventure.persistence.Action;
-import com.medcalfbell.superadventure.persistence.Direction;
 import com.medcalfbell.superadventure.persistence.DirectionLocation;
 import com.medcalfbell.superadventure.persistence.Location;
-import com.medcalfbell.superadventure.persistence.LocationActionTarget;
 import com.medcalfbell.superadventure.persistence.Target;
 import com.medcalfbell.superadventure.services.LevelEditorService;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 import org.slf4j.Logger;
@@ -49,23 +46,16 @@ public class LevelEditorController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public String getLevelData(Model model) {
 
-        final List<Location> locations = levelEditorService.getLocations();
-        final List<Action> actions = levelEditorService.getActions();
-        final List<Target> targets = levelEditorService.getTargets();
-        final List<Direction> directions = levelEditorService.getDirections();
-        final List<DirectionLocation> directionLocations = levelEditorService.getDirectionLocations();
-        final List<LocationActionTarget> locationActionTargets = levelEditorService.getLocationActionTargets();
-
-        final List<MovementAction> movementActions = Arrays.stream(MovementAction.values()).collect(
-                Collectors.toList());
-
-        model.addAttribute("locations", locations);
-        model.addAttribute("movementActions", movementActions);
-        model.addAttribute("directions", directions);
-        model.addAttribute("actions", actions);
-        model.addAttribute("targets", targets);
-        model.addAttribute("directionLocations", directionLocations);
-        model.addAttribute("locationActionTargets", locationActionTargets);
+        model.addAttribute("locations", levelEditorService.getLocations());
+        model.addAttribute("movementActions",
+                Arrays.stream(MovementAction.values())
+                        .collect(Collectors.toList())
+        );
+        model.addAttribute("directions", levelEditorService.getDirections());
+        model.addAttribute("actions", levelEditorService.getActions());
+        model.addAttribute("targets", levelEditorService.getTargets());
+        model.addAttribute("directionLocations", levelEditorService.getDirectionLocations());
+        model.addAttribute("locationActionTargets", levelEditorService.getLocationActionTargets());
 
         return "editor";
     }
@@ -74,13 +64,11 @@ public class LevelEditorController {
     @ResponseBody
     public LocationResponse addLocation(@RequestBody LevelEditorRequest request) {
 
-        final int locationId = levelEditorService.getNextLocationId();
-
         final String imagePath = String.format("/images/locations/%s", request.getImageName());
         //TODO: set /images/no-image.jpg if nothing set
 
         return new LocationResponse()
-                .setLocation(new Location().setLocationId(locationId))
+                .setLocation(new Location())
                 .setDescription(request.getDescription())
                 .setResponse(request.getResponse())
                 .setImagePath(imagePath);
@@ -90,10 +78,7 @@ public class LevelEditorController {
     @ResponseBody
     public DirectionResponse addDirection(@RequestBody LevelEditorRequest request) {
 
-        final int directionId = levelEditorService.getNextDirectionId();
-
         return new DirectionResponse()
-                .setDirectionId(directionId)
                 .setDescription(request.getDescription());
     }
 
@@ -101,12 +86,9 @@ public class LevelEditorController {
     @ResponseBody
     public TargetResponse addTarget(@RequestBody @Valid LevelEditorRequest request) {
 
-        final int targetId = levelEditorService.getNextTargetId();
-
         levelEditorService.validateTarget(request.getDescription());
 
         return new TargetResponse()
-                .setTargetId(targetId)
                 .setDescription(request.getDescription());
     }
 
@@ -114,12 +96,9 @@ public class LevelEditorController {
     @ResponseBody
     public ActionResponse addAction(@RequestBody @Valid LevelEditorRequest request) {
 
-        final int actionId = levelEditorService.getNextActionId();
-
         levelEditorService.validateAction(request.getDescription());
 
         return new ActionResponse()
-                .setActionId(actionId)
                 .setDescription(request.getDescription());
     }
 
@@ -127,9 +106,9 @@ public class LevelEditorController {
     @ResponseBody
     public ActionTargetResponse addLocationDirection(@RequestBody LevelEditorRequest request) {
 
-        final int locationId = request.getCurrentLocationId();
-        final int actionId = request.getActionId();
-        final int targetId = request.getTargetId();
+        final String locationId = request.getCurrentLocationId();
+        final String actionId = request.getActionId();
+        final String targetId = request.getTargetId();
 
         //TODO: Move business logic to service.
         levelEditorService.validateLocationActionTarget(locationId, actionId, targetId);
@@ -156,9 +135,9 @@ public class LevelEditorController {
     @ResponseBody
     public DirectionLocationResponse addActionTarget(@RequestBody LevelEditorRequest request) {
 
-        final int currentLocationId = request.getCurrentLocationId();
-        final int destinationLocationId = request.getDestinationLocationId();
-        final int directionId = request.getDirectionId();
+        final String currentLocationId = request.getCurrentLocationId();
+        final String destinationLocationId = request.getDestinationLocationId();
+        final String directionId = request.getDirectionId();
 
         //TODO: Move logic to service.
         levelEditorService.validateLocationDirection(currentLocationId, destinationLocationId, directionId);
@@ -170,42 +149,42 @@ public class LevelEditorController {
                 currentLocationId);
 
 
-        //TODO: Refactor.
-        Optional<Location> north = primaryLocationsForCurrentLocation.stream().filter(d -> d.getDirectionId() == 1)
-                .map(location -> levelEditorService.getLocation(location.getDestinationLocationId()))
-                .findFirst();
-        Optional<Location> south = primaryLocationsForCurrentLocation.stream().filter(d -> d.getDirectionId() == 2)
-                .map(location -> levelEditorService.getLocation(location.getDestinationLocationId()))
-                .findFirst();
-        Optional<Location> east = primaryLocationsForCurrentLocation.stream().filter(d -> d.getDirectionId() == 3)
-                .map(location -> levelEditorService.getLocation(location.getDestinationLocationId()))
-                .findFirst();
-        Optional<Location> west = primaryLocationsForCurrentLocation.stream().filter(d -> d.getDirectionId() == 4)
-                .map(location -> levelEditorService.getLocation(location.getDestinationLocationId()))
-                .findFirst();
+        final DirectionLocationResponse response = new DirectionLocationResponse();
+        levelEditorService.getDirectionLocationsForCurrentLocation(currentLocationId).stream()
+                .forEach(dirLoc -> {
 
-        final DirectionLocationResponse directionLocationResponse = new DirectionLocationResponse();
-        north.ifPresent(location -> directionLocationResponse.setLocationNorth(location));
-        south.ifPresent(location -> directionLocationResponse.setLocationSouth(location));
-        east.ifPresent(location -> directionLocationResponse.setLocationEast(location));
-        west.ifPresent(location -> directionLocationResponse.setLocationWest(location));
-        if (directionId == 1) {
-            directionLocationResponse.setLocationNorth(destinationLocation);
-        } else if (directionId == 2) {
-            directionLocationResponse.setLocationSouth(destinationLocation);
-        } else if (directionId == 3) {
-            directionLocationResponse.setLocationEast(destinationLocation);
-        } else if (directionId == 4) {
-            directionLocationResponse.setLocationWest(destinationLocation);
-        }
-        directionLocationResponse.setCurrentLocation(levelEditorService.getLocation(currentLocationId));
+                    final Location location = levelEditorService.getLocation(dirLoc.getDestinationLocationId());
+                    if (dirLoc.getDirectionIds().contains("north")) {
+                        response.setLocationNorth(location);
+                        response.setActionTargetsNorth(
+                                levelEditorService.getLocationActionTargetsForLocation(location.getDescription())
+                        );
+                    } else if (dirLoc.getDirectionIds().contains("south")) {
+                        response.setLocationSouth(location);
+                        response.setActionTargetsSouth(
+                                levelEditorService.getLocationActionTargetsForLocation(location.getDescription())
+                        );
+                    } else if (dirLoc.getDirectionIds().contains("east")) {
+                        response.setLocationEast(location);
+                        response.setActionTargetsEast(
+                                levelEditorService.getLocationActionTargetsForLocation(location.getDescription())
+                        );
+                    } else if (dirLoc.getDirectionIds().contains("west")) {
+                        response.setLocationWest(location);
+                        response.setActionTargetsWest(
+                                levelEditorService.getLocationActionTargetsForLocation(location.getDescription())
+                        );
+                    }
+                });
+
+        response.setCurrentLocation(levelEditorService.getLocation(currentLocationId));
 
         //TODO: Add support for directionIds
 
         final String description = String.format("Location [%s] linked to location [%s] via direction [%s]",
                 currentLocation.getDescription(), destinationLocation.getDescription(), directionId);
 
-        return directionLocationResponse
+        return response
                 .setDescription(description)
                 .setCurrentLocation(currentLocation)
                 .setDestinationLocation(destinationLocation)
@@ -214,42 +193,40 @@ public class LevelEditorController {
 
     @GetMapping(value = "/linked-locations/{currentLocationId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DirectionLocationResponse getLinkedLocationsForCurrentLocation(@PathVariable int currentLocationId) {
+    public DirectionLocationResponse getLinkedLocationsForCurrentLocation(@PathVariable String currentLocationId) {
 
-        final DirectionLocationResponse directionLocationResponse = new DirectionLocationResponse();
+        final DirectionLocationResponse response = new DirectionLocationResponse();
         levelEditorService.getDirectionLocationsForCurrentLocation(currentLocationId).stream()
                 .forEach(dirLoc -> {
 
                     final Location location = levelEditorService.getLocation(dirLoc.getDestinationLocationId());
-                    if (dirLoc.getDirectionIds().contains(1)) {
-                        directionLocationResponse.setLocationNorth(location);
-                        directionLocationResponse.setActionTargetsNorth(
-                                levelEditorService.getLocationActionTargetsForLocation(location.getLocationId())
+                    if (dirLoc.getDirectionIds().contains("north")) {
+                        response.setLocationNorth(location);
+                        response.setActionTargetsNorth(
+                                levelEditorService.getLocationActionTargetsForLocation(location.getDescription())
                         );
-                    } else if (dirLoc.getDirectionIds().contains(2)) {
-                        directionLocationResponse.setLocationSouth(location);
-                        directionLocationResponse.setActionTargetsSouth(
-                                levelEditorService.getLocationActionTargetsForLocation(location.getLocationId())
+                    } else if (dirLoc.getDirectionIds().contains("south")) {
+                        response.setLocationSouth(location);
+                        response.setActionTargetsSouth(
+                                levelEditorService.getLocationActionTargetsForLocation(location.getDescription())
                         );
-                    } else if (dirLoc.getDirectionIds().contains(3)) {
-                        directionLocationResponse.setLocationEast(location);
-                        directionLocationResponse.setActionTargetsEast(
-                                levelEditorService.getLocationActionTargetsForLocation(location.getLocationId())
+                    } else if (dirLoc.getDirectionIds().contains("east")) {
+                        response.setLocationEast(location);
+                        response.setActionTargetsEast(
+                                levelEditorService.getLocationActionTargetsForLocation(location.getDescription())
                         );
-                    } else if (dirLoc.getDirectionIds().contains(4)) {
-                        directionLocationResponse.setLocationWest(location);
-                        directionLocationResponse.setActionTargetsWest(
-                                levelEditorService.getLocationActionTargetsForLocation(location.getLocationId())
+                    } else if (dirLoc.getDirectionIds().contains("west")) {
+                        response.setLocationWest(location);
+                        response.setActionTargetsWest(
+                                levelEditorService.getLocationActionTargetsForLocation(location.getDescription())
                         );
                     }
                 });
 
-        directionLocationResponse.setCurrentLocation(levelEditorService.getLocation(currentLocationId));
-        directionLocationResponse.setActionTargetsCurrent(
-                levelEditorService.getLocationActionTargetsForLocation(currentLocationId));
+        response.setCurrentLocation(levelEditorService.getLocation(currentLocationId));
+        response.setActionTargetsCurrent(levelEditorService.getLocationActionTargetsForLocation(currentLocationId));
 
-
-        return directionLocationResponse;
+        return response;
     }
 
 }

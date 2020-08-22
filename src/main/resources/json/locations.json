@@ -1,6 +1,5 @@
 [
   {
-    "locationId": 0,
     "description": "home",
     "response": "You step out of your house after many long months of lockdown. You have it in mind to go on a Super Adventure! To the <keyword>North</keyword> you see some craggy <keyword>mountains</keyword>.",
     "imagePath": "/images/locations/start.jpg",
@@ -10,8 +9,7 @@
     ]
   },
   {
-    "locationId": 1,
-    "description": "Large mountains",
+    "description": "mountains",
     "response": "You find yourself surrounded by mountains. To the <keyword>North</keyword> lies a vast malodorous <keyword>swamp</keyword>. To the east, a foreboding <keyword>cave</keyword>.",
     "imagePath": "/images/locations/mountains.jpg",
     "assets": [
@@ -19,8 +17,7 @@
     ]
   },
   {
-    "locationId": 2,
-    "description": "Malodorous swamp",
+    "description": "swamp",
     "response": "A foetid, stinking swamp stretches out before you. To the East and West you see only impassable water. To the <keyword>North</keyword> is a thin, rickety <keyword>bridge</keyword>.",
     "imagePath": "/images/locations/swamp.jpg",
     "assets": [
@@ -28,8 +25,7 @@
     ]
   },
   {
-    "locationId": 3,
-    "description": "Cave with large shit",
+    "description": "cave",
     "response": "You enter the cave and suffer instant regret; from floor to ceiling the <keyword>cave</keyword> is festooned with faeces. You look longingly to the <keyword>West</keyword>.",
     "imagePath": "/images/locations/cave.jpg",
     "assets": [
@@ -37,20 +33,18 @@
     ]
   },
   {
-    "locationId": 4,
-    "description": "Swamp hut",
+    "description": "swamp-island",
     "response": "You cross the rickety bridge and come upon a ramshackle <keyword>hut</keyword>. An aged <keyword>witch</keyword> in rags is standing near the <keyword>hut</keyword>, stirring a large <keyword>cauldron</keyword>. Behind you to the <keyword>South</keyword>, the <keyword>swamp</keyword> bubbles away.",
     "imagePath": "/images/locations/swamp_hut.jpg",
     "assets": [
       "/images/assets/swamp_witch_hut.png",
       "/images/assets/swamp_hut_player.png",
-      "/images/assets/swamp_witch.png"
-      ,"/images/assets/swamp_hut_cauldron.png"
+      "/images/assets/swamp_witch.png",
+      "/images/assets/swamp_hut_cauldron.png"
     ]
   },
   {
-    "locationId": 5,
-    "description": "Swamp Hut Interior",
+    "description": "swamp_hut",
     "response": "You enter the witch's hut and look about you. You see...",
     "imagePath": "/images/locations/swamp_hut_interior.jpg"
   }

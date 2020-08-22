@@ -20,7 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Controller for main game functions.
+ * Controller for primary game functions.
+ *
  * @author Alexander Medcalf-Bell.
  */
 @Controller
@@ -42,7 +43,7 @@ public class GameController {
 
         gameService.reset();
 
-        final Location location = locationRepository.findByLocationId(GameService.DEFAULT_LOCATION)
+        final Location location = locationRepository.findByDescription(GameService.DEFAULT_LOCATION)
                 .orElseThrow(() -> new LocationNotFoundException(
                         "Location [" + GameService.DEFAULT_LOCATION + "] not found"));
 
@@ -67,8 +68,7 @@ public class GameController {
     @ResponseBody
     @PostMapping(value = "/command", produces = MediaType.APPLICATION_JSON_VALUE)
     public CommandResponse processCommand(@RequestBody CommandRequest request) {
-        return gameService.processCommand(
-                request.getCommand());
+        return gameService.processCommand(request.getCommand());
     }
 
 }

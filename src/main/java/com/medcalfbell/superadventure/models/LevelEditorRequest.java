@@ -3,11 +3,11 @@ package com.medcalfbell.superadventure.models;
 public class LevelEditorRequest {
 
     //TODO: Make separate requests i.e. for location, target etc / add @NotNull etc
-    private int currentLocationId;
-    private int destinationLocationId;
-    private int directionId;
-    private int actionId;
-    private int targetId;
+    private String currentLocationId;
+    private String destinationLocationId;
+    private String directionId;
+    private String actionId;
+    private String targetId;
     private String description;
     private String response;
     private String imageName;
@@ -21,47 +21,47 @@ public class LevelEditorRequest {
         return this;
     }
 
-    public int getCurrentLocationId() {
+    public String getCurrentLocationId() {
         return currentLocationId;
     }
 
-    public LevelEditorRequest setCurrentLocationId(int currentLocationId) {
+    public LevelEditorRequest setCurrentLocationId(String currentLocationId) {
         this.currentLocationId = currentLocationId;
         return this;
     }
 
-    public int getDestinationLocationId() {
+    public String getDestinationLocationId() {
         return destinationLocationId;
     }
 
-    public LevelEditorRequest setDestinationLocationId(int destinationLocationId) {
+    public LevelEditorRequest setDestinationLocationId(String destinationLocationId) {
         this.destinationLocationId = destinationLocationId;
         return this;
     }
 
-    public int getDirectionId() {
+    public String getDirectionId() {
         return directionId;
     }
 
-    public LevelEditorRequest setDirectionId(int directionId) {
+    public LevelEditorRequest setDirectionId(String directionId) {
         this.directionId = directionId;
         return this;
     }
 
-    public int getActionId() {
+    public String getActionId() {
         return actionId;
     }
 
-    public LevelEditorRequest setActionId(int actionId) {
+    public LevelEditorRequest setActionId(String actionId) {
         this.actionId = actionId;
         return this;
     }
 
-    public int getTargetId() {
+    public String getTargetId() {
         return targetId;
     }
 
-    public LevelEditorRequest setTargetId(int targetId) {
+    public LevelEditorRequest setTargetId(String targetId) {
         this.targetId = targetId;
         return this;
     }
