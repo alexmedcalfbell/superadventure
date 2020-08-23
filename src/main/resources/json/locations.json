@@ -44,7 +44,7 @@
     ]
   },
   {
-    "description": "swamp_hut",
+    "description": "swamp-hut",
     "response": "You enter the witch's hut and look about you. You see...",
     "imagePath": "/images/locations/swamp_hut_interior.jpg"
   }

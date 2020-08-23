@@ -33,7 +33,7 @@ public class DirectionLocation {
     @Column
     private String destinationLocationId;
 
-    @Column
+    @Column//TODO: @OneToMany
     @ElementCollection
     private List<String> directionIds;
 

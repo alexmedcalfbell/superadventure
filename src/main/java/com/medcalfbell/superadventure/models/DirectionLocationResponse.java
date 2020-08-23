@@ -1,7 +1,6 @@
 package com.medcalfbell.superadventure.models;
 
 import com.medcalfbell.superadventure.persistence.Location;
-import com.medcalfbell.superadventure.persistence.LocationActionTarget;
 import java.util.List;
 
 public class DirectionLocationResponse {
@@ -19,11 +18,7 @@ public class DirectionLocationResponse {
     private Location locationEast;
     private Location locationWest;
 
-    private List<LocationActionTarget> actionTargetsCurrent;
-    private List<LocationActionTarget> actionTargetsNorth;
-    private List<LocationActionTarget> actionTargetsSouth;
-    private List<LocationActionTarget> actionTargetsEast;
-    private List<LocationActionTarget> actionTargetsWest;
+    private List<String> actionTargets;
 
     public String getDescription() {
         return description;
@@ -99,53 +94,12 @@ public class DirectionLocationResponse {
         return this;
     }
 
-    public List<LocationActionTarget> getActionTargetsCurrent() {
-        return actionTargetsCurrent;
+    public List<String> getActionTargets() {
+        return actionTargets;
     }
 
-    public DirectionLocationResponse setActionTargetsCurrent(
-            List<LocationActionTarget> actionTargetsCurrent) {
-        this.actionTargetsCurrent = actionTargetsCurrent;
-        return this;
-    }
-
-    public List<LocationActionTarget> getActionTargetsNorth() {
-        return actionTargetsNorth;
-    }
-
-    public DirectionLocationResponse setActionTargetsNorth(
-            List<LocationActionTarget> actionTargetsNorth) {
-        this.actionTargetsNorth = actionTargetsNorth;
-        return this;
-    }
-
-    public List<LocationActionTarget> getActionTargetsSouth() {
-        return actionTargetsSouth;
-    }
-
-    public DirectionLocationResponse setActionTargetsSouth(
-            List<LocationActionTarget> actionTargetsSouth) {
-        this.actionTargetsSouth = actionTargetsSouth;
-        return this;
-    }
-
-    public List<LocationActionTarget> getActionTargetsEast() {
-        return actionTargetsEast;
-    }
-
-    public DirectionLocationResponse setActionTargetsEast(
-            List<LocationActionTarget> actionTargetsEast) {
-        this.actionTargetsEast = actionTargetsEast;
-        return this;
-    }
-
-    public List<LocationActionTarget> getActionTargetsWest() {
-        return actionTargetsWest;
-    }
-
-    public DirectionLocationResponse setActionTargetsWest(
-            List<LocationActionTarget> actionTargetsWest) {
-        this.actionTargetsWest = actionTargetsWest;
+    public DirectionLocationResponse setActionTargets(List<String> actionTargets) {
+        this.actionTargets = actionTargets;
         return this;
     }
 }

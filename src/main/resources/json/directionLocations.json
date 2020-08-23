@@ -38,7 +38,7 @@
   {
     "description": "Location [Cave with large shit] linked to location [Large Mountains] with directions [4,7]",
     "currentLocationId": "cave",
-    "destinationLocationId": "home",
+    "destinationLocationId": "mountains",
     "directionIds": [
       "west",
       "mountains"
@@ -47,7 +47,7 @@
   {
     "description": "Location [Malodorous swamp] linked to location [Large Mountains] with directions [2,7]",
     "currentLocationId": "swamp",
-    "destinationLocationId": "home",
+    "destinationLocationId": "mountains",
     "directionId": 2,
     "directionIds": [
       "south",
@@ -76,7 +76,7 @@
   {
     "description": "Location [Swamp hut] linked to location [Swamp Hut Interior] via directions [1,11]",
     "currentLocationId": "swamp-island",
-    "destinationLocationId": "swamp_hut",
+    "destinationLocationId": "swamp-hut",
     "directionIds": [
       "north",
       "hut"
@@ -84,7 +84,7 @@
   },
   {
     "description": "Location [Swamp Hut Interior] linked to location [Swamp hut] via directions [2]",
-    "currentLocationId": "swamp_hut",
+    "currentLocationId": "swamp-hut",
     "destinationLocationId": "swamp-island",
     "directionIds": [
       "south",

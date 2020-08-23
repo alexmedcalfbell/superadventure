@@ -78,7 +78,7 @@ $(document).ready(function () {
     });
 
     $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
+        $('[data-toggle="tooltip"]').tooltip();
     })
 });
 
@@ -103,11 +103,13 @@ function getLinkedLocations() {
         timeout: 600000,
         success: function (data) {
 
-            setSceneImage(data.currentLocation, 'current', data.actionTargetsCurrent);
-            setSceneImage(data.locationNorth, 'north', data.actionTargetsNorth);
-            setSceneImage(data.locationSouth, 'south', data.actionTargetsSouth);
-            setSceneImage(data.locationEast, 'east', data.actionTargetsEast);
-            setSceneImage(data.locationWest, 'west', data.actionTargetsWest);
+            setSceneImage(data.currentLocation, 'current');
+            setSceneImage(data.locationNorth, 'north');
+            setSceneImage(data.locationSouth, 'south');
+            setSceneImage(data.locationEast, 'east');
+            setSceneImage(data.locationWest, 'west');
+
+            setLocationActionTargets(data);
 
             setPadImages();
 
@@ -124,6 +126,27 @@ function getLinkedLocations() {
             $('#feedback').html(error.responseText);
         }
     });
+}
+
+function setLocationActionTargets(data) {
+
+    let currentLocation = data.currentLocation;
+    let actionTargets = data.actionTargets;
+    let locationDescription = 'Location [<keyword>' + currentLocation.description + '</keyword>]<br>';
+
+    // Create a list of actions / targets for the supplied location.
+    let actionTargetsList = locationDescription + 'No actions / targets exist for this location.';
+
+    if (actionTargets != null && actionTargets.length != 0) {
+        actionTargetsList = locationDescription;
+        actionTargetsList += '<ul>';
+        actionTargets.forEach((actionTarget) => {
+            // actionTargetsList += '<li>' + actionTarget.description + '</li>';
+            actionTargetsList += '<li>' + actionTarget + '</li>';
+        });
+        actionTargetsList += '</ul>';
+    }
+    $('#action-targets').html(actionTargetsList);
 }
 
 function setSceneAssets(data, direction) {
@@ -439,31 +462,11 @@ function formatJson(json) {
     $('#json').append('<button id="copy" type="button" class="btn btn-primary"><i class="fas fa-copy "></i></button>');
 }
 
-function setSceneImageDescription(location, direction, actionTargets) {
+function setSceneImageDescription(location, direction) {
 
     let imageDescription = location !== null ? location.description : 'No linked location';
 
-    // Create a list of actions / targets for the supplied location.
-    let actionTargetsList = 'No actions / targets exist for this location.';
-    if (actionTargets != null && actionTargets.length != 0) {
-        actionTargetsList = '<ul>';
-        actionTargets.forEach((actionTarget) => {
-            actionTargetsList += '<li>' + actionTarget.description + '</li>';
-        });
-        actionTargetsList += '</ul>';
-    }
-
-    //Add the scene description with associated actions / targets.
-    $('#' + direction + '-image').append('<figcaption class="scene-image-description" data-toggle="popover" title="Actions / Targets" data-content="' + actionTargetsList + '">' + imageDescription + '</figcaption>');
-
-    //Initialise popovers
-    $(function () {
-        $('[data-toggle="popover"]').popover({
-            trigger: 'hover click focus',
-            placement: 'top',
-            html: true
-        });
-    });
+    $('#' + direction + '-image').append('<figcaption class="scene-image-description current">' + imageDescription + '</figcaption>');
 }
 
 function setPadImages() {
@@ -472,7 +475,7 @@ function setPadImages() {
     ).fadeIn();
 }
 
-function setSceneImage(location, direction, actionTargets) {
+function setSceneImage(location, direction) {
 
     let imagePath = location !== null ? location.imagePath : '/images/no-image.jpg';
 
@@ -480,7 +483,7 @@ function setSceneImage(location, direction, actionTargets) {
         '<img src="' + imagePath + '" alt="Location image" class="img-fluid"/>'
     ).fadeIn();
 
-    setSceneImageDescription(location, direction, actionTargets);
+    setSceneImageDescription(location, direction);
 }
 
 function postAction() {
