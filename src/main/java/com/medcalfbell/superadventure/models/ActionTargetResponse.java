@@ -1,16 +1,17 @@
 package com.medcalfbell.superadventure.models;
 
 import com.medcalfbell.superadventure.persistence.Location;
+import java.util.List;
 
 public class ActionTargetResponse {
 
     private String description;
     private Location location;
-    private String actionId;
-    private String targetId;
+    private List<String> actions;
+    private List<String> targets;
+    private boolean fatal;
     private String response;
     private String imagePath;
-
 
     public String getDescription() {
         return description;
@@ -30,21 +31,30 @@ public class ActionTargetResponse {
         return this;
     }
 
-    public String getActionId() {
-        return actionId;
+    public List<String> getActions() {
+        return actions;
     }
 
-    public ActionTargetResponse setActionId(String actionId) {
-        this.actionId = actionId;
+    public ActionTargetResponse setActions(List<String> actions) {
+        this.actions = actions;
         return this;
     }
 
-    public String getTargetId() {
-        return targetId;
+    public List<String> getTargets() {
+        return targets;
     }
 
-    public ActionTargetResponse setTargetId(String targetId) {
-        this.targetId = targetId;
+    public ActionTargetResponse setTargets(List<String> targets) {
+        this.targets = targets;
+        return this;
+    }
+
+    public boolean isFatal() {
+        return fatal;
+    }
+
+    public ActionTargetResponse setFatal(boolean fatal) {
+        this.fatal = fatal;
         return this;
     }
 

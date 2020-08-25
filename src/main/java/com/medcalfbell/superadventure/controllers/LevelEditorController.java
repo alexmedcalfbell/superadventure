@@ -8,12 +8,11 @@ import com.medcalfbell.superadventure.models.DirectionResponse;
 import com.medcalfbell.superadventure.models.LevelEditorRequest;
 import com.medcalfbell.superadventure.models.LocationResponse;
 import com.medcalfbell.superadventure.models.TargetResponse;
-import com.medcalfbell.superadventure.persistence.Action;
 import com.medcalfbell.superadventure.persistence.Location;
-import com.medcalfbell.superadventure.persistence.Target;
 import com.medcalfbell.superadventure.persistence.repositories.LocationActionTargetRepository;
 import com.medcalfbell.superadventure.services.LevelEditorService;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 import org.slf4j.Logger;
@@ -107,36 +106,35 @@ public class LevelEditorController {
 
     @PostMapping(value = "/action-target", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ActionTargetResponse addLocationDirection(@RequestBody LevelEditorRequest request) {
+    public ActionTargetResponse addActionTarget(@RequestBody LevelEditorRequest request) {
 
         final String locationId = request.getCurrentLocationId();
-        final String actionId = request.getActionId();
-        final String targetId = request.getTargetId();
+        final List<String> actions = request.getActions();
+        final List<String> targets = request.getTargets();
 
         //TODO: Move business logic to service.
-        levelEditorService.validateLocationActionTarget(locationId, actionId, targetId);
+        //        levelEditorService.validateLocationActionTarget(locationId, actionId, targetId);
 
         final Location location = levelEditorService.getLocation(locationId);
-        final Action action = levelEditorService.getAction(actionId);
-        final Target target = levelEditorService.getTarget(targetId);
 
-        final String description = String.format("Location [%s] linked to action [%s] and target [%s]",
-                location.getDescription(), action.getDescription(), target.getDescription());
+        final String description = String.format("Location [%s] linked to actions %s and targets %s",
+                location.getDescription(), actions, targets);
 
         final String imagePath = String.format("/images/locations/%s", request.getImageName());
 
         return new ActionTargetResponse()
                 .setDescription(description)
                 .setLocation(location)
-                .setActionId(actionId)
-                .setTargetId(targetId)
+                .setActions(actions)
+                .setTargets(targets)
+                .setFatal(request.isFatal())
                 .setResponse(request.getResponse())
                 .setImagePath(imagePath);
     }
 
     @PostMapping(value = "/location-direction", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public DirectionLocationResponse addActionTarget(@RequestBody LevelEditorRequest request) {
+    public DirectionLocationResponse addLocationDirection(@RequestBody LevelEditorRequest request) {
 
         final String currentLocationId = request.getCurrentLocationId();
         final String destinationLocationId = request.getDestinationLocationId();

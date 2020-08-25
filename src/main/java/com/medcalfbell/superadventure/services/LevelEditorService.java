@@ -21,6 +21,9 @@ import com.medcalfbell.superadventure.persistence.repositories.LocationActionTar
 import com.medcalfbell.superadventure.persistence.repositories.LocationRepository;
 import com.medcalfbell.superadventure.persistence.repositories.TargetRepository;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,14 +65,18 @@ public class LevelEditorService {
         return locationRepository.findAllByDescriptionIn(locations);
     }
 
-    public List<Action> getActions() {
-        return actionRepository.findAll(Sort.by(Sort.Direction.ASC, "description"));
+    public Set<String> getActions() {
+        return actionRepository.findAll().stream()
+                .map(action -> action.getDescription())
+                .collect(Collectors.toCollection(TreeSet::new));
     }
 
-    public List<Target> getTargets() {
-        return targetRepository.findAll(Sort.by(Sort.Direction.ASC, "description"));
+    public Set<String> getTargets() {
+        return targetRepository.findAll().stream()
+                .map(target -> target.getDescription())
+                .collect(Collectors.toCollection(TreeSet::new));
     }
-
+    
     public List<Direction> getDirections() {
         return directionRepository.findAll(Sort.by(Sort.Direction.ASC, "description"));
     }
@@ -104,7 +111,8 @@ public class LevelEditorService {
 
 
     public LocationActionTarget getLocationActionTarget(String locationId, String actionId, String targetId) {
-        return locationActionTargetRepository.findByLocationIdAndActionsDescriptionAndTargetsDescription(locationId, actionId, targetId)
+        return locationActionTargetRepository.findByLocationIdAndActionsDescriptionAndTargetsDescription(locationId,
+                actionId, targetId)
                 .orElseThrow(() -> new ActionNotFoundException("sdfsdfsdAction [" + actionId + "] not found."));
     }
 
@@ -133,7 +141,8 @@ public class LevelEditorService {
     }
 
     public void validateLocationActionTarget(String locationId, String actionId, String targetId) {
-        locationActionTargetRepository.findByLocationIdAndActionsDescriptionAndTargetsDescription(locationId, actionId, targetId).ifPresent(
+        locationActionTargetRepository.findByLocationIdAndActionsDescriptionAndTargetsDescription(locationId, actionId,
+                targetId).ifPresent(
                 directionLocation -> {
                     throw new DuplicateLocationActionTargetException(
                             "An entry already exists for Location [" + locationId

@@ -312,3 +312,47 @@ keyword {
     padding-left: 10px;
     color: #ffffff;
 }
+
+@font-face {
+    font-family: adventure;
+    src: url('/fonts/everest.ttf');
+}
+
+#actions, #targets{
+    max-height: 110px;
+    padding: 10px;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #d8d8d8;
+    border-radius: 4px;
+    border: 1px solid #bdbdbd;
+    font-weight: bold;
+    font-size: 1.1rem;
+    font-family: monospace;
+    margin-bottom: 10px;
+}
+
+#actions::-webkit-scrollbar {
+    width: 9px;
+}
+
+#actions::-webkit-scrollbar-track {
+    background: #757272;
+}
+
+#actions::-webkit-scrollbar-thumb {
+    background-color: #d39e00;
+}
+
+#targets::-webkit-scrollbar {
+    width: 9px;
+}
+
+#targets::-webkit-scrollbar-track {
+    background: #757272;
+}
+
+#targets::-webkit-scrollbar-thumb {
+    background-color: #d39e00;
+}

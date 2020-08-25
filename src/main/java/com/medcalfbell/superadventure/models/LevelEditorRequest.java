@@ -1,5 +1,7 @@
 package com.medcalfbell.superadventure.models;
 
+import java.util.List;
+
 public class LevelEditorRequest {
 
     //TODO: Make separate requests i.e. for location, target etc / add @NotNull etc
@@ -7,6 +9,9 @@ public class LevelEditorRequest {
     private String destinationLocationId;
     private String directionId;
     private String actionId;
+    private List<String> actions;
+    private List<String> targets;
+    private boolean fatal;
     private String targetId;
     private String description;
     private String response;
@@ -45,6 +50,33 @@ public class LevelEditorRequest {
 
     public LevelEditorRequest setDirectionId(String directionId) {
         this.directionId = directionId;
+        return this;
+    }
+
+    public List<String> getActions() {
+        return actions;
+    }
+
+    public LevelEditorRequest setActions(List<String> actions) {
+        this.actions = actions;
+        return this;
+    }
+
+    public List<String> getTargets() {
+        return targets;
+    }
+
+    public LevelEditorRequest setTargets(List<String> targets) {
+        this.targets = targets;
+        return this;
+    }
+
+    public boolean isFatal() {
+        return fatal;
+    }
+
+    public LevelEditorRequest setFatal(boolean fatal) {
+        this.fatal = fatal;
         return this;
     }
 

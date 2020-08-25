@@ -19,6 +19,11 @@ public class Action {
     public Action() {
     }
 
+    public Action(int id, String description) {
+        this.id = id;
+        this.description = description;
+    }
+
     public Action(String description) {
         this.description = description;
     }

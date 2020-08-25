@@ -404,10 +404,18 @@ function addDirection() {
 function addActionTarget() {
 
     let currentLocation = $('#current-location').val();
-    let action = $('#action').val();
     let target = $("#target").val();
     let response = $('#location-action-target-response').val();
     let imageName = $('#location-action-target-image').val();
+    let fatal = $('#fatal:checked').is(':checked');
+    let actions = [];
+    $('input:checkbox[name=action]:checked').each(function () {
+        actions.push($(this).attr('id'));
+    });
+    let targets = [];
+    $('input:checkbox[name=target]:checked').each(function () {
+        targets.push($(this).attr('id'));
+    });
 
     $('.alert').remove();
     $('#json').html('').hide();
@@ -419,8 +427,10 @@ function addActionTarget() {
         url: "/editor/action-target",
         data: JSON.stringify({
             "currentLocationId": currentLocation,
-            "actionId": action,
             "targetId": target,
+            "actions": actions,
+            "targets": targets,
+            "fatal": fatal,
             "response": response,
             "imageName": imageName
         }),
@@ -432,7 +442,9 @@ function addActionTarget() {
             let actionTarget = {
                 "description": data.description,
                 "locationId": data.location.locationId,
-                "actionId": data.actionId,
+                "actions": data.actions,
+                "targets": data.targets,
+                "fatal": data.fatal,
                 "targetId": data.targetId,
                 "response": data.response,
                 "imagePath": data.imagePath
@@ -441,9 +453,6 @@ function addActionTarget() {
 
             //Set scene images
             $('#scene-images').show();
-
-            // setSceneImage(data.currentLocation, 'current');
-
         },
         error: function (error) {
             $('#response-port').append(
