@@ -11,20 +11,12 @@ public class LevelEditorRequest {
     private String actionId;
     private List<String> actions;
     private List<String> targets;
+    private List<String> assets;
     private boolean fatal;
     private String targetId;
     private String description;
     private String response;
     private String imageName;
-
-    public String getDescription() {
-        return description;
-    }
-
-    public LevelEditorRequest setDescription(String description) {
-        this.description = description;
-        return this;
-    }
 
     public String getCurrentLocationId() {
         return currentLocationId;
@@ -53,6 +45,15 @@ public class LevelEditorRequest {
         return this;
     }
 
+    public String getActionId() {
+        return actionId;
+    }
+
+    public LevelEditorRequest setActionId(String actionId) {
+        this.actionId = actionId;
+        return this;
+    }
+
     public List<String> getActions() {
         return actions;
     }
@@ -71,6 +72,15 @@ public class LevelEditorRequest {
         return this;
     }
 
+    public List<String> getAssets() {
+        return assets;
+    }
+
+    public LevelEditorRequest setAssets(List<String> assets) {
+        this.assets = assets;
+        return this;
+    }
+
     public boolean isFatal() {
         return fatal;
     }
@@ -80,21 +90,21 @@ public class LevelEditorRequest {
         return this;
     }
 
-    public String getActionId() {
-        return actionId;
-    }
-
-    public LevelEditorRequest setActionId(String actionId) {
-        this.actionId = actionId;
-        return this;
-    }
-
     public String getTargetId() {
         return targetId;
     }
 
     public LevelEditorRequest setTargetId(String targetId) {
         this.targetId = targetId;
+        return this;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public LevelEditorRequest setDescription(String description) {
+        this.description = description;
         return this;
     }
 

@@ -8,8 +8,12 @@ import com.medcalfbell.superadventure.models.DirectionResponse;
 import com.medcalfbell.superadventure.models.LevelEditorRequest;
 import com.medcalfbell.superadventure.models.LocationResponse;
 import com.medcalfbell.superadventure.models.TargetResponse;
+import com.medcalfbell.superadventure.persistence.Action;
 import com.medcalfbell.superadventure.persistence.Location;
+import com.medcalfbell.superadventure.persistence.Target;
+import com.medcalfbell.superadventure.persistence.repositories.ActionRepository;
 import com.medcalfbell.superadventure.persistence.repositories.LocationActionTargetRepository;
+import com.medcalfbell.superadventure.persistence.repositories.TargetRepository;
 import com.medcalfbell.superadventure.services.LevelEditorService;
 import java.util.Arrays;
 import java.util.List;
@@ -36,14 +40,19 @@ public class LevelEditorController {
 
     private LevelEditorService levelEditorService;
     private LocationActionTargetRepository locationActionTargetRepository;
+    private ActionRepository actionRepository;
+    private TargetRepository targetRepository;
 
     @Autowired
     public LevelEditorController(LevelEditorService levelEditorService,
-            LocationActionTargetRepository locationActionTargetRepository) {
+            LocationActionTargetRepository locationActionTargetRepository,
+            ActionRepository actionRepository,
+            TargetRepository targetRepository) {
         this.levelEditorService = levelEditorService;
         this.locationActionTargetRepository = locationActionTargetRepository;
+        this.actionRepository = actionRepository;
+        this.targetRepository = targetRepository;
     }
-
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public String getLevelData(Model model) {
@@ -84,23 +93,29 @@ public class LevelEditorController {
                 .setDescription(request.getDescription());
     }
 
-    @PostMapping(value = "/target", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public TargetResponse addTarget(@RequestBody @Valid LevelEditorRequest request) {
-
-        levelEditorService.validateTarget(request.getDescription());
-
-        return new TargetResponse()
-                .setDescription(request.getDescription());
-    }
-
     @PostMapping(value = "/action", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ActionResponse addAction(@RequestBody @Valid LevelEditorRequest request) {
 
         levelEditorService.validateAction(request.getDescription());
 
+        actionRepository.save(new Action().setDescription(request.getDescription()));
+        logger.info("Saved action [{}]", request.getDescription());
+
         return new ActionResponse()
+                .setDescription(request.getDescription());
+    }
+
+    @PostMapping(value = "/target", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public TargetResponse addTarget(@RequestBody @Valid LevelEditorRequest request) {
+
+        levelEditorService.validateTarget(request.getDescription());
+
+        targetRepository.save(new Target().setDescription(request.getDescription()));
+        logger.info("Saved target [{}]", request.getDescription());
+
+        return new TargetResponse()
                 .setDescription(request.getDescription());
     }
 
@@ -120,7 +135,7 @@ public class LevelEditorController {
         final String description = String.format("Location [%s] linked to actions %s and targets %s",
                 location.getDescription(), actions, targets);
 
-        final String imagePath = String.format("/images/locations/%s", request.getImageName());
+        final String imagePath = String.format("/images/assets/%s", request.getImageName());
 
         return new ActionTargetResponse()
                 .setDescription(description)
@@ -129,7 +144,7 @@ public class LevelEditorController {
                 .setTargets(targets)
                 .setFatal(request.isFatal())
                 .setResponse(request.getResponse())
-                .setImagePath(imagePath);
+                .setAssets(List.of(imagePath));
     }
 
     @PostMapping(value = "/location-direction", produces = MediaType.APPLICATION_JSON_VALUE)

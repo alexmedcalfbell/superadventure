@@ -11,7 +11,7 @@ public class ActionTargetResponse {
     private List<String> targets;
     private boolean fatal;
     private String response;
-    private String imagePath;
+    private List<String> assets;
 
     public String getDescription() {
         return description;
@@ -67,12 +67,12 @@ public class ActionTargetResponse {
         return this;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public List<String> getAssets() {
+        return assets;
     }
 
-    public ActionTargetResponse setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public ActionTargetResponse setAssets(List<String> assets) {
+        this.assets = assets;
         return this;
     }
 }

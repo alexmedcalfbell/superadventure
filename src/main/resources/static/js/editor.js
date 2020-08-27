@@ -24,15 +24,17 @@ $(document).ready(function () {
         clearInputs();
     });
 
-    $("#target-form").submit(function (event) {
+
+    $("#action-form").submit(function (event) {
+        //should add to the actions table / append to the actions list
         event.preventDefault();
-        addTarget();
+        addAction();
         clearInputs();
     });
 
-    $("#action-form").submit(function (event) {
+    $("#target-form").submit(function (event) {
         event.preventDefault();
-        addAction();
+        addTarget();
         clearInputs();
     });
 
@@ -82,6 +84,12 @@ $(document).ready(function () {
     })
 });
 
+function appendListElement(listId, type, item) {
+    $(listId).append('<div className="form-check">' +
+        '<input name="' + type + '" className="form-check-input" type="checkbox" id="' + item + '">' +
+        '<label className="form-check-label" for="' + item + '">&nbsp;' + item + '</label>' +
+        '</div>');
+}
 
 function changeTab(tabId, sectionId) {
     $('.editor-section').hide();
@@ -199,7 +207,7 @@ function addMovementLocation() {
 
     $('.alert').remove();
     $('#json').html('').hide();
-    $('#scene-images').hide();
+
     $('#current-location-image').hide();
     $('#destination-location-image').hide();
 
@@ -251,7 +259,7 @@ function addLocation() {
 
     $('.alert').remove();
     $('#json').html('').hide();
-    $('#scene-images').hide();
+
 
     $.ajax({
         type: "POST",
@@ -275,8 +283,7 @@ function addLocation() {
             }
             formatJson(location);
 
-            //Set scene images
-            $('#scene-images').hide();
+
         },
         error: function (error) {
             $('#response-port').append(
@@ -291,9 +298,11 @@ function addTarget() {
 
     let description = $('#target-description').val();
 
+    appendListElement('#targets', 'target', description);
+
     $('.alert').remove();
     $('#json').html('').hide();
-    $('#scene-images').hide();
+
 
     $.ajax({
         type: "POST",
@@ -312,9 +321,6 @@ function addTarget() {
                 "description": data.description
             }
             formatJson(target);
-
-            //Set scene images
-            $('#scene-images').hide();
         },
         error: function (error) {
             $('#response-port').append(
@@ -329,9 +335,11 @@ function addAction() {
 
     let description = $('#action-description').val();
 
+    appendListElement('#actions', 'action', description);
+
     $('.alert').remove();
     $('#json').html('').hide();
-    $('#scene-images').hide();
+
 
     $.ajax({
         type: "POST",
@@ -350,9 +358,6 @@ function addAction() {
                 "description": data.description
             }
             formatJson(action);
-
-            //Set scene images
-            $('#scene-images').hide();
         },
         error: function (error) {
             $('#response-port').append(
@@ -367,9 +372,11 @@ function addDirection() {
 
     let description = $('#direction-description').val();
 
+    //Append to direction options
+    $('#direction').append('<option value="' + description + '">' + description + '</option>');
+
     $('.alert').remove();
     $('#json').html('').hide();
-    $('#scene-images').hide();
 
     $.ajax({
         type: "POST",
@@ -388,9 +395,6 @@ function addDirection() {
                 "description": data.description
             }
             formatJson(action);
-
-            //Set scene images
-            $('#scene-images').hide();
         },
         error: function (error) {
             $('#response-port').append(
@@ -419,7 +423,7 @@ function addActionTarget() {
 
     $('.alert').remove();
     $('#json').html('').hide();
-    $('#scene-images').hide();
+
 
     $.ajax({
         type: "POST",
@@ -441,13 +445,13 @@ function addActionTarget() {
 
             let actionTarget = {
                 "description": data.description,
-                "locationId": data.location.locationId,
+                "locationId": data.location.description,
                 "actions": data.actions,
                 "targets": data.targets,
                 "fatal": data.fatal,
                 "targetId": data.targetId,
                 "response": data.response,
-                "imagePath": data.imagePath
+                "assets": data.assets
             }
             formatJson(actionTarget);
 

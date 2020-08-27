@@ -114,5 +114,36 @@
     "blockers": [
       "WITCH_DEAD"
     ]
+  },
+  {
+    "description": "Location [cave] linked to actions [eat] and targets [shit]",
+    "locationId": "cave",
+    "actions": [
+      "eat"
+    ],
+    "targets": [
+      "shit"
+    ],
+    "fatal": true,
+    "response": "What are you doing?? Ignoring every good sense you hurl yourself face first into the massive pile of shit. You choke to death on the rancid mass and eventually explode due to a build up of methane.",
+    "assets": [
+      "/images/assets/swamp_player_explode.gif"
+    ]
+  },
+  {
+    "description": "Location [cave] linked to actions [kill] and targets [self, yourself]",
+    "locationId": "cave",
+    "actions": [
+      "kill"
+    ],
+    "targets": [
+      "self",
+      "yourself"
+    ],
+    "fatal": true,
+    "response": "The sheer stench of the cave saps your will to live. Deciding that oblivion is preferable, you hurl your fragile body against the jagged rocks.",
+    "assets": [
+      "/images/assets/swamp_player_explode.gif"
+    ]
   }
 ]
