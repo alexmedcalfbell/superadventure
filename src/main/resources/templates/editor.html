@@ -134,17 +134,28 @@
                                         <label class="form-check-label" th:for="${target}" th:text="${target}"></label>
                                     </div>
                                 </div>
-
+                                
+                                <!--fatal-->
                                 <div class="form-check">
                                     <input id="fatal" name="fatal" class="form-check-input" type="checkbox"/>
                                     <label class="form-check-label" for="fatal">Fatal</label>
                                 </div>
 
-                                <label for="location-action-target-response">Response</label>
-                                <input id="location-action-target-response" type="text" class="form-control">
+                                <!--Response-->
+                                <div class="form-group">
+                                    <label for="location-action-target-response">Response</label>
+                                    <input id="location-action-target-response" type="text" class="form-control">
+                                </div>
 
-                                <label for="location-action-target-image">Image name</label>
-                                <input id="location-action-target-image" type="text" class="form-control">
+                                <!--Assets-->
+                                <div id="assets">
+                                    <div class="form-check" th:each="asset : ${assets}">
+                                        <input name="asset" class="form-check-input" type="checkbox"
+                                               th:id="${asset}"/>
+                                        <label class="form-check-label" th:for="${asset}" th:text="${asset}"></label>
+                                    </div>
+                                </div>
+
                             </div>
                             <button id="add-action-target" type="submit" class="btn btn-primary">Generate</button>
                         </form>
@@ -166,7 +177,6 @@
                                 <!--assets name-->
                                 <label for="location-image">Image name</label>
                                 <input id="location-image" type="text" class="form-control">
-                                TODO: This should be a list of assets
                             </div>
                             <button id="add-location" type="submit" class="btn btn-primary">Generate</button>
                         </form>

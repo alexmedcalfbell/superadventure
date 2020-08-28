@@ -145,5 +145,20 @@
     "assets": [
       "/images/assets/swamp_player_explode.gif"
     ]
+  },
+  {
+    "description": "Location [mountains] linked to actions [drink] and targets [water]",
+    "locationId": "mountains",
+    "actions": [
+      "drink"
+    ],
+    "targets": [
+      "water"
+    ],
+    "fatal": false,
+    "response": "You drink water from the mountain stream and feel suddenly rejuvenated! ",
+    "assets": [
+      "/images/assets/mountains_player.png"
+    ]
   }
 ]

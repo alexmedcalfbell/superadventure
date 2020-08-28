@@ -318,7 +318,7 @@ keyword {
     src: url('/fonts/everest.ttf');
 }
 
-#actions, #targets{
+#actions, #targets, #assets {
     max-height: 110px;
     padding: 10px;
     overflow: scroll;
@@ -333,26 +333,14 @@ keyword {
     margin-bottom: 10px;
 }
 
-#actions::-webkit-scrollbar {
+#actions::-webkit-scrollbar, #targets::-webkit-scrollbar, #assets::-webkit-scrollbar {
     width: 9px;
 }
 
-#actions::-webkit-scrollbar-track {
+#actions::-webkit-scrollbar-track, #targets::-webkit-scrollbar-track, #assets::-webkit-scrollbar-track {
     background: #757272;
 }
 
-#actions::-webkit-scrollbar-thumb {
-    background-color: #d39e00;
-}
-
-#targets::-webkit-scrollbar {
-    width: 9px;
-}
-
-#targets::-webkit-scrollbar-track {
-    background: #757272;
-}
-
-#targets::-webkit-scrollbar-thumb {
+#actions::-webkit-scrollbar-thumb, #targets::-webkit-scrollbar-thumb, #assets::-webkit-scrollbar-thumb {
     background-color: #d39e00;
 }

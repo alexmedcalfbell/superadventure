@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.TreeSet;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
@@ -152,8 +153,11 @@ public class GameService {
                 locationActionTargetRepository.findAllByLocationId(currentLocation).stream()
                         .flatMap(actionTarget -> actionTarget.getTargets().stream())
                         .map(target -> target.getDescription())
-                        .collect(Collectors.toList())).stream()
-                .map(target -> "<li><help>" + target.getDescription() + "</help></li>")
+                        .collect(Collectors.toList())
+        ).stream()
+                .map(target -> target.getDescription())
+                .collect(Collectors.toCollection(TreeSet::new)).stream()
+                .map(target -> "<li><help>" + target + "</help></li>")
                 .collect(Collectors.joining());
 
         if (StringUtils.isEmpty(targets)) {

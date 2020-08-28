@@ -22,6 +22,8 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,6 +44,9 @@ public class LevelEditorController {
     private LocationActionTargetRepository locationActionTargetRepository;
     private ActionRepository actionRepository;
     private TargetRepository targetRepository;
+
+    @Value("classpath:static/images/assets/*")
+    private Resource[] assets;
 
     @Autowired
     public LevelEditorController(LevelEditorService levelEditorService,
@@ -67,6 +72,10 @@ public class LevelEditorController {
         model.addAttribute("targets", levelEditorService.getTargets());
         model.addAttribute("directionLocations", levelEditorService.getDirectionLocations());
         model.addAttribute("locationActionTargets", levelEditorService.getLocationActionTargets());
+        model.addAttribute("assets", Arrays.stream(assets)
+                .map(resource -> resource.getFilename())
+                .collect(Collectors.toList())
+        );
 
         return "editor";
     }
@@ -126,6 +135,9 @@ public class LevelEditorController {
         final String locationId = request.getCurrentLocationId();
         final List<String> actions = request.getActions();
         final List<String> targets = request.getTargets();
+        final List<String> assets = request.getAssets().stream()
+                .map(asset -> "/images/assets/" + asset)
+                .collect(Collectors.toList());
 
         //TODO: Move business logic to service.
         //        levelEditorService.validateLocationActionTarget(locationId, actionId, targetId);
@@ -135,8 +147,6 @@ public class LevelEditorController {
         final String description = String.format("Location [%s] linked to actions %s and targets %s",
                 location.getDescription(), actions, targets);
 
-        final String imagePath = String.format("/images/assets/%s", request.getImageName());
-
         return new ActionTargetResponse()
                 .setDescription(description)
                 .setLocation(location)
@@ -144,7 +154,7 @@ public class LevelEditorController {
                 .setTargets(targets)
                 .setFatal(request.isFatal())
                 .setResponse(request.getResponse())
-                .setAssets(List.of(imagePath));
+                .setAssets(assets);
     }
 
     @PostMapping(value = "/location-direction", produces = MediaType.APPLICATION_JSON_VALUE)

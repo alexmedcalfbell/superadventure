@@ -420,6 +420,10 @@ function addActionTarget() {
     $('input:checkbox[name=target]:checked').each(function () {
         targets.push($(this).attr('id'));
     });
+    let assets = [];
+    $('input:checkbox[name=asset]:checked').each(function () {
+        assets.push($(this).attr('id'));
+    });
 
     $('.alert').remove();
     $('#json').html('').hide();
@@ -436,7 +440,7 @@ function addActionTarget() {
             "targets": targets,
             "fatal": fatal,
             "response": response,
-            "imageName": imageName
+            "assets": assets
         }),
         dataType: 'json',
         cache: false,
