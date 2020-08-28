@@ -1,7 +1,7 @@
 [
   {
     "description": "home",
-    "response": "You step out of your house after many long months of lockdown. You have it in mind to go on a Super Adventure! To the <keyword>North</keyword> you see some craggy <keyword>mountains</keyword>.",
+    "response": "You step out of your house after many long months of lockdown. You must find the evil lord corona who has blighted these lands and cast him down! So begins your Super Adventure! To the <keyword>North</keyword> you see some craggy <keyword>mountains</keyword>.",
     "imagePath": "/images/locations/start.jpg",
     "assets": [
       "/images/assets/player_start.png",
