@@ -17,9 +17,11 @@ import com.medcalfbell.superadventure.persistence.Target;
 import com.medcalfbell.superadventure.persistence.repositories.ActionRepository;
 import com.medcalfbell.superadventure.persistence.repositories.DirectionLocationRepository;
 import com.medcalfbell.superadventure.persistence.repositories.DirectionRepository;
+import com.medcalfbell.superadventure.persistence.repositories.InventoryRepository;
 import com.medcalfbell.superadventure.persistence.repositories.LocationActionTargetRepository;
 import com.medcalfbell.superadventure.persistence.repositories.LocationRepository;
 import com.medcalfbell.superadventure.persistence.repositories.LocationStateRepository;
+import com.medcalfbell.superadventure.persistence.repositories.PlayerRepository;
 import com.medcalfbell.superadventure.persistence.repositories.TargetRepository;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,7 +33,6 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -41,6 +42,7 @@ public class GameService {
 
     public static final String DEFAULT_LOCATION = "home";
     private String currentLocation = DEFAULT_LOCATION;
+    private static final int DEAD = 0;
     private List<String> locationHistory = new ArrayList<>();
 
     private LocationRepository locationRepository;
@@ -50,15 +52,18 @@ public class GameService {
     private DirectionRepository directionRepository;
     private DirectionLocationRepository directionLocationRepository;
     private LocationStateRepository locationStateRepository;
+    private PlayerRepository playerRepository;
+    private InventoryRepository inventoryRepository;
 
-    @Autowired
     public GameService(LocationRepository locationRepository,
             TargetRepository targetRepository,
             LocationActionTargetRepository locationActionTargetRepository,
             ActionRepository actionRepository,
             DirectionRepository directionRepository,
             DirectionLocationRepository directionLocationRepository,
-            LocationStateRepository locationStateRepository) {
+            LocationStateRepository locationStateRepository,
+            PlayerRepository playerRepository,
+            InventoryRepository inventoryRepository) {
         this.locationRepository = locationRepository;
         this.targetRepository = targetRepository;
         this.locationActionTargetRepository = locationActionTargetRepository;
@@ -66,6 +71,8 @@ public class GameService {
         this.directionRepository = directionRepository;
         this.directionLocationRepository = directionLocationRepository;
         this.locationStateRepository = locationStateRepository;
+        this.playerRepository = playerRepository;
+        this.inventoryRepository = inventoryRepository;
     }
 
     //TODO: Should do foreign key setup in the tables.
@@ -102,6 +109,10 @@ public class GameService {
         return processAction(command);
     }
 
+
+    private void updatePlayerHp(int hp){
+//        playerRepository.save();
+    }
     /**
      * Returns true if command contains 'help' keyword.
      */

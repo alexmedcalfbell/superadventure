@@ -5,7 +5,8 @@
     "imagePath": "/images/locations/start.jpg",
     "assets": [
       "/images/assets/player_start.png",
-      "/images/assets/house.png"
+      "/images/assets/house.png",
+      "/images/assets/lord_covid.gif"
     ]
   },
   {
