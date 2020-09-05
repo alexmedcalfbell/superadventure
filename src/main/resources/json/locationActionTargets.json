@@ -160,5 +160,20 @@
     "assets": [
       "/images/assets/mountains_player.png"
     ]
+  },
+  {
+    "description": "Location [mountains] linked to actions [give] and targets [coal]",
+    "locationId": "mountains",
+    "actions": [
+      "give"
+    ],
+    "targets": [
+      "coal"
+    ],
+    "fatal": false,
+    "response": "You give coal to the dwarf.",
+    "assets": [
+      "/images/assets/mountains_player.png"
+    ]
   }
 ]

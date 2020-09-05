@@ -7,6 +7,16 @@
       "/images/assets/player_start.png",
       "/images/assets/house.png",
       "/images/assets/lord_covid.gif"
+    ],
+    "items": [
+      {
+        "name": "gem",
+        "description": "glowing red <keyword>gem</keyword>. The eye of Set!"
+      },
+      {
+        "name": "water",
+        "description": "suspicious river <keyword>water</keyword>. You have nothing to hold it in, so you just tip the cupped water into your pockets."
+      }
     ]
   },
   {
@@ -15,6 +25,12 @@
     "imagePath": "/images/locations/mountains.jpg",
     "assets": [
       "/images/assets/mountains_player.png"
+    ],
+    "items": [
+      {
+        "name": "coal",
+        "description": "a shining lump of <keyword>coal</keyword>. Useful for fires.."
+      }
     ]
   },
   {

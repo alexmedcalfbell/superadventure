@@ -3,12 +3,12 @@ package com.medcalfbell.superadventure.persistence;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -25,7 +25,7 @@ public class Player {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @JsonIgnore
-    private int id;
+    private long id;
 
     @Column(columnDefinition = "text")
     private String name;
@@ -33,18 +33,17 @@ public class Player {
     @Column
     private int hp = 100;
 
-    @ManyToOne
-    @JoinColumn(name = "inventory")
-    private Inventory inventory;
+    @Column
+    @ElementCollection
+    private List<String> items;
 
     //TODO: Join to state table
 
-
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public Player setId(int id) {
+    public Player setId(long id) {
         this.id = id;
         return this;
     }
@@ -67,12 +66,12 @@ public class Player {
         return this;
     }
 
-    public Inventory getInventory() {
-        return inventory;
+    public List<String> getItems() {
+        return items;
     }
 
-    public Player setInventory(Inventory inventory) {
-        this.inventory = inventory;
+    public Player setItems(List<String> item) {
+        this.items = item;
         return this;
     }
 }

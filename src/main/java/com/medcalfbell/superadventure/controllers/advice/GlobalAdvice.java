@@ -6,6 +6,8 @@ import com.medcalfbell.superadventure.exceptions.DuplicateActionException;
 import com.medcalfbell.superadventure.exceptions.DuplicateDirectionLocationException;
 import com.medcalfbell.superadventure.exceptions.DuplicateLocationActionTargetException;
 import com.medcalfbell.superadventure.exceptions.DuplicateTargetException;
+import com.medcalfbell.superadventure.exceptions.InventoryActionNotFoundException;
+import com.medcalfbell.superadventure.exceptions.ItemNotFoundException;
 import com.medcalfbell.superadventure.exceptions.StateHashExistsException;
 import com.medcalfbell.superadventure.exceptions.TargetNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -62,4 +64,15 @@ public class GlobalAdvice {
         return e.getMessage();
     }
 
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(InventoryActionNotFoundException.class)
+    public String inventoryActionNotFoundException(InventoryActionNotFoundException e) {
+        return e.getMessage();
+    }
+
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ItemNotFoundException.class)
+    public String itemNotFoundException(ItemNotFoundException e) {
+        return e.getMessage();
+    }
 }

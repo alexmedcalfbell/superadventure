@@ -1,8 +1,11 @@
 package com.medcalfbell.superadventure.services;
 
+import com.medcalfbell.superadventure.enums.InventoryAction;
 import com.medcalfbell.superadventure.enums.MovementAction;
 import com.medcalfbell.superadventure.exceptions.ActionNotFoundException;
 import com.medcalfbell.superadventure.exceptions.DirectionNotFoundException;
+import com.medcalfbell.superadventure.exceptions.InventoryActionNotFoundException;
+import com.medcalfbell.superadventure.exceptions.ItemNotFoundException;
 import com.medcalfbell.superadventure.exceptions.LocationNotFoundException;
 import com.medcalfbell.superadventure.exceptions.StateHashExistsException;
 import com.medcalfbell.superadventure.exceptions.TargetNotFoundException;
@@ -13,11 +16,12 @@ import com.medcalfbell.superadventure.persistence.DirectionLocation;
 import com.medcalfbell.superadventure.persistence.Location;
 import com.medcalfbell.superadventure.persistence.LocationActionTarget;
 import com.medcalfbell.superadventure.persistence.LocationState;
+import com.medcalfbell.superadventure.persistence.Player;
 import com.medcalfbell.superadventure.persistence.Target;
 import com.medcalfbell.superadventure.persistence.repositories.ActionRepository;
 import com.medcalfbell.superadventure.persistence.repositories.DirectionLocationRepository;
 import com.medcalfbell.superadventure.persistence.repositories.DirectionRepository;
-import com.medcalfbell.superadventure.persistence.repositories.InventoryRepository;
+import com.medcalfbell.superadventure.persistence.repositories.ItemRepository;
 import com.medcalfbell.superadventure.persistence.repositories.LocationActionTargetRepository;
 import com.medcalfbell.superadventure.persistence.repositories.LocationRepository;
 import com.medcalfbell.superadventure.persistence.repositories.LocationStateRepository;
@@ -41,8 +45,10 @@ public class GameService {
     private static final Logger logger = LoggerFactory.getLogger(GameService.class);
 
     public static final String DEFAULT_LOCATION = "home";
-    private String currentLocation = DEFAULT_LOCATION;
     private static final int DEAD = 0;
+
+    private long playerId;
+    private String currentLocation = DEFAULT_LOCATION;
     private List<String> locationHistory = new ArrayList<>();
 
     private LocationRepository locationRepository;
@@ -53,7 +59,7 @@ public class GameService {
     private DirectionLocationRepository directionLocationRepository;
     private LocationStateRepository locationStateRepository;
     private PlayerRepository playerRepository;
-    private InventoryRepository inventoryRepository;
+    private ItemRepository itemRepository;
 
     public GameService(LocationRepository locationRepository,
             TargetRepository targetRepository,
@@ -63,7 +69,7 @@ public class GameService {
             DirectionLocationRepository directionLocationRepository,
             LocationStateRepository locationStateRepository,
             PlayerRepository playerRepository,
-            InventoryRepository inventoryRepository) {
+            ItemRepository itemRepository) {
         this.locationRepository = locationRepository;
         this.targetRepository = targetRepository;
         this.locationActionTargetRepository = locationActionTargetRepository;
@@ -72,10 +78,13 @@ public class GameService {
         this.directionLocationRepository = directionLocationRepository;
         this.locationStateRepository = locationStateRepository;
         this.playerRepository = playerRepository;
-        this.inventoryRepository = inventoryRepository;
+        this.itemRepository = itemRepository;
     }
 
-    //TODO: Should do foreign key setup in the tables.
+    public void setPlayerId(long playerId) {
+        this.playerId = playerId;
+    }
+
     //TODO: Map. Do we want them to be able to see the map? If so re-use level editor ui.
     public CommandResponse getMap() {
         return null;
@@ -92,17 +101,19 @@ public class GameService {
 
     public CommandResponse processCommand(String command) {
 
-        //TODO: 'Help' is different from 'where am I'. help is more of a 'cheat', whereas where am I just describes the scene.
+        logger.info("Player id [{}]", playerId);
+
         if (isHelp(command)) {
             return getHelp(command);
         }
-
         if (isWhere(command)) {
             return getWhere(command);
         }
-
         if (isMovementAction(command)) {
             return processMovementAction(command);
+        }
+        if (isInventoryAction(command)) {
+            return processInventoryAction(command);
         }
 
         //Process action / target
@@ -110,11 +121,13 @@ public class GameService {
     }
 
 
-    private void updatePlayerHp(int hp){
-//        playerRepository.save();
+    private void updatePlayerHp(int hp) {
+        //        playerRepository.save();
     }
+
     /**
-     * Returns true if command contains 'help' keyword.
+     * Returns true if command contains 'help' keyword. 'Help' is different from 'where'. Help is more of a 'cheat',
+     * whereas 'where' just describes the scene.
      */
     private boolean isHelp(String command) {
         return command.toLowerCase().contains("help");
@@ -201,6 +214,10 @@ public class GameService {
                 .matcher(command.toLowerCase()).find();
     }
 
+    public Player createPlayer() {
+        return playerRepository.save(new Player());
+    }
+
     private CommandResponse processMovementAction(String command) {
 
         logger.info("Processing movement action for command [{}]", command);
@@ -220,6 +237,39 @@ public class GameService {
                             .setImagePath(location.getImagePath());
                 })
                 .orElseThrow(() -> new DirectionNotFoundException("You can't go that way."));
+    }
+
+    /**
+     * Processes actions that interact with the inventory e.g. 'pick up'. If the item is found then it is added to the
+     * player's inventory.
+     *
+     * @param command The supplied command text.
+     * @return {@link CommandResponse}
+     */
+    private CommandResponse processInventoryAction(String command) {
+
+        logger.info("Processing inventory action for command [{}]", command);
+
+        return itemRepository.findAll().stream()
+                .filter(item -> containsExactly(command, item.getName()))
+                .findFirst()
+                .map(item -> {
+
+                    logger.info("Found item [{}] at location [{}]", item.getDescription(), currentLocation);
+
+                    playerRepository.findById(playerId).ifPresent(player -> {
+                        player.getItems().add(item.getName());
+                        playerRepository.save(player);
+                        logger.info("Added item [{}] to player [{}]", item.getName(), playerId);
+                    });
+
+                    return new CommandResponse()
+                            .setCommand(command)
+                            .setResponse("you pick up " + item.getDescription());
+                    //                            .setAssets("show the picked up item");
+                    //                            .setImagePath(item.getImagePath());
+                })
+                .orElseThrow(() -> new InventoryActionNotFoundException("You can't get that."));
     }
 
     /**
@@ -302,6 +352,15 @@ public class GameService {
                 .findFirst()
                 .orElseThrow(() -> new TargetNotFoundException("I don't understand [" + command + "]."));
 
+        itemRepository.findByName(target.getDescription()).ifPresent(item -> {
+            logger.info("Target [{}] is an item. Checking player inventory.", target.getDescription());
+
+            playerRepository.findById(playerId)
+                    .filter(player -> player.getItems().contains(item.getName()))
+                    .orElseThrow(() -> new ItemNotFoundException("You don't have that item."));
+
+        });
+
         //Check if the player already did an action and prevent it from being repeated.
         locationStateRepository.findByLocationIdAndTargetIdAndActionId(currentLocation, target.getDescription(),
                 action.getDescription()).ifPresent(state -> {
@@ -313,6 +372,7 @@ public class GameService {
                 .map(l -> l.getStateFlag())
                 .collect(Collectors.toList());
 
+        //
         logger.info("location [{}], action[{}], target [{}]", currentLocation, target.getDescription(),
                 action.getDescription());
         final LocationActionTarget locationActionTarget = locationActionTargetRepository.findByLocationIdAndActionsDescriptionAndTargetsDescription(
@@ -345,6 +405,18 @@ public class GameService {
     private boolean isMovementAction(String command) {
         return Arrays.stream(MovementAction.values())
                 .anyMatch(movementAction -> command.toLowerCase().contains(movementAction.getIdentifier()));
+    }
+
+
+    /**
+     * Determines if the command the user typed contains an 'inventory' keyword. {@link InventoryAction}
+     *
+     * @param command The string the user has submitted.
+     * @return Returns true if the command contains an {@link InventoryAction}.
+     */
+    private boolean isInventoryAction(String command) {
+        return Arrays.stream(InventoryAction.values())
+                .anyMatch(inventoryAction -> command.toLowerCase().contains(inventoryAction.getIdentifier()));
     }
 
     private boolean isGoBack(Direction direction) {

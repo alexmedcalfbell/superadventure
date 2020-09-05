@@ -4,11 +4,14 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -33,6 +36,11 @@ public class Location {
     @Column
     @ElementCollection
     private List<String> assets;
+
+    @Column
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "items")
+    private List<Item> items;
 
     public int getId() {
         return id;
@@ -76,6 +84,15 @@ public class Location {
 
     public Location setAssets(List<String> assets) {
         this.assets = assets;
+        return this;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public Location setItems(List<Item> item) {
+        this.items = item;
         return this;
     }
 
