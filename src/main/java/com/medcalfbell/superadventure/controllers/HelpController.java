@@ -1,5 +1,6 @@
 package com.medcalfbell.superadventure.controllers;
 
+import com.medcalfbell.superadventure.enums.InventoryAction;
 import com.medcalfbell.superadventure.enums.MovementAction;
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +20,12 @@ public class HelpController {
                 .map(MovementAction::getIdentifier)
                 .collect(Collectors.toList());
 
+        final List<String> inventoryActions = Arrays.stream(InventoryAction.values())
+                .map(InventoryAction::getIdentifier)
+                .collect(Collectors.toList());
+
         model.addAttribute("movementActions", movementActions);
+        model.addAttribute("inventoryActions", inventoryActions);
 
         return "help";
     }

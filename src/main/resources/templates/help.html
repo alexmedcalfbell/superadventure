@@ -79,6 +79,14 @@
                     then
                     use <kbd>where</kbd>
 
+                    <hr class="my-4">
+                    <p class="h6 help-title">Inventory</p>
+                    To get items you can use:
+                    <ol class="list-unstyled">
+                        <li th:each="item : ${inventoryActions}"><kbd th:text="${item}"></kbd></li>
+                    </ol>
+
+                    To see your inventory use <kbd>inventory</kbd> or <kbd>i</kbd>
 
                 </div>
             </div>

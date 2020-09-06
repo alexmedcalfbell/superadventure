@@ -101,8 +101,6 @@ public class GameService {
 
     public CommandResponse processCommand(String command) {
 
-        logger.info("Player id [{}]", playerId);
-
         if (isHelp(command)) {
             return getHelp(command);
         }
@@ -115,6 +113,10 @@ public class GameService {
         if (isInventoryAction(command)) {
             return processInventoryAction(command);
         }
+        if (isItems(command)) {
+            return getItems(command);
+        }
+        //TODO: List available items
 
         //Process action / target
         return processAction(command);
@@ -138,6 +140,31 @@ public class GameService {
      */
     private boolean isWhere(String command) {
         return command.toLowerCase().contains("where");
+    }
+
+
+    /* Returns true if command contains 'items' keyword.
+     */
+    private boolean isItems(String command) {
+        return command.toLowerCase().contains("items") || command.toLowerCase().equalsIgnoreCase("i");
+    }
+
+    private CommandResponse getItems(String command) {
+
+
+        String items = playerRepository.findById(playerId)
+                .filter(player -> !player.getItems().isEmpty())
+                .map(player -> player.getItems())
+                .orElse(List.of("Nothing")).stream()
+                .map(item -> "<li><keyword>" + item + "</keyword></li>")
+                .collect(Collectors.joining());
+
+
+        final String response = String.format("You have <ul>%s</ul>", items);
+
+        return new CommandResponse()
+                .setCommand(command)
+                .setResponse(response);
     }
 
     /**
@@ -266,8 +293,6 @@ public class GameService {
                     return new CommandResponse()
                             .setCommand(command)
                             .setResponse("you pick up " + item.getDescription());
-                    //                            .setAssets("show the picked up item");
-                    //                            .setImagePath(item.getImagePath());
                 })
                 .orElseThrow(() -> new InventoryActionNotFoundException("You can't get that."));
     }
@@ -372,7 +397,7 @@ public class GameService {
                 .map(l -> l.getStateFlag())
                 .collect(Collectors.toList());
 
-        //
+
         logger.info("location [{}], action[{}], target [{}]", currentLocation, target.getDescription(),
                 action.getDescription());
         final LocationActionTarget locationActionTarget = locationActionTargetRepository.findByLocationIdAndActionsDescriptionAndTargetsDescription(
