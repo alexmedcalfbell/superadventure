@@ -116,7 +116,7 @@ public class GameService {
         if (isItems(command)) {
             return getItems(command);
         }
-        //TODO: List available items
+        //TODO: List available items at a location
 
         //Process action / target
         return processAction(command);
@@ -198,7 +198,8 @@ public class GameService {
      * @return {@link CommandResponse}
      */
     private CommandResponse getWhere(String command) {
-        Optional<Location> location = locationRepository.findByDescription(currentLocation);
+        Location location = locationRepository.findByDescription(currentLocation)
+                .orElseThrow(() -> new LocationNotFoundException("Location [" + currentLocation + "] not found."));
 
         String targets = targetRepository.findByDescriptionIn(
                 locationActionTargetRepository.findAllByLocationId(currentLocation).stream()
@@ -222,11 +223,17 @@ public class GameService {
                 .map(d -> "<li><help>" + d.getDescription() + "</help></li>")
                 .collect(Collectors.joining());
 
+        final String items = location.getItems().stream()
+                .map(item -> "<li><help>" + item.getName() + "</help></li>")
+                .collect(Collectors.joining());
+
+
         final String response = String.format(
-                "You're at: <help>%s</help>. You can see: <ul>%s</ul> You can move: <ul>%s</ul>",
-                location.get().getDescription(),
+                "You're at: <help>%s</help>. You can see: <ul>%s</ul> You can move: <ul>%s</ul> You see items: <ul>%s</ul>",
+                location.getDescription(),
                 targets,
-                locations);
+                locations,
+                items);
 
         return new CommandResponse()
                 .setCommand(command)
