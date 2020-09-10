@@ -1,5 +1,6 @@
 package com.medcalfbell.superadventure.persistence;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -49,6 +50,7 @@ public class Item {
 
     @ManyToOne
     @JoinColumn(name = "items")
+    @JsonBackReference
     private Location location;
 
     public Long getId() {

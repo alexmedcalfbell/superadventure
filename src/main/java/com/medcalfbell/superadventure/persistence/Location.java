@@ -3,11 +3,13 @@ package com.medcalfbell.superadventure.persistence;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -40,6 +42,7 @@ public class Location {
     @Column
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "items")
+    @JsonManagedReference
     private List<Item> items;
 
     public int getId() {
