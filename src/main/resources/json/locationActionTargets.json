@@ -88,7 +88,6 @@
       "/images/assets/swamp_hut_cauldron.png",
       "/images/assets/swamp_hut_talk_witch.png"
     ],
-
     "fatal": true,
     "blockers": [
       "WITCH_DEAD"
