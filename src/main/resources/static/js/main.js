@@ -11,7 +11,7 @@ $(document).ready(function () {
 
     //Splash screen
     //Automatically hide the splash screen after 4.5 seconds.
-    setTimeout(function() {
+    setTimeout(function () {
         closeSplashScreen();
     }, 4500);
     $("body").on("click", function () {
@@ -68,6 +68,9 @@ function startGame() {
 
             //Set the scene assets, with the position absolute style not being set on the last item.
             setSceneAssets(data);
+
+            //reset history
+            $('#history').empty();
         },
         error: function (error) {
             $('#feedback').html(error.responseText);
@@ -117,6 +120,10 @@ function postAction() {
                 //Update command history
                 $('#history').prepend('<li class="list-group-item">' + data.command + '</li>');
                 $('#command').hide().fadeIn();
+
+                if (data.response === 'reset') {
+                    startGame();
+                }
             },
             error: function (error) {
                 clearAction();
@@ -127,15 +134,18 @@ function postAction() {
 }
 
 function setSceneAssets(data) {
-    let assets = '';
-    data.assets.forEach((asset, key, arr) => {
-        if (Object.is(arr.length - 1, key)) {
-            assets += '<img src="' + asset + '" class="img-fluid"/>'
-        } else {
-            assets += '<img src="' + asset + '" class="img-fluid scene-asset"/>';
-        }
-    });
-    $('#assets').html(assets);
+    if (data.assets) {
+
+        let assets = '';
+        data.assets.forEach((asset, key, arr) => {
+            if (Object.is(arr.length - 1, key)) {
+                assets += '<img src="' + asset + '" class="img-fluid"/>'
+            } else {
+                assets += '<img src="' + asset + '" class="img-fluid scene-asset"/>';
+            }
+        });
+        $('#assets').html(assets);
+    }
 }
 
 function clearAction() {

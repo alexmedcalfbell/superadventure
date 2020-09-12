@@ -101,6 +101,12 @@ public class GameService {
 
     public CommandResponse processCommand(String command) {
 
+        if (isReset(command)) {
+            reset();
+            return new CommandResponse()
+                    .setCommand(command)
+                    .setResponse("reset");
+        }
         if (isHelp(command)) {
             return getHelp(command);
         }
@@ -116,10 +122,6 @@ public class GameService {
         if (isItems(command)) {
             return getItems(command);
         }
-        if(isReset(command)){
-            reset();
-        }
-        //TODO: List available items at a location
 
         //Process action / target
         return processAction(command);
@@ -148,6 +150,7 @@ public class GameService {
     private boolean isReset(String command) {
         return command.toLowerCase().contains("reset");
     }
+
     /* Returns true if command contains 'items' keyword.
      */
     private boolean isItems(String command) {
