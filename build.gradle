@@ -25,6 +25,10 @@ dependencies {
 
 
 	implementation 'com.h2database:h2'
+
+	implementation 'org.apache.tomcat:tomcat-jdbc:9.0.38'
+	implementation 'org.postgresql:postgresql:42.2.16'
+
 	compileOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
