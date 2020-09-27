@@ -13,8 +13,11 @@ import com.medcalfbell.superadventure.persistence.Location;
 import com.medcalfbell.superadventure.persistence.Target;
 import com.medcalfbell.superadventure.persistence.repositories.ActionRepository;
 import com.medcalfbell.superadventure.persistence.repositories.LocationActionTargetRepository;
+import com.medcalfbell.superadventure.persistence.repositories.LocationRepository;
 import com.medcalfbell.superadventure.persistence.repositories.TargetRepository;
+import com.medcalfbell.superadventure.services.AwsService;
 import com.medcalfbell.superadventure.services.LevelEditorService;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,7 +35,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/editor")
@@ -41,22 +46,28 @@ public class LevelEditorController {
     private static final Logger logger = LoggerFactory.getLogger(LevelEditorController.class);
 
     private LevelEditorService levelEditorService;
+    private LocationRepository locationRepository;
     private LocationActionTargetRepository locationActionTargetRepository;
     private ActionRepository actionRepository;
     private TargetRepository targetRepository;
+
+    private AwsService awsService;
 
     @Value("classpath:static/images/assets/*")
     private Resource[] assets;
 
     @Autowired
     public LevelEditorController(LevelEditorService levelEditorService,
+            LocationRepository locationRepository,
             LocationActionTargetRepository locationActionTargetRepository,
             ActionRepository actionRepository,
-            TargetRepository targetRepository) {
+            TargetRepository targetRepository, AwsService awsService) {
         this.levelEditorService = levelEditorService;
+        this.locationRepository = locationRepository;
         this.locationActionTargetRepository = locationActionTargetRepository;
         this.actionRepository = actionRepository;
         this.targetRepository = targetRepository;
+        this.awsService = awsService;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -80,18 +91,27 @@ public class LevelEditorController {
         return "editor";
     }
 
-    @PostMapping(value = "/location", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/location")
     @ResponseBody
-    public LocationResponse addLocation(@RequestBody LevelEditorRequest request) {
+    public LocationResponse addLocation(@RequestParam("file") MultipartFile file,
+            @RequestParam("description") String description,
+            @RequestParam("response") String response) throws IOException {
 
-        final String imagePath = String.format("/images/locations/%s", request.getImageName());
-        //TODO: set /images/no-image.jpg if nothing set
+        final String assetUrl = awsService.uploadAsset(file);
+
+        //Persist location
+        final Location location = new Location()
+                .setDescription(description)
+                .setResponse(response)
+                .setImagePath(assetUrl);
+
+        locationRepository.save(location);
 
         return new LocationResponse()
                 .setLocation(new Location())
-                .setDescription(request.getDescription())
-                .setResponse(request.getResponse())
-                .setImagePath(imagePath);
+                .setDescription(description)
+                .setResponse(response)
+                .setImagePath(assetUrl);
     }
 
     @PostMapping(value = "/direction", produces = MediaType.APPLICATION_JSON_VALUE)

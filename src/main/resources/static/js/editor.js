@@ -24,7 +24,6 @@ $(document).ready(function () {
         clearInputs();
     });
 
-
     $("#action-form").submit(function (event) {
         //should add to the actions table / append to the actions list
         event.preventDefault();
@@ -253,28 +252,24 @@ function addMovementLocation() {
 
 function addLocation() {
 
-    let description = $('#location-description').val();
-    let response = $('#location-response').val();
-    let imageName = $('#location-image').val();
+    let form = $('#location-form')[0];
+    let data = new FormData(form);
 
     $('.alert').remove();
     $('#json').html('').hide();
 
-
     $.ajax({
         type: "POST",
-        contentType: "application/json",
+        enctype: 'multipart/form-data',
+        processData: false,
+        contentType: false,
+        cache: false,
         url: "/editor/location",
-        data: JSON.stringify({
-            "description": description,
-            "response": response,
-            "imageName": imageName
-        }),
-        dataType: 'json',
+        data: data,
         cache: false,
         timeout: 600000,
         success: function (data) {
-
+            console.info(data);
             let location = {
                 "locationId": data.location.locationId,
                 "description": data.description,

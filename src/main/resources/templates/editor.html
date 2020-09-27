@@ -134,7 +134,7 @@
                                         <label class="form-check-label" th:for="${target}" th:text="${target}"></label>
                                     </div>
                                 </div>
-                                
+
                                 <!--fatal-->
                                 <div class="form-check">
                                     <input id="fatal" name="fatal" class="form-check-input" type="checkbox"/>
@@ -164,21 +164,23 @@
                     <!--Location-->
                     <div id="location-section" class="editor-section">
                         <h1 class="editor-section-title">Location</h1>
-                        <form method="POST" id="location-form">
+
+                        <form method="POST" id="location-form" enctype="multipart/form-data">
                             <div class="form-group">
                                 <!--Location-->
                                 <label for="location-description">Description</label>
-                                <input id="location-description" type="text" class="form-control">
+                                <input id="location-description" name="description" type="text" class="form-control">
 
                                 <!--Response-->
                                 <label for="location-response">Response</label>
-                                <input id="location-response" type="text" class="form-control">
+                                <input id="location-response" name="response" type="text" class="form-control">
 
-                                <!--assets name-->
-                                <label for="location-image">Image name</label>
-                                <input id="location-image" type="text" class="form-control">
+                                <!--asset name-->
+                                <label for="location-image">Background image</label>
+                                <input id="location-image" name="file" type="file" class="form-control">
+
                             </div>
-                            <button id="add-location" type="submit" class="btn btn-primary">Generate</button>
+                            <button id="add-location" type="submit" class="btn btn-primary">Add</button>
                         </form>
                     </div>
 
