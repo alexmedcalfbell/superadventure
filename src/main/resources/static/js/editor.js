@@ -277,8 +277,6 @@ function addLocation() {
                 "imagePath": data.imagePath
             }
             formatJson(location);
-
-
         },
         error: function (error) {
             $('#response-port').append(

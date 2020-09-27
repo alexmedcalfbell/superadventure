@@ -38,6 +38,8 @@ public class SuperAdventureApplication {
             //TODO: Generic method to read resources.
             final ObjectMapper objectMapper = new ObjectMapper();
 
+            locationRepository.deleteAll();
+
             //Locations
             List<Location> locations = objectMapper.readValue(
                     getClass().getResourceAsStream("/json/locations.json"),
