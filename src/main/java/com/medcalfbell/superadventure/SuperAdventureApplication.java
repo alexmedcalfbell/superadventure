@@ -39,7 +39,10 @@ public class SuperAdventureApplication {
             final ObjectMapper objectMapper = new ObjectMapper();
 
             locationRepository.deleteAll();
-
+            directionRepository.deleteAll();
+            locationActionTargetRepository.deleteAll();
+            directionLocationRepository.deleteAll();
+            
             //Locations
             List<Location> locations = objectMapper.readValue(
                     getClass().getResourceAsStream("/json/locations.json"),
