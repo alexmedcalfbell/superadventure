@@ -26,10 +26,10 @@ public class AwsService implements InitializingBean, DisposableBean {
 
     private AmazonS3 s3Client;
 
-    @Value("${aws.access.key.id}")
+    @Value("${aws.access.key.id:12345}")
     private String accessKey;
 
-    @Value("${aws.secret.access.key}")
+    @Value("${aws.secret.access.key:12345}")
     private String secretKey;
 
     @Value("${aws.s3.bucketName}")
